@@ -4,6 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useMemo, type ReactNode } from "react";
 
 import { FeedbackButton } from "@/components/layout/feedback-button";
+import { isOutage, ServiceDown } from "@/components/layout/service-down";
 import { LoadingState } from "@/components/ui/states";
 import { useMe } from "@/lib/api/queries";
 import { useSession } from "@/lib/auth/session";
@@ -60,6 +61,11 @@ export function LaniaShell({ children }: { children: ReactNode }) {
     }),
     [me.data?.display_name, session?.displayName, session?.guest, isStaff, router],
   );
+
+  // Servidor caído o sin internet: aviso amable en vez de errores sueltos en cada pantalla.
+  if (session && me.isError && isOutage(me.error)) {
+    return <ServiceDown onRetry={() => void me.refetch()} />;
+  }
 
   if (!session || needsOnboarding) {
     return (

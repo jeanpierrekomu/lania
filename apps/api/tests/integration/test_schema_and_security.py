@@ -103,3 +103,8 @@ def test_login_works_while_dev_clock_is_advanced(client: TestClient) -> None:
     clock.offset = timedelta(days=3)
     headers = login(client)
     assert client.get("/api/v1/me", headers=headers).status_code == 200
+
+
+def test_ready_checks_database(client: TestClient) -> None:
+    res = client.get("/api/v1/health/ready")
+    assert res.status_code == 200 and res.json() == {"status": "ok", "database": "ok"}

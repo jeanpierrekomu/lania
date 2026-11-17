@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { BrandMark } from "@/components/layout/brand-mark";
 import { Button } from "@/components/ui/button";
+import { isOutage, ServiceDown } from "@/components/layout/service-down";
 import { api, unwrap } from "@/lib/api/client";
 import { getSession, saveSession } from "@/lib/auth/session";
 import { startGuest } from "@/lib/auth/supabase";
@@ -24,10 +25,12 @@ function devGuestEmail() {
 export function GuestStart() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
+  const [down, setDown] = useState(false);
   const started = useRef(false);
 
   async function begin() {
     setError(null);
+    setDown(false);
     try {
       if (!getSession()) {
         await startGuest(async () => {
@@ -42,7 +45,8 @@ export function GuestStart() {
       }
       router.replace("/app");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "No pudimos preparar tu espacio de práctica.");
+      if (isOutage(err)) setDown(true);
+      else setError(err instanceof Error ? err.message : "No pudimos preparar tu espacio de práctica.");
     }
   }
 
@@ -52,6 +56,8 @@ export function GuestStart() {
     void begin();
     // eslint-disable-next-line react-hooks/exhaustive-deps -- se ejecuta una sola vez al abrir la página
   }, []);
+
+  if (down) return <ServiceDown onRetry={() => void begin()} />;
 
   return (
     <main id="contenido" className="mx-auto flex min-h-dvh w-full max-w-md flex-col items-center justify-center gap-6 px-5 text-center">

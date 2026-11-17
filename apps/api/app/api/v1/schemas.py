@@ -99,6 +99,11 @@ class PrivacyExportOut(Out):
     tables: dict[str, list[dict[str, Any]]]
 
 
+class ReadyOut(Out):
+    status: Literal["ok"]
+    database: Literal["ok"]
+
+
 class HealthOut(Out):
     status: Literal["ok"]
     app_env: str

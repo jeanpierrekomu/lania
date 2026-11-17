@@ -5,6 +5,8 @@ from datetime import UTC, datetime, timedelta
 from typing import Annotated
 
 from fastapi import APIRouter, BackgroundTasks, Depends, File, Form, Query, Response, UploadFile
+from sqlalchemy import text
+from sqlalchemy.exc import SQLAlchemyError
 
 from app.ai.gateway import ai_available
 from app.api.v1 import schemas as s
@@ -39,6 +41,20 @@ def health(settings: SettingsDep) -> s.HealthOut:
     return s.HealthOut(
         status="ok", app_env=settings.app_env, auth_mode=settings.auth_mode, ai_available=ai_available(settings)
     )
+
+
+@router.get(
+    "/health/ready",
+    tags=["system"],
+    responses={503: {"model": ErrorBody}},
+)
+def health_ready(db: DbDep) -> s.ReadyOut:
+    """Para el vigilante externo: confirma que la base de datos responde (no solo que la API está viva)."""
+    try:
+        db.execute(text("select 1"))
+    except SQLAlchemyError as exc:
+        raise ApiError(503, "INTERNAL", "La base de datos no responde.", retryable=True) from exc
+    return s.ReadyOut(status="ok", database="ok")
 
 
 @router.get("/me", tags=["me"])

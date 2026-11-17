@@ -84,6 +84,43 @@ Las tablas **no** se crean a mano: la API aplica las migraciones de `supabase/mi
 - [ ] Enviar un comentario con «¿Algo no funcionó?» y verlo en `/admin/qa`.
 - [ ] Descargar tus datos y borrar la cuenta de prueba desde Preferencias.
 
+## 6. Si algo se cae (vigilante, copias y cómo volver)
+
+**Qué ve la gente:** la página principal vive en Vercel y sigue funcionando aunque se caiga el servidor. Dentro de la app, si la API no responde, aparece «Lania está descansando un momento», que reintenta sola cada 30 s. El progreso no se pierde.
+
+### Vigilante gratis (te avisa si se cae)
+1. Crea una cuenta en [uptimerobot.com](https://uptimerobot.com) (plan Free).
+2. **Add New Monitor** → tipo **HTTP(s)** → URL `https://lania-api.onrender.com/api/v1/health/ready` → cada 5 minutos. Esa dirección comprueba que la API **y** la base de datos responden.
+3. Agrega otro monitor para la web: `https://lania-iota.vercel.app`.
+4. En **Alert Contacts** pon tu correo (y Telegram si quieres). Te llega un aviso cuando se cae y otro cuando vuelve.
+
+### Copia diaria automática
+El job `.github/workflows/backup.yml` corre todos los días. Guarda una copia **cifrada** de la base como *artifact* del repositorio privado durante 30 días, comprueba que el servidor responde y, de paso, evita que Supabase pause el proyecto gratis por 7 días sin uso.
+
+1. GitHub → tu repositorio `lania` → **Settings → Secrets and variables → Actions**.
+2. **New repository secret** `SUPABASE_DB_URL`: la cadena del *Session pooler* (la misma que `DATABASE_URL` en Render).
+3. **New repository secret** `BACKUP_PASSPHRASE`: una frase larga que **guardas aparte** (gestor de contraseñas). Sin ella las copias no se pueden abrir.
+4. En la pestaña **Variables**, agrega `API_HEALTH_URL` = `https://lania-api.onrender.com/api/v1/health/ready`.
+5. Pruébalo ya: **Actions → Copia diaria → Run workflow**. Al terminar verás el archivo en **Artifacts**.
+
+### Restaurar una copia (si se pierden datos)
+1. Crea un proyecto Supabase **nuevo y vacío** (no restaures encima de uno con datos).
+2. Descarga el *artifact* de **Actions → Copia diaria** y descífralo en tu computadora:
+   ```bash
+   gpg -d lania-AAAA-MM-DD_HHMM.sql.gz.gpg | gunzip > lania.sql
+   ```
+   (Te pide la `BACKUP_PASSPHRASE`.)
+3. Cárgala en el proyecto nuevo con su cadena del *Session pooler*:
+   ```bash
+   psql "postgresql://…pooler.supabase.com:5432/postgres" -v ON_ERROR_STOP=1 -f lania.sql
+   ```
+4. Cambia `DATABASE_URL` y `SUPABASE_URL` en Render (y las de Vercel) al proyecto nuevo, y vuelve a correr `python -m app.jobs.warm_audio` para regenerar el audio.
+
+Esta restauración se probó de punta a punta en local: todas las cuentas, ejercicios, intentos y correcciones vuelven idénticos.
+
+### Si Supabase pausó el proyecto
+En [supabase.com/dashboard](https://supabase.com/dashboard) aparece «Paused» → **Restore project**. Tarda unos minutos. Con la copia diaria activa no debería pasar.
+
 ## Qué queda apagado a propósito
 
 - **Salones** (`ROOMS_ENABLED=false`): la base está lista y probada; la pantalla dice «Próximamente».
