@@ -42,18 +42,30 @@ export function getSupabase(): SupabaseClient | null {
   return client;
 }
 
-/** Envía el enlace mágico. La persona vuelve a /login con la sesión en la URL. */
-export async function sendMagicLink(email: string, displayName: string | null) {
+export type MagicLinkMode = "login" | "signup";
+
+/** Supabase responde así cuando se pide entrar con un correo que todavía no tiene cuenta. */
+export class NoAccountError extends Error {}
+
+/**
+ * Envía el enlace mágico. La persona vuelve a /login con la sesión en la URL.
+ * «login» no crea cuentas (si el correo no existe, avisa); «signup» la crea al abrir el enlace.
+ */
+export async function sendMagicLink(email: string, displayName: string | null, mode: MagicLinkMode = "signup") {
   const sb = getSupabase();
   if (!sb) throw new Error("El acceso por correo no está configurado.");
   const { error } = await sb.auth.signInWithOtp({
     email,
     options: {
       emailRedirectTo: `${window.location.origin}/login`,
+      shouldCreateUser: mode === "signup",
       data: displayName ? { display_name: displayName } : undefined,
     },
   });
-  if (error) throw new Error("No pudimos enviar el enlace. Revisa el correo e inténtalo de nuevo.");
+  if (!error) return;
+  if (mode === "login" && /signup|not allowed|not found/i.test(error.message)) throw new NoAccountError();
+  if (error.status === 429) throw new Error("Pediste varios enlaces seguidos. Espera un minuto e inténtalo de nuevo.");
+  throw new Error("No pudimos enviar el enlace. Revisa el correo e inténtalo de nuevo.");
 }
 
 export async function signOutEverywhere() {

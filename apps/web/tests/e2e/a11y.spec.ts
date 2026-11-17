@@ -18,6 +18,8 @@ test("landing y login sin violaciones WCAG detectables", async ({ page }) => {
   expect(await audit(page)).toEqual([]);
   await page.goto("/login");
   expect(await audit(page)).toEqual([]);
+  await page.goto("/registro");
+  expect(await audit(page)).toEqual([]);
 });
 
 test("dashboard y ejercicio sin violaciones WCAG detectables", async ({ page }) => {
@@ -25,7 +27,7 @@ test("dashboard y ejercicio sin violaciones WCAG detectables", async ({ page }) 
   await expect(page.getByRole("heading", { name: "Hola" })).toBeVisible();
   expect(await audit(page)).toEqual([]);
   // «Salir» está a la vista y el menú no se sale de la pantalla, también en móvil (375 px).
-  await expect(page.getByRole("button", { name: "Salir" })).toBeInViewport({ ratio: 1 });
+  await expect(page.getByRole("button", { name: "Cerrar sesión" })).toBeInViewport({ ratio: 1 });
   const tabBar = page.getByRole("navigation", { name: "Navegación", exact: true });
   if (await tabBar.isVisible()) {
     for (const link of await tabBar.getByRole("link").all()) await expect(link).toBeInViewport({ ratio: 1 });

@@ -200,8 +200,8 @@ function Sidebar({ full }: { full: boolean }) {
             </Tooltip>
           )}
           {user?.onLogout && (
-            <Tooltip label="Salir">
-              <IconButton icon={LogOut} label="Salir" onClick={user.onLogout} />
+            <Tooltip label="Cerrar sesión">
+              <IconButton icon={LogOut} label="Cerrar sesión" onClick={user.onLogout} />
             </Tooltip>
           )}
         </div>
@@ -252,7 +252,7 @@ function Sidebar({ full }: { full: boolean }) {
             )}
           >
             <LogOut size={20} aria-hidden />
-            Salir
+            Cerrar sesión
           </button>
         )}
         <Link
@@ -283,7 +283,7 @@ function MobileTopBar() {
       <div className="flex items-center gap-1">
         <IconButton icon={Compass} label="Ver el recorrido guiado" onClick={startTour} data-tour="recorrido" />
         <IconButton icon={SlidersHorizontal} label="Preferencias de aprendizaje" onClick={openPreferences} data-tour="preferencias" />
-        {user?.onLogout && <IconButton icon={LogOut} label="Salir" onClick={user.onLogout} />}
+        {user?.onLogout && <IconButton icon={LogOut} label="Cerrar sesión" onClick={user.onLogout} />}
         <Link to="/app/progreso" aria-label="Mi progreso" className="rounded-full">
           <UserAvatar />
         </Link>

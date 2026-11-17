@@ -41,7 +41,7 @@ export function Hero() {
             paciencia, humor y correcciones que sí entiendes.
           </Lead>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <ButtonLink to="/login" size="lg" iconRight={ArrowRight}>
+            <ButtonLink to="/registro" size="lg" iconRight={ArrowRight}>
               Descubre tu nivel
             </ButtonLink>
             <ButtonLink to="/app/aula" size="lg" variant="secondary" icon={Play}>

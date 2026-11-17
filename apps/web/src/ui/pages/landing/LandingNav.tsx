@@ -35,10 +35,10 @@ export function LandingNav() {
         </nav>
         <div className="flex items-center gap-2">
           <ButtonLink to="/login" variant="ghost" size="sm" className="hidden sm:inline-flex">
-            Entrar
+            Iniciar sesión
           </ButtonLink>
-          <ButtonLink to="/login" size="sm" className="hidden sm:inline-flex">
-            Descubre tu nivel
+          <ButtonLink to="/registro" size="sm" className="hidden sm:inline-flex">
+            Crear cuenta
           </ButtonLink>
           <IconButton icon={Menu} label="Abrir menú" className="lg:hidden" onClick={() => setOpen(true)} />
         </div>
@@ -52,11 +52,11 @@ export function LandingNav() {
           ))}
         </nav>
         <div className="mt-6 flex flex-col gap-3">
-          <ButtonLink to="/login" size="lg" block>
-            Descubre tu nivel
+          <ButtonLink to="/registro" size="lg" block>
+            Crear cuenta
           </ButtonLink>
           <ButtonLink to="/login" variant="secondary" size="lg" block>
-            Entrar
+            Iniciar sesión
           </ButtonLink>
         </div>
       </Modal>

@@ -3,12 +3,19 @@ import { expect, signIn, test } from "./fixtures";
 test.setTimeout(180_000);
 
 test("bienvenida con consentimiento del piloto antes de entrar a la app", async ({ page }) => {
-  await page.goto("/login");
+  // Desde la landing: «Crear cuenta» → registro → bienvenida.
+  await page.goto("/");
+  await page.getByRole("link", { name: "Crear cuenta", exact: true }).first().click();
+  await expect(page.getByRole("heading", { name: "Crear cuenta" })).toBeVisible();
+  await page.getByLabel(/llamemos/).fill("Piloto");
   await page.getByLabel("Correo").fill(`welcome-${Date.now()}@example.test`);
-  await page.getByRole("button", { name: "Entrar" }).click();
+  const create = page.getByRole("button", { name: "Crear mi cuenta" });
+  await expect(create).toBeDisabled(); // sin aceptar el aviso de privacidad no se crea
+  await page.getByRole("checkbox").check();
+  await create.click();
   await page.waitForURL(/\/onboarding/);
 
-  await page.getByLabel("¿Cómo quieres que te llame?").fill("Piloto");
+  await expect(page.getByLabel("¿Cómo quieres que te llame?")).toHaveValue("Piloto"); // viene del registro
   await page.getByRole("button", { name: "Empezar" }).click();
   await page.getByRole("radio", { name: /Entrevistas y trabajo/ }).click();
   await page.getByRole("button", { name: "Continuar" }).click();
@@ -78,4 +85,15 @@ test("Writing, Listening, Speaking, Misiones y comentarios con datos reales", as
   await page.getByLabel("Cuéntanos con tus palabras").fill("Prueba de comentario desde E2E");
   await page.getByRole("button", { name: "Enviar", exact: true }).click();
   await expect(page.getByText("¡Gracias!")).toBeVisible();
+});
+
+test("iniciar sesión y crear cuenta se enlazan entre sí y el enlace vencido explica qué hacer", async ({ page }) => {
+  await page.goto("/login");
+  await expect(page.getByRole("heading", { name: "Iniciar sesión" })).toBeVisible();
+  await page.getByRole("link", { name: "Crea una gratis" }).click();
+  await expect(page.getByRole("heading", { name: "Crear cuenta" })).toBeVisible();
+  await page.getByRole("link", { name: "Inicia sesión" }).click();
+  await expect(page.getByRole("heading", { name: "Iniciar sesión" })).toBeVisible();
+  await page.goto("/login?error=access_denied&error_description=Email+link+is+invalid+or+has+expired");
+  await expect(page.getByRole("heading", { name: "Este enlace ya no sirve" })).toBeVisible();
 });

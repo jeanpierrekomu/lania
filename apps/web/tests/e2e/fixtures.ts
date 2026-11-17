@@ -22,14 +22,15 @@ export const test = base.extend({
 export { expect };
 
 /**
- * Entra en modo local y completa la bienvenida por la API (objetivo + consentimiento del piloto),
+ * Crea la cuenta en modo local y completa la bienvenida por la API (objetivo + consentimiento del piloto),
  * para que las pruebas que no evalúan la bienvenida empiecen en el inicio. La bienvenida tiene su propia prueba.
  */
 export async function signIn(page: Page, prefix: string, name = "E2E") {
-  await page.goto("/login");
-  await page.getByLabel("Correo").fill(`${prefix}-${Date.now()}@example.test`);
+  await page.goto("/registro");
   await page.getByLabel(/llamemos/).fill(name);
-  await page.getByRole("button", { name: "Entrar" }).click();
+  await page.getByLabel("Correo").fill(`${prefix}-${Date.now()}@example.test`);
+  await page.getByRole("checkbox").check();
+  await page.getByRole("button", { name: "Crear mi cuenta" }).click();
   await page.waitForURL(/\/(onboarding|app)/);
   await page.evaluate(
     async ({ api, displayName }) => {
