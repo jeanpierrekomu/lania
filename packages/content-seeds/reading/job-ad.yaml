@@ -1,0 +1,25 @@
+slug: job-ad
+version: 1
+title_en: "We're Hiring: Customer Support Assistant"
+title_es: "Se busca: asistente de atención al cliente"
+kind_es: "Anuncio de trabajo"
+level: A2
+topic: entrevistas
+review_status: pilot
+paragraphs:
+  - "GreenLeaf is a small company that sells plant-based food online. We are looking for a Customer Support Assistant to join our friendly team in Lima."
+  - "You will answer customer emails and chats, help people with their orders, and send weekly reports to the sales team. The job is full-time, Monday to Friday, and you can work from home two days a week."
+  - "Requirements: good communication skills in Spanish and intermediate English (B1). Experience in customer service is a plus, but it is not necessary. We offer training, health insurance, and a free lunch on Fridays."
+  - "To apply, send your CV and a short message in English to jobs@greenleaf.example before November 30."
+glossary:
+  - { en: "looking for", es: "buscando" }
+  - { en: "plant-based", es: "de origen vegetal" }
+  - { en: "full-time", es: "a tiempo completo" }
+  - { en: "Requirements", es: "Requisitos" }
+  - { en: "is a plus", es: "es un punto a favor (suma, pero no es obligatorio)" }
+  - { en: "health insurance", es: "seguro de salud" }
+  - { en: "apply", es: "postular" }
+questions:
+  reading.job_ad.01: 1
+  reading.job_ad.02: 2
+  reading.job_ad.03: 3

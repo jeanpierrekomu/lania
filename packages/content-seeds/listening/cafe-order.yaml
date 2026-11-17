@@ -1,0 +1,29 @@
+# Episodio ORIGINAL para el piloto (pendiente de revisión docente). Preguntas en items/listening.yaml.
+slug: cafe-order
+version: 1
+title_es: "Un café para llevar"
+context_es: "Ana pide algo en una cafetería antes de ir al trabajo."
+level: A1
+topic: cotidiano
+review_status: pilot
+speakers:
+  - { name: Barista, voice: cedar }
+  - { name: Ana, voice: marin }
+segments:
+  - { speaker: Barista, text_en: "Good morning! What can I get for you?" }
+  - { speaker: Ana, text_en: "Hi! Can I have a small coffee with milk, please?" }
+  - { speaker: Barista, text_en: "Sure. For here or to go?" }
+  - { speaker: Ana, text_en: "To go, please. I'm late for work." }
+  - { speaker: Barista, text_en: "No problem. Anything else? We have fresh banana bread today." }
+  - { speaker: Ana, text_en: "Oh, yes. One piece of banana bread, please. How much is it?" }
+  - { speaker: Barista, text_en: "That's six fifty in total." }
+  - { speaker: Ana, text_en: "Here you are. Thank you so much!" }
+questions:
+  listening.cafe_order.01: 1
+  listening.cafe_order.02: 3
+  listening.cafe_order.03: 6
+dictation:
+  segment: 3
+  before: "To go, please. I'm "
+  answer: "late"
+  after: " for work."

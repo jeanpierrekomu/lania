@@ -1,0 +1,22 @@
+slug: hotel-checkin
+version: 1
+title_es: "Llegando al hotel"
+context_es: "Lania trabaja en la recepción de un hotel. Haz tu check-in y resuelve lo que necesites."
+level: A2
+topic: viajes
+review_status: pilot
+lania_role_en: "a warm hotel receptionist at the front desk of a small city hotel"
+steps:
+  - lania_en: "Good evening, welcome! Do you have a reservation?"
+    goal_es: "Decir que tienes una reserva y a nombre de quién."
+    useful_phrases_en: ["Yes, I have a reservation.", "It's under the name…", "I booked it online."]
+  - lania_en: "Perfect, I found it. How many nights are you staying with us?"
+    goal_es: "Decir cuántas noches te quedas."
+    useful_phrases_en: ["I'm staying for… nights.", "Until Sunday.", "Just one night."]
+  - lania_en: "Great. Is there anything you need for your room?"
+    goal_es: "Pedir algo para la habitación (toallas, almohada, una habitación tranquila…)."
+    useful_phrases_en: ["Could I have…?", "Is it possible to…?", "I'd like a quiet room, please."]
+  - lania_en: "Of course. Do you have any questions about the hotel or the city?"
+    goal_es: "Preguntar por el desayuno, el wifi o un lugar para visitar."
+    useful_phrases_en: ["What time is breakfast?", "What's the wifi password?", "Can you recommend a place to eat?"]
+closing_en: "Here's your key. Room 305, on the third floor. Enjoy your stay!"

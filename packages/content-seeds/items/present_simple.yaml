@@ -1,0 +1,507 @@
+# Banco semilla — presente simple (grammar_closed_v1)
+# Contenido ORIGINAL escrito para el piloto. review_status: pilot = usable en piloto privado,
+# PENDIENTE de revisión por docente de inglés (spec §12.4). No es material del ICPNA.
+#
+# Formato (ADR-004):
+#   prompt         → público (se envía al cliente)
+#   answer         → privado (nunca sale del backend antes de entregar)
+#   subject        → 1s 2s 3s 1p 2p 3p (persona/número del sujeto, para diagnósticos)
+#   verb           → formas del verbo, para diagnósticos por regla
+#   accepted       → claves; se normalizan (mayúsculas, contracciones, puntuación)
+#   alternatives   → respuestas legítimas distintas de la clave, con su veredicto
+#   distractors    → errores conocidos con explicación y corrección mínima
+
+defaults: &defaults
+  version: 1
+  skill: grammar.present_simple.subject_verb_agreement
+  rubric_version: grammar_closed_v1
+  license: original
+  review_status: pilot
+
+items:
+  # ───────────── Lección: present-simple-basics ─────────────
+  - <<: *defaults
+    id: grammar.present_simple.sva.001
+    type: choice
+    cefr_estimate: A1
+    difficulty: 1
+    prompt:
+      instruction_es: "Elige la oración correcta. Sin pistas: queremos ver qué recuerdas."
+      question_en: "Which sentence is correct?"
+      options:
+        - { id: a, text: "She work in marketing." }
+        - { id: b, text: "She works in marketing." }
+        - { id: c, text: "She is work in marketing." }
+        - { id: d, text: "She working in marketing." }
+      hint_es: "Con she, el verbo del presente simple cambia un poquito al final."
+    answer:
+      correct_option: b
+      explanation_es: "Con she / he / it el verbo lleva -s: she works. Es un hecho estable (dónde trabaja), por eso presente simple."
+      option_feedback:
+        a:
+          rule: grammar.present_simple.third_person_s
+          feedback_es: "Casi: con she el verbo necesita -s → works."
+          retry_hint_es: "¿Quién trabaja? Con she, revisa la terminación del verbo."
+        c:
+          rule: grammar.present_simple.no_be_with_main_verb
+          feedback_es: "No combinamos is con un verbo normal en presente simple. Es como decir «ella es trabaja». Va solo el verbo: she works."
+          retry_hint_es: "¿Hace falta is delante de un verbo normal en presente simple?"
+        d:
+          rule: grammar.present_continuous.missing_be
+          feedback_es: "Working necesita is delante (she is working) y significaría «está trabajando ahora». Para un hecho estable: she works."
+          retry_hint_es: "Una forma con -ing sola no basta. ¿Qué oración describe un hecho estable?"
+
+  - <<: *defaults
+    id: grammar.present_simple.sva.002
+    type: fill_blank
+    cefr_estimate: A1
+    difficulty: 1
+    prompt:
+      instruction_es: "Completa con el verbo en presente simple. Es un hecho estable, no algo que pasa solo ahora."
+      sentence_en: "My sister ___ at a design studio."
+      verb_hint: "work"
+      hint_es: "My sister = she. ¿Qué le pasa al verbo con she?"
+    answer:
+      subject: 3s
+      verb: { base: work, third: works, ing: working }
+      accepted: ["works"]
+      explanation_es: "My sister equivale a she, así que el verbo lleva -s: works."
+      alternatives:
+        - answers: ["is working"]
+          verdict: partial
+          rule: task.tense_mismatch.present_continuous
+          feedback_es: "«My sister is working at a design studio» es inglés correcto, pero suena temporal (por ahora). La consigna pedía un hecho estable: works."
+          retry_hint_es: "Tu frase es inglés correcto, pero vuelve a leer la consigna: ¿qué tiempo verbal pide?"
+
+  - <<: *defaults
+    id: grammar.present_simple.sva.003
+    type: fill_blank
+    cefr_estimate: A1
+    difficulty: 1
+    prompt:
+      instruction_es: "Completa con el verbo en presente simple. Habla de una rutina."
+      sentence_en: "We ___ a team meeting every Monday."
+      verb_hint: "have"
+      hint_es: "El sujeto es we. ¿Lleva cambio el verbo con we?"
+    answer:
+      subject: 1p
+      verb: { base: have, third: has, ing: having }
+      accepted: ["have"]
+      explanation_es: "Con we el verbo queda en su forma base: we have. Every Monday indica rutina → presente simple."
+      alternatives:
+        - answers: ["are having"]
+          verdict: partial
+          rule: task.tense_mismatch.present_continuous
+          feedback_es: "We are having… existe, pero con every Monday (rutina) lo natural es el presente simple: we have."
+          retry_hint_es: "Tu frase es inglés correcto, pero vuelve a leer la consigna: ¿qué tiempo verbal pide?"
+        - answers: ["have got"]
+          verdict: valid_alternative
+          rule: grammar.have_got.british_possession
+          feedback_es: "Válido: «we've got / we have got» con el sentido de have es muy común, sobre todo en inglés británico y en conversación. La forma neutra de presente simple es we have."
+      distractors:
+        - answers: ["has"]
+          rule: grammar.present_simple.no_s_non_third
+          feedback_es: "Has es solo para he / she / it. Con we usamos have."
+          retry_hint_es: "El sujeto es we. ¿Ese verbo cambia de forma con we?"
+          minimal_correction: "have"
+
+  - <<: *defaults
+    id: grammar.present_simple.sva.004
+    type: fill_blank
+    cefr_estimate: A1
+    difficulty: 2
+    prompt:
+      instruction_es: "Completa con el verbo en presente simple. Es su rutina habitual."
+      sentence_en: "Carla ___ English at night after work."
+      verb_hint: "study"
+      hint_es: "Carla = she. Ojo con los verbos que terminan en consonante + y."
+    answer:
+      subject: 3s
+      verb: { base: study, third: studies, ing: studying }
+      accepted: ["studies"]
+      explanation_es: "Carla = she → -s. Como study termina en consonante + y, la y cambia a -ies: studies."
+      alternatives:
+        - answers: ["is studying"]
+          verdict: partial
+          rule: task.tense_mismatch.present_continuous
+          feedback_es: "«Carla is studying English…» es correcto si es algo temporal. La consigna habla de su rutina: studies."
+          retry_hint_es: "Tu frase es inglés correcto, pero vuelve a leer la consigna: ¿qué tiempo verbal pide?"
+      distractors:
+        - answers: ["studys"]
+          rule: spelling.third_person.consonant_y_ies
+          feedback_es: "Bien la -s de tercera persona. Solo la ortografía: consonante + y → -ies. Se escribe studies."
+          retry_hint_es: "Bien la tercera persona. ¿Qué pasa con la y cuando va después de consonante?"
+          minimal_correction: "studies"
+
+  - <<: *defaults
+    id: grammar.present_simple.sva.005
+    type: fill_blank
+    cefr_estimate: A1
+    difficulty: 2
+    prompt:
+      instruction_es: "Completa en negativo, en presente simple."
+      sentence_en: "He ___ coffee in the afternoon."
+      verb_hint: "not / drink"
+      hint_es: "En negativo usamos un auxiliar + not + verbo base. ¿Cuál auxiliar va con he?"
+    answer:
+      subject: 3s
+      polarity: negative
+      verb: { base: drink, third: drinks, ing: drinking }
+      accepted: ["doesn't drink"]
+      explanation_es: "Con he, la negativa es doesn't (does not) + verbo base: he doesn't drink. La -s ya está en does, así que drink queda sin -s."
+      distractors:
+        - answers: ["don't drink"]
+          rule: grammar.do_does.agreement
+          feedback_es: "Buena estructura (auxiliar + not + verbo). Solo el auxiliar: con he va doesn't, no don't."
+          retry_hint_es: "Revisa el auxiliar negativo: ¿cuál va con he?"
+          minimal_correction: "doesn't drink"
+        - answers: ["doesn't drinks"]
+          rule: grammar.do_does.base_form
+          feedback_es: "Muy bien el doesn't. Después de doesn't el verbo va en base, sin -s: drink."
+          retry_hint_es: "Después del auxiliar negativo, ¿el verbo lleva -s?"
+          minimal_correction: "doesn't drink"
+        - answers: ["not drink", "not drinks", "no drink", "no drinks"]
+          rule: grammar.present_simple.negative_needs_auxiliary
+          feedback_es: "En inglés la negativa necesita un auxiliar antes de not. Con he: doesn't drink."
+          retry_hint_es: "La negación en inglés necesita un auxiliar antes de not. ¿Cuál va con he?"
+          minimal_correction: "doesn't drink"
+        - answers: ["isn't drink", "isn't drinks"]
+          rule: grammar.present_simple.no_be_with_main_verb
+          feedback_es: "Isn't no se combina con un verbo normal. Para negar drink usamos doesn't: he doesn't drink."
+          retry_hint_es: "¿Is sirve para negar un verbo normal como drink? Piensa en el auxiliar del presente simple."
+          minimal_correction: "doesn't drink"
+
+  - <<: *defaults
+    id: grammar.present_simple.sva.006
+    type: fill_blank
+    cefr_estimate: A1
+    difficulty: 2
+    prompt:
+      instruction_es: "Completa la pregunta con Do o Does."
+      sentence_en: "___ your startup have a website?"
+      verb_hint: "do / does"
+      hint_es: "Your startup = it."
+    answer:
+      subject: 3s
+      polarity: question
+      accepted: ["does"]
+      explanation_es: "Your startup equivale a it, así que la pregunta usa Does. El verbo principal queda en base: have."
+      alternatives:
+        - answers: ["has your startup got a website"]
+          verdict: partial
+          rule: task.instruction_mismatch.have_got_question
+          feedback_es: "«Has your startup got a website?» es inglés británico correcto, pero la consigna pide completar con Do o Does: Does your startup have a website?"
+          retry_hint_es: "Tu pregunta es válida, pero la consigna pide empezar con Do o Does. ¿Cuál va con it?"
+        - answers: ["doesn't"]
+          verdict: partial
+          rule: task.instruction_mismatch.negative_question
+          feedback_es: "«Doesn't your startup have a website?» es una pregunta negativa correcta (suele expresar sorpresa), pero la consigna pide la pregunta neutra con Do o Does: Does."
+          retry_hint_es: "Tu pregunta es válida, pero ¿es neutra? La consigna pide Do o Does."
+      distractors:
+        - answers: ["do"]
+          rule: grammar.do_does.agreement
+          feedback_es: "Casi: do es para I / you / we / they. Your startup = it → Does."
+          retry_hint_es: "Your startup = it. ¿Qué auxiliar va con it?"
+          minimal_correction: "Does"
+        - answers: ["is"]
+          rule: grammar.present_simple.no_be_with_main_verb
+          feedback_es: "Is no forma preguntas con un verbo normal como have. Usamos Does: Does your startup have a website?"
+          retry_hint_es: "Have es un verbo normal: ¿qué auxiliar usamos para preguntar con él?"
+          minimal_correction: "Does"
+        - answers: ["has"]
+          rule: grammar.present_simple.question_needs_do
+          feedback_es: "Para preguntar en presente simple usamos Do/Does al inicio. Aquí: Does your startup have…?"
+          retry_hint_es: "Para preguntar en presente simple, ¿qué palabra va al inicio?"
+          minimal_correction: "Does"
+
+  # ───────────── Banco para repaso (ítems distintos a la lección) ─────────────
+  - <<: *defaults
+    id: grammar.present_simple.sva.007
+    type: fill_blank
+    cefr_estimate: A1
+    difficulty: 1
+    prompt:
+      instruction_es: "Completa con el verbo en presente simple. Es un hecho estable."
+      sentence_en: "My parents ___ in Arequipa."
+      verb_hint: "live"
+      hint_es: "My parents = they."
+    answer:
+      subject: 3p
+      verb: { base: live, third: lives, ing: living }
+      accepted: ["live"]
+      explanation_es: "My parents = they, y con they el verbo no lleva -s: they live."
+      alternatives:
+        - answers: ["are living"]
+          verdict: partial
+          rule: task.tense_mismatch.present_continuous
+          feedback_es: "«My parents are living in Arequipa» es correcto si es temporal. Para un hecho estable: live."
+          retry_hint_es: "Tu frase es inglés correcto, pero vuelve a leer la consigna: ¿qué tiempo verbal pide?"
+
+  - <<: *defaults
+    id: grammar.present_simple.sva.008
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Completa con el verbo en presente simple. Describe qué hace la app."
+      sentence_en: "The app ___ users to share their designs."
+      verb_hint: "allow"
+      hint_es: "The app = it."
+    answer:
+      subject: 3s
+      verb: { base: allow, third: allows, ing: allowing }
+      accepted: ["allows"]
+      explanation_es: "The app = it → allows. Describir lo que hace un producto es un uso típico del presente simple."
+      alternatives:
+        - answers: ["enables", "permits"]
+          verdict: partial
+          rule: task.verb_hint_mismatch
+          feedback_es: "Tu verbo es correcto y con -s, pero la consigna pide usar allow: allows."
+          retry_hint_es: "Tu verbo es válido, pero ¿es el que indica la pista?"
+
+  - <<: *defaults
+    id: grammar.present_simple.sva.009
+    type: fill_blank
+    cefr_estimate: A1
+    difficulty: 2
+    prompt:
+      instruction_es: "Completa con el verbo en presente simple. Es su costumbre."
+      sentence_en: "Our designer ___ to the office by bike."
+      verb_hint: "go"
+      hint_es: "Our designer = he o she. Ojo con la ortografía de go."
+    answer:
+      subject: 3s
+      verb: { base: go, third: goes, ing: going }
+      accepted: ["goes"]
+      explanation_es: "Tercera persona → -s; los verbos que terminan en -o agregan -es: goes."
+      distractors:
+        - answers: ["gos"]
+          rule: spelling.third_person.o_es
+          feedback_es: "Bien la tercera persona. Ortografía: después de -o se agrega -es → goes."
+          retry_hint_es: "Revisa la ortografía: ¿qué se agrega a los verbos que terminan en -o?"
+          minimal_correction: "goes"
+
+  - <<: *defaults
+    id: grammar.present_simple.sva.010
+    type: fill_blank
+    cefr_estimate: A1
+    difficulty: 2
+    prompt:
+      instruction_es: "Completa en negativo, en presente simple."
+      sentence_en: "I ___ on Sundays."
+      verb_hint: "not / work"
+      hint_es: "Con I, el auxiliar negativo es…"
+    answer:
+      subject: 1s
+      polarity: negative
+      verb: { base: work, third: works, ing: working }
+      accepted: ["don't work"]
+      explanation_es: "Con I la negativa es don't (do not) + verbo base: I don't work."
+      alternatives:
+        - answers: ["am not working"]
+          verdict: partial
+          rule: task.tense_mismatch.present_continuous
+          feedback_es: "«I'm not working on Sundays» es inglés correcto (presente continuo: algo temporal o un plan), pero la consigna pide presente simple para un hábito: don't work."
+          retry_hint_es: "Tu frase es inglés correcto, pero vuelve a leer la consigna: ¿qué tiempo verbal pide?"
+        - answers: ["never work"]
+          verdict: partial
+          rule: task.instruction_mismatch.never_instead_of_not
+          feedback_es: "«I never work on Sundays» es presente simple correcto con sentido negativo, pero la consigna pide negar con not: don't work."
+          retry_hint_es: "Tu frase es válida, pero la consigna pide negar con not. ¿Qué auxiliar va con I?"
+      distractors:
+        - answers: ["doesn't work"]
+          rule: grammar.do_does.agreement
+          feedback_es: "Buena estructura. Doesn't es solo para he / she / it. Con I: don't."
+          retry_hint_es: "El sujeto es I. ¿Qué auxiliar negativo va con I?"
+          minimal_correction: "don't work"
+        - answers: ["am not work"]
+          rule: grammar.present_simple.no_be_with_main_verb
+          feedback_es: "Este es el clásico «I am work». Con un verbo normal no usamos am: I don't work."
+          retry_hint_es: "¿Am acompaña a un verbo normal en presente simple? Piensa en el auxiliar para negar."
+          minimal_correction: "don't work"
+        - answers: ["not work", "no work"]
+          rule: grammar.present_simple.negative_needs_auxiliary
+          feedback_es: "La negativa necesita auxiliar: I don't work."
+          retry_hint_es: "La negación necesita un auxiliar antes de not. ¿Cuál va con I?"
+          minimal_correction: "don't work"
+
+  - <<: *defaults
+    id: grammar.present_simple.sva.011
+    type: fill_blank
+    cefr_estimate: A1
+    difficulty: 1
+    prompt:
+      instruction_es: "Completa la pregunta con Do o Does."
+      sentence_en: "___ you speak Portuguese?"
+      verb_hint: "do / does"
+      hint_es: "El sujeto es you."
+    answer:
+      subject: 2s
+      polarity: question
+      accepted: ["do"]
+      explanation_es: "Con you la pregunta empieza con Do: Do you speak Portuguese?"
+      alternatives:
+        - answers: ["can"]
+          verdict: partial
+          rule: task.instruction_mismatch.modal
+          feedback_es: "«Can you speak Portuguese?» es correcto (pregunta por la capacidad), pero la consigna pide completar con Do o Does: Do."
+          retry_hint_es: "Tu pregunta es válida, pero la consigna pide completar con Do o Does. ¿Cuál va con you?"
+      distractors:
+        - answers: ["does"]
+          rule: grammar.do_does.agreement
+          feedback_es: "Does es para he / she / it. Con you: Do."
+          retry_hint_es: "El sujeto es you. ¿Qué auxiliar va con you?"
+          minimal_correction: "Do"
+        - answers: ["are"]
+          rule: grammar.present_simple.no_be_with_main_verb
+          feedback_es: "Are no forma preguntas con un verbo normal como speak. Usamos Do."
+          retry_hint_es: "Speak es un verbo normal: ¿qué auxiliar usamos para preguntar con él?"
+          minimal_correction: "Do"
+
+  - <<: *defaults
+    id: grammar.present_simple.sva.012
+    type: choice
+    cefr_estimate: A1
+    difficulty: 2
+    prompt:
+      instruction_es: "Elige la palabra que completa la pregunta."
+      question_en: "Where ___ your co-founder work?"
+      options:
+        - { id: a, text: "does" }
+        - { id: b, text: "do" }
+        - { id: c, text: "is" }
+        - { id: d, text: "works" }
+      hint_es: "Your co-founder = he o she."
+    answer:
+      correct_option: a
+      explanation_es: "Your co-founder = he/she → does. Después de does, el verbo queda en base: work."
+      option_feedback:
+        b:
+          rule: grammar.do_does.agreement
+          feedback_es: "Do es para I / you / we / they. Tu co-founder es una persona → does."
+          retry_hint_es: "Your co-founder es una sola persona. ¿Qué auxiliar va con he / she?"
+        c:
+          rule: grammar.present_simple.no_be_with_main_verb
+          feedback_es: "Is no forma la pregunta con un verbo normal (work). Usamos does."
+          retry_hint_es: "Work es un verbo normal: ¿is sirve para formar la pregunta?"
+        d:
+          rule: grammar.present_simple.question_needs_do
+          feedback_es: "La pregunta necesita un auxiliar antes del sujeto: Where does your co-founder work?"
+          retry_hint_es: "Una pregunta con where necesita una palabra antes del sujeto. ¿Cuál?"
+
+  - <<: *defaults
+    id: grammar.present_simple.sva.013
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Completa con el verbo en presente simple. Es un horario fijo."
+      sentence_en: "The workshop ___ at 9 a.m."
+      verb_hint: "start"
+      hint_es: "The workshop = it. Para horarios usamos presente simple."
+    answer:
+      subject: 3s
+      verb: { base: start, third: starts, ing: starting }
+      accepted: ["starts"]
+      explanation_es: "Para horarios y programas usamos presente simple; the workshop = it → starts."
+      alternatives:
+        - answers: ["is starting"]
+          verdict: partial
+          rule: task.tense_mismatch.present_continuous
+          feedback_es: "«The workshop is starting at 9» se usa para un plan concreto. Para un horario fijo, la consigna pide starts."
+          retry_hint_es: "Tu frase es inglés correcto, pero vuelve a leer la consigna: ¿qué tiempo verbal pide?"
+
+  - <<: *defaults
+    id: grammar.present_simple.sva.014
+    type: fill_blank
+    cefr_estimate: A1
+    difficulty: 1
+    prompt:
+      instruction_es: "Completa con el verbo en presente simple. Es su rutina."
+      sentence_en: "Every morning, Luis ___ his email before breakfast."
+      verb_hint: "check"
+      hint_es: "Luis = he."
+    answer:
+      subject: 3s
+      verb: { base: check, third: checks, ing: checking }
+      accepted: ["checks"]
+      explanation_es: "Every morning marca rutina; Luis = he → checks."
+
+  - <<: *defaults
+    id: grammar.present_simple.sva.015
+    type: fill_blank
+    cefr_estimate: A1
+    difficulty: 2
+    prompt:
+      instruction_es: "Completa con el verbo en presente simple. Es un hábito."
+      sentence_en: "She ___ design tutorials on YouTube."
+      verb_hint: "watch"
+      hint_es: "Ojo con los verbos que terminan en -ch."
+    answer:
+      subject: 3s
+      verb: { base: watch, third: watches, ing: watching }
+      accepted: ["watches"]
+      explanation_es: "Tercera persona → -s; después de -ch, -sh, -s, -x, -o se agrega -es: watches."
+      distractors:
+        - answers: ["watchs"]
+          rule: spelling.third_person.ch_es
+          feedback_es: "Bien la tercera persona. Ortografía: después de -ch se agrega -es → watches."
+          retry_hint_es: "Revisa la ortografía: ¿qué se agrega a los verbos que terminan en -ch?"
+          minimal_correction: "watches"
+
+  - <<: *defaults
+    id: grammar.present_simple.sva.016
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 3
+    prompt:
+      instruction_es: "Completa con el verbo en presente simple. Es su forma habitual de trabajar."
+      sentence_en: "My team ___ remotely."
+      verb_hint: "work"
+      hint_es: "En inglés americano, my team se trata como it."
+    answer:
+      subject: 3s
+      verb: { base: work, third: works, ing: working }
+      accepted: ["works"]
+      explanation_es: "En inglés americano los sustantivos colectivos (team, company) suelen tratarse como singular: my team works."
+      alternatives:
+        - answers: ["work"]
+          verdict: valid_alternative
+          rule: grammar.collective_noun.plural_agreement_british
+          feedback_es: "Válido: en inglés británico es común tratar team como plural (my team work). En inglés americano lo más habitual es works."
+        - answers: ["is working", "are working"]
+          verdict: partial
+          rule: task.tense_mismatch.present_continuous
+          feedback_es: "Es inglés correcto, pero suena temporal. La consigna pide la forma habitual: works."
+          retry_hint_es: "Tu frase es inglés correcto, pero vuelve a leer la consigna: ¿qué tiempo verbal pide?"
+
+  - <<: *defaults
+    id: grammar.present_simple.sva.017
+    type: choice
+    cefr_estimate: A1
+    difficulty: 1
+    prompt:
+      instruction_es: "Alguien te pregunta qué haces. Elige la respuesta correcta."
+      question_en: "“What do you do?” — “I ___ graphic design at university.”"
+      options:
+        - { id: a, text: "am study" }
+        - { id: b, text: "study" }
+        - { id: c, text: "studies" }
+        - { id: d, text: "studying" }
+      hint_es: "Con I, el verbo va tal cual, sin nada delante."
+    answer:
+      correct_option: b
+      explanation_es: "Con I usamos el verbo base: I study. Describe tu actividad habitual."
+      option_feedback:
+        a:
+          rule: grammar.present_simple.no_be_with_main_verb
+          feedback_es: "«I am study» es un error muy común en hispanohablantes: am no acompaña a un verbo normal. Es I study (o I'm studying si quieres decir «estoy estudiando ahora»)."
+          retry_hint_es: "¿Am acompaña a un verbo normal en presente simple?"
+        c:
+          rule: grammar.present_simple.no_s_non_third
+          feedback_es: "Studies es para he / she / it. Con I: study."
+          retry_hint_es: "El sujeto es I. ¿El verbo cambia de forma con I?"
+        d:
+          rule: grammar.present_continuous.missing_be
+          feedback_es: "Studying necesitaría am delante (I'm studying). En esta opción falta, así que la correcta es I study."
+          retry_hint_es: "Una forma con -ing sola no está completa. ¿Qué opción describe tu actividad habitual?"

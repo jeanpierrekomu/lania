@@ -1,0 +1,19 @@
+# secretos
+.env
+.env.*
+!.env.example
+# python
+.venv/
+__pycache__/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+# node / next
+node_modules/
+.next/
+*.tsbuildinfo
+next-env.d.ts
+apps/web/test-results/
+apps/web/playwright-report/
+# sistema
+.DS_Store

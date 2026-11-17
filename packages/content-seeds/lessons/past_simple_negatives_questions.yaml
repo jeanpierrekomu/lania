@@ -1,0 +1,29 @@
+# Microclase original para el piloto (review_status: pilot, pendiente de revisión docente).
+# Bucle académico (spec §3.1): activar recuerdo (warmup sin pistas) → explicación mínima →
+# práctica guiada → feedback → repaso espaciado con ítems distintos.
+slug: past-simple-did
+version: 1
+title_es: "Pasado simple: did y didn't + verbo base"
+level: A2
+skill: grammar.past_simple.did_base_form
+review_status: pilot
+content:
+  goal_es: "Al terminar podrás negar y preguntar en pasado con didn't / did + verbo base, y responder con respuestas cortas como Yes, I did."
+  concept_es: "En la afirmativa, el verbo mismo va en pasado (I went, I finished). En negativas y preguntas aparece did, y did se queda con el pasado: el verbo vuelve a su forma base (I didn't go, Did you go?). Did y didn't sirven para todos los sujetos."
+  analogy_es: "Piensa en el pasado como una sola mochila: alguien tiene que cargarla, pero solo uno. En la afirmativa la carga el verbo (went). Cuando aparece did, la mochila pasa a did y el verbo queda libre, en base (didn't go). Si ambos la cargan (✗ didn't went), sobra una."
+  examples:
+    - en: "I went to the beach, but I didn't go into the water."
+      es: "Fui a la playa, pero no entré al agua."
+    - en: "Did you finish the report? — Yes, I did."
+      es: "¿Terminaste el informe? — Sí."
+    - en: "What did you do last weekend?"
+      es: "¿Qué hiciste el fin de semana pasado?"
+  spelling_es: []
+  common_trap_es: "No marques el pasado dos veces: ✗ I didn't finished → ✓ I didn't finish; ✗ Did you went? → ✓ Did you go? Y no uses was / were con un verbo normal: ✗ Were you study? → ✓ Did you study?"
+items:
+  - { id: grammar.past_simple.did.001, role: warmup }
+  - { id: grammar.past_simple.did.002, role: practice }
+  - { id: grammar.past_simple.did.003, role: practice }
+  - { id: grammar.past_simple.did.004, role: practice }
+  - { id: grammar.past_simple.did.005, role: practice }
+  - { id: grammar.past_simple.did.006, role: practice }

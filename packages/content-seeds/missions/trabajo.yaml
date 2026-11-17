@@ -1,0 +1,14 @@
+slug: trabajo
+version: 1
+title_es: "Organiza tu semana de trabajo"
+situation_es: "Habla de planes, entiende una reunión y escribe a un colega con un tono profesional."
+level: B1
+topic: negocios
+icon: users
+review_status: pilot
+steps:
+  - { kind: lesson, ref: future-will, title_es: "Habla de planes y decisiones (futuro con will)" }
+  - { kind: listening, ref: team-meeting, title_es: "Entiende la reunión de los lunes" }
+  - { kind: reading, ref: project-update, title_es: "Entiende un correo de actualización del proyecto" }
+  - { kind: writing, ref: writing_lab.negocios.01, title_es: "Escribe para mover una reunión" }
+  - { kind: listening, ref: weekend-plans, title_es: "Y para el viernes: entiende unos planes de fin de semana" }

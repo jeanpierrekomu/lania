@@ -1,0 +1,22 @@
+slug: hotel-review
+version: 1
+title_en: "Nice Location, Noisy Nights"
+title_es: "Buena ubicación, noches ruidosas"
+kind_es: "Reseña de hotel"
+level: A2
+topic: viajes
+review_status: pilot
+paragraphs:
+  - "★★★☆☆ I stayed at the Plaza Inn for three nights in October. The location is perfect: the hotel is only five minutes from the main square, and there are many restaurants nearby."
+  - "The staff were very kind. When I arrived early, they let me leave my bags at the reception and gave me a free map of the city. Breakfast was simple but fresh, with fruit, bread, and good coffee."
+  - "However, my room was on the first floor, above a bar. The music didn't stop until two in the morning, so I couldn't sleep well. If you stay here, ask for a room on a higher floor."
+glossary:
+  - { en: "nearby", es: "cerca" }
+  - { en: "staff", es: "personal (del hotel)" }
+  - { en: "let me", es: "me dejaron / me permitieron" }
+  - { en: "However", es: "Sin embargo" }
+  - { en: "higher floor", es: "un piso más alto" }
+questions:
+  reading.hotel_review.01: 0
+  reading.hotel_review.02: 1
+  reading.hotel_review.03: 2

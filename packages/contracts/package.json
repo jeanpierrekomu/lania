@@ -1,0 +1,22 @@
+{
+  "name": "@modo/contracts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "types": "./src/schema.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/schema.d.ts"
+    }
+  },
+  "scripts": {
+    "generate": "openapi-typescript ./openapi.json -o ./src/schema.d.ts --default-non-nullable false",
+    "typecheck": "tsc --noEmit -p .",
+    "lint": "echo 'generado: sin lint'",
+    "test": "echo 'sin tests: tipos generados'"
+  },
+  "devDependencies": {
+    "openapi-typescript": "^7.13.0",
+    "typescript": "^5.9.3"
+  }
+}

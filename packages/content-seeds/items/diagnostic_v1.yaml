@@ -1,0 +1,1042 @@
+# Banco del diagnóstico de ubicación diag_v1 (A1–A2).
+# Contenido ORIGINAL escrito para el piloto. review_status: pilot = usable en piloto privado,
+# PENDIENTE de revisión por docente de inglés (spec §12.4). No es material del ICPNA ni de libros de texto.
+#
+# Reglas propias del diagnóstico:
+#   pool: diagnostic → estos ítems NUNCA se usan en lecciones ni en práctica.
+#   Modo examen      → sin hint_es. retry_hint_es se conserva solo para reutilizar el feedback
+#                      tras el informe; nunca revela la respuesta.
+#   tense            → obligatorio cuando el hueco no es presente simple (los diagnósticos
+#                      genéricos por regla solo corren para present_simple).
+#   Orden            → dentro de cada habilidad, ítems A1 primero y luego A2 (ver diagnostics/diag_v1.yaml).
+#   Formato general  → ver items/present_simple.yaml y ADR-004.
+
+defaults: &defaults
+  version: 1
+  pool: diagnostic
+  rubric_version: grammar_closed_v1
+  license: original
+  review_status: pilot
+
+items:
+  # ═════════════════════════ Bloque 1 · Gramática y vocabulario ═════════════════════════
+
+  # ───────────── grammar.present_simple.subject_verb_agreement ─────────────
+  - <<: *defaults
+    id: diag_v1.grammar.present_simple.subject_verb_agreement.01
+    skill: grammar.present_simple.subject_verb_agreement
+    type: fill_blank
+    cefr_estimate: A1
+    difficulty: 1
+    prompt:
+      instruction_es: "Completa con el verbo en presente simple. Es una rutina: lo hace todos los días."
+      sentence_en: "Rosa ___ lunch at 1 p.m. every day."
+      verb_hint: "eat"
+    answer:
+      subject: 3s
+      tense: present_simple
+      verb: { base: eat, third: eats, ing: eating }
+      accepted: ["eats"]
+      explanation_es: "Rosa equivale a she, así que el verbo lleva -s: eats. Every day indica rutina → presente simple."
+      alternatives:
+        - answers: ["is eating"]
+          verdict: partial
+          rule: task.tense_mismatch.present_continuous
+          feedback_es: "«Is eating» es inglés correcto, pero describe algo que pasa ahora o por un tiempo. Con every day (rutina) la consigna pide presente simple: eats."
+          retry_hint_es: "Every day habla de una costumbre. ¿Qué tiempo verbal usamos para las rutinas?"
+      distractors:
+        - answers: ["eat"]
+          rule: grammar.present_simple.third_person_s
+          feedback_es: "Bien elegido el verbo. Con Rosa (she) el presente simple lleva -s: eats."
+          minimal_correction: "eats"
+          retry_hint_es: "Rosa es una sola persona (she). ¿Qué le agregamos al verbo con she?"
+        - answers: ["is eat", "are eat"]
+          rule: grammar.present_simple.no_be_with_main_verb
+          feedback_es: "No combinamos is con un verbo normal en presente simple (sería como «ella es come»). Va solo el verbo: eats."
+          minimal_correction: "eats"
+          retry_hint_es: "En presente simple afirmativo no hace falta ningún verbo extra delante de eat."
+        - answers: ["eating"]
+          rule: grammar.present_continuous.missing_be
+          feedback_es: "Eating necesitaría is delante y significaría «está comiendo ahora». Para una rutina usamos el presente simple: eats."
+          minimal_correction: "eats"
+          retry_hint_es: "Piensa en una costumbre diaria, no en lo que pasa en este momento."
+
+  - <<: *defaults
+    id: diag_v1.grammar.present_simple.subject_verb_agreement.02
+    skill: grammar.present_simple.subject_verb_agreement
+    type: choice
+    cefr_estimate: A1
+    difficulty: 2
+    prompt:
+      instruction_es: "Elige la oración correcta."
+      question_en: "Which sentence is correct?"
+      options:
+        - { id: a, text: "My cousins doesn't have a car." }
+        - { id: b, text: "My cousins don't have a car." }
+        - { id: c, text: "My cousins not have a car." }
+        - { id: d, text: "My cousins don't has a car." }
+    answer:
+      correct_option: b
+      explanation_es: "My cousins = they. Con they la negativa es don't (do not) + verbo base: they don't have."
+      option_feedback:
+        a:
+          rule: grammar.do_does.agreement
+          feedback_es: "Buena estructura (auxiliar + not + verbo). Solo el auxiliar: doesn't es para he / she / it; con my cousins (they) va don't."
+          retry_hint_es: "My cousins son varias personas. ¿Qué auxiliar va con they?"
+        c:
+          rule: grammar.present_simple.negative_needs_auxiliary
+          feedback_es: "En inglés la negativa necesita un auxiliar antes de not: my cousins don't have."
+          retry_hint_es: "En negativo, el inglés pone una palabra auxiliar antes de not."
+        d:
+          rule: grammar.do_does.base_form
+          feedback_es: "Muy bien el don't. Después de don't / doesn't el verbo va en base: have (no has)."
+          retry_hint_es: "Después del auxiliar negativo, el verbo vuelve a su forma más simple."
+
+  - <<: *defaults
+    id: diag_v1.grammar.present_simple.subject_verb_agreement.03
+    skill: grammar.present_simple.subject_verb_agreement
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 3
+    prompt:
+      instruction_es: "Completa en negativo, en presente simple. Es su costumbre de siempre."
+      sentence_en: "My boss ___ meetings on Fridays."
+      verb_hint: "not / have"
+    answer:
+      subject: 3s
+      polarity: negative
+      tense: present_simple
+      verb: { base: have, third: has, ing: having }
+      accepted: ["doesn't have"]
+      explanation_es: "My boss = he / she → doesn't (does not) + verbo base. Como la -s ya está en does, have no cambia a has: doesn't have."
+      alternatives:
+        - answers: ["isn't having"]
+          verdict: partial
+          rule: task.tense_mismatch.present_continuous
+          feedback_es: "«My boss isn't having meetings on Fridays» es inglés correcto si es algo temporal (por estas semanas). La consigna pide su costumbre de siempre, en presente simple: doesn't have."
+          retry_hint_es: "Es una costumbre permanente, no algo temporal. ¿Qué tiempo verbal usamos?"
+        - answers: ["hasn't got"]
+          verdict: less_natural
+          rule: dialect.have_got_british
+          feedback_es: "«My boss hasn't got meetings» es correcto en inglés británico. En inglés americano, que es el que practicamos, lo habitual es doesn't have."
+          retry_hint_es: "Busca la forma del inglés americano: auxiliar del presente simple + not + have."
+      distractors:
+        - answers: ["doesn't has"]
+          rule: grammar.do_does.base_form
+          feedback_es: "Muy bien el doesn't. Después de doesn't el verbo va en base: have, no has."
+          minimal_correction: "doesn't have"
+          retry_hint_es: "La -s de tercera persona ya está en el auxiliar. ¿Cómo queda el verbo después?"
+        - answers: ["don't have", "don't has"]
+          rule: grammar.do_does.agreement
+          feedback_es: "Buena estructura. Solo el auxiliar: con my boss (he / she) va doesn't, no don't."
+          minimal_correction: "doesn't have"
+          retry_hint_es: "My boss es una sola persona. ¿Qué auxiliar negativo va con he / she?"
+        - answers: ["hasn't"]
+          rule: grammar.present_simple.have_negative_needs_do
+          feedback_es: "Hasn't solo (sin got) suena anticuado. En inglés americano, have como verbo principal se niega con doesn't: doesn't have."
+          minimal_correction: "doesn't have"
+          retry_hint_es: "Aquí have es un verbo normal (tener). ¿Cómo negamos un verbo normal en presente simple?"
+        - answers: ["not have", "not has", "no have", "no has"]
+          rule: grammar.present_simple.negative_needs_auxiliary
+          feedback_es: "En inglés la negativa necesita un auxiliar antes de not. Con my boss: doesn't have."
+          minimal_correction: "doesn't have"
+          retry_hint_es: "Falta una palabra auxiliar antes de not."
+        - answers: ["isn't have", "isn't has"]
+          rule: grammar.present_simple.no_be_with_main_verb
+          feedback_es: "Isn't no se combina con un verbo normal. Para negar have en presente simple usamos doesn't: doesn't have."
+          minimal_correction: "doesn't have"
+          retry_hint_es: "Is / isn't no acompaña a verbos normales en presente simple. ¿Qué auxiliar usamos entonces?"
+
+  # ───────────── grammar.present_continuous.auxiliary_be_ing ─────────────
+  - <<: *defaults
+    id: diag_v1.grammar.present_continuous.auxiliary_be_ing.01
+    skill: grammar.present_continuous.auxiliary_be_ing
+    type: fill_blank
+    cefr_estimate: A1
+    difficulty: 2
+    prompt:
+      instruction_es: "Completa en presente continuo: es algo que está pasando ahora mismo."
+      sentence_en: "The kids ___ in the park right now."
+      verb_hint: "run"
+    answer:
+      subject: 3p
+      tense: present_continuous
+      accepted: ["are running"]
+      explanation_es: "Presente continuo = am / is / are + verbo-ing. The kids = they → are. Run termina en consonante + vocal + consonante, así que se duplica la n: running."
+      distractors:
+        - answers: ["are runing"]
+          rule: spelling.ing.double_consonant
+          feedback_es: "¡La estructura está perfecta! Solo la ortografía: run duplica la n antes de -ing → running."
+          minimal_correction: "are running"
+          retry_hint_es: "Revisa la ortografía: en verbos cortos como run, algo pasa con la última consonante antes de -ing."
+        - answers: ["running", "runing"]
+          rule: grammar.present_continuous.missing_be
+          feedback_es: "Te faltó el auxiliar: el presente continuo necesita am / is / are delante del verbo-ing. Con the kids: are running."
+          minimal_correction: "are running"
+          retry_hint_es: "El presente continuo tiene dos partes. ¿Cuál falta delante del verbo-ing?"
+        - answers: ["is running"]
+          rule: grammar.be.agreement
+          feedback_es: "Bien el -ing. Solo el auxiliar: the kids son varios (they), así que va are, no is."
+          minimal_correction: "are running"
+          retry_hint_es: "The kids son varias personas. ¿Qué forma de be va con they?"
+        - answers: ["are run"]
+          rule: grammar.present_continuous.missing_ing
+          feedback_es: "Bien el are. En presente continuo, después de are el verbo lleva -ing: are running."
+          minimal_correction: "are running"
+          retry_hint_es: "Después de are, ¿qué terminación necesita el verbo en presente continuo?"
+        - answers: ["run", "runs"]
+          rule: task.tense_mismatch.present_simple
+          feedback_es: "Right now indica algo que pasa en este momento; el presente simple no sirve aquí. Usamos presente continuo: are running."
+          minimal_correction: "are running"
+          retry_hint_es: "Right now = ahora mismo. ¿Qué tiempo verbal usamos para lo que está pasando ahora?"
+
+  - <<: *defaults
+    id: diag_v1.grammar.present_continuous.auxiliary_be_ing.02
+    skill: grammar.present_continuous.auxiliary_be_ing
+    type: choice
+    cefr_estimate: A1
+    difficulty: 1
+    prompt:
+      instruction_es: "Elige la palabra o frase que completa la oración. Es algo que pasa en este momento."
+      question_en: "She ___ on the phone right now."
+      options:
+        - { id: a, text: "talking" }
+        - { id: b, text: "is talking" }
+        - { id: c, text: "talks" }
+        - { id: d, text: "is talk" }
+    answer:
+      correct_option: b
+      explanation_es: "Para algo que pasa ahora mismo usamos presente continuo: is + talking. Con she, el auxiliar es is."
+      option_feedback:
+        a:
+          rule: grammar.present_continuous.missing_be
+          feedback_es: "Muy bien el -ing, pero falta el auxiliar: she is talking. En inglés no puede ir solo, como a veces en español."
+          retry_hint_es: "El presente continuo necesita dos partes. ¿Qué falta delante de talking?"
+        c:
+          rule: task.tense_mismatch.present_simple
+          feedback_es: "Talks es presente simple (rutinas). Right now pide presente continuo: she is talking."
+          retry_hint_es: "Right now = ahora mismo. ¿Qué tiempo verbal usamos para eso?"
+        d:
+          rule: grammar.present_continuous.missing_ing
+          feedback_es: "Bien el is. Después de is, en presente continuo, el verbo lleva -ing: is talking."
+          retry_hint_es: "Después de is, ¿qué terminación le falta al verbo?"
+
+  - <<: *defaults
+    id: diag_v1.grammar.present_continuous.auxiliary_be_ing.03
+    skill: grammar.present_continuous.auxiliary_be_ing
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 3
+    prompt:
+      instruction_es: "Completa en negativo, en presente continuo. Es una situación temporal: pasa en estas semanas."
+      sentence_en: "I ___ much these days because I'm very busy."
+      verb_hint: "not / sleep"
+    answer:
+      subject: 1s
+      polarity: negative
+      tense: present_continuous
+      accepted: ["am not sleeping"]
+      explanation_es: "Presente continuo negativo = am / is / are + not + verbo-ing. Con I: am not sleeping (I'm not sleeping). These days marca una situación temporal."
+      alternatives:
+        - answers: ["don't sleep"]
+          verdict: partial
+          rule: task.tense_mismatch.present_simple
+          feedback_es: "«I don't sleep much these days» es inglés correcto, pero la consigna pide presente continuo para resaltar que es temporal: am not sleeping."
+          retry_hint_es: "La consigna pide el tiempo que usamos para situaciones temporales, con be + -ing."
+        - answers: ["haven't been sleeping"]
+          verdict: partial
+          rule: task.tense_mismatch.present_perfect_continuous
+          feedback_es: "¡Muy buen inglés! Es presente perfecto continuo y es correcto aquí. La consigna pedía presente continuo: am not sleeping."
+          retry_hint_es: "Usa la forma más simple del presente continuo, con am / is / are."
+      distractors:
+        - answers: ["don't sleeping"]
+          rule: grammar.present_continuous.negative_with_be
+          feedback_es: "Bien el -ing. En presente continuo la negativa se forma con be, no con do: am not sleeping."
+          minimal_correction: "am not sleeping"
+          retry_hint_es: "En presente continuo, el auxiliar que lleva not es una forma de be. ¿Cuál va con I?"
+        - answers: ["not sleeping", "no sleeping"]
+          rule: grammar.present_continuous.missing_be
+          feedback_es: "Falta el auxiliar: con I la negativa es am not + verbo-ing → am not sleeping."
+          minimal_correction: "am not sleeping"
+          retry_hint_es: "Antes de not falta una palabra. ¿Qué forma de be va con I?"
+        - answers: ["am not sleep", "am no sleep"]
+          rule: grammar.present_continuous.missing_ing
+          feedback_es: "Bien el am not. Después, el verbo lleva -ing: am not sleeping."
+          minimal_correction: "am not sleeping"
+          retry_hint_es: "En presente continuo, ¿qué terminación lleva el verbo?"
+        - answers: ["no am sleeping", "not am sleeping"]
+          rule: grammar.negation.word_order
+          feedback_es: "En español decimos «no estoy», pero en inglés not va después de am: am not sleeping."
+          minimal_correction: "am not sleeping"
+          retry_hint_es: "Revisa el orden: en inglés, not va después del auxiliar."
+        - answers: ["am no sleeping"]
+          rule: grammar.negation.not_vs_no
+          feedback_es: "Casi: para negar un verbo usamos not, no «no»: am not sleeping."
+          minimal_correction: "am not sleeping"
+          retry_hint_es: "En inglés, la palabra que niega un verbo no es igual que en español."
+        - answers: ["isn't sleeping", "aren't sleeping"]
+          rule: grammar.be.agreement
+          feedback_es: "Bien la estructura negativa con -ing. Solo el auxiliar: con I va am not (I'm not)."
+          minimal_correction: "am not sleeping"
+          retry_hint_es: "¿Qué forma de be va con I?"
+
+  # ───────────── grammar.past_simple.irregular_verbs ─────────────
+  - <<: *defaults
+    id: diag_v1.grammar.past_simple.irregular_verbs.01
+    skill: grammar.past_simple.irregular_verbs
+    type: choice
+    cefr_estimate: A1
+    difficulty: 2
+    prompt:
+      instruction_es: "Elige la oración correcta. Habla de algo que pasó el sábado pasado."
+      question_en: "Which sentence is correct?"
+      options:
+        - { id: a, text: "Last Saturday I goed to a party with my coworkers." }
+        - { id: b, text: "Last Saturday I went a party with my coworkers." }
+        - { id: c, text: "Last Saturday I went to a party with my coworkers." }
+        - { id: d, text: "Last Saturday I go to a party with my coworkers." }
+    answer:
+      correct_option: c
+      explanation_es: "Go es irregular: su pasado es went. Y con un lugar o evento, go / went va con to: went to a party."
+      option_feedback:
+        a:
+          rule: grammar.past_simple.irregular_form
+          feedback_es: "Buena idea usar pasado, pero go es irregular: no lleva -ed. Su pasado es went."
+          retry_hint_es: "Go es un verbo irregular: su pasado no termina en -ed."
+        b:
+          rule: grammar.preposition.go_to_place
+          feedback_es: "¡Muy bien el went! Solo falta to: en inglés vamos «a» un lugar o evento con to → went to a party."
+          retry_hint_es: "Revisa qué palabra une went con a party."
+        d:
+          rule: grammar.past_simple.missing_past
+          feedback_es: "Last Saturday es pasado, así que el verbo también va en pasado: went."
+          retry_hint_es: "Last Saturday ya pasó. ¿En qué tiempo debe ir el verbo?"
+
+  - <<: *defaults
+    id: diag_v1.grammar.past_simple.irregular_verbs.02
+    skill: grammar.past_simple.irregular_verbs
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Completa con el verbo en pasado simple (afirmativo)."
+      sentence_en: "We ___ a great time at my cousin's wedding last Saturday."
+      verb_hint: "have"
+    answer:
+      subject: 1p
+      tense: past_simple
+      accepted: ["had"]
+      explanation_es: "Have es irregular: su pasado es had, igual para todas las personas. Last Saturday indica pasado terminado."
+      alternatives:
+        - answers: ["did have"]
+          verdict: less_natural
+          rule: style.emphatic_do
+          feedback_es: "«We did have a great time» es correcto, pero enfático («sí que la pasamos bien»). En una afirmación neutra decimos had."
+          retry_hint_es: "En una afirmación normal en pasado no hace falta auxiliar."
+        - answers: ["were having"]
+          verdict: partial
+          rule: task.tense_mismatch.past_continuous
+          feedback_es: "«We were having a great time» es inglés correcto (pasado continuo: estábamos pasándola bien en ese momento). La consigna pide pasado simple: had."
+          retry_hint_es: "La consigna pide pasado simple: una sola palabra, sin -ing."
+      distractors:
+        - answers: ["haved"]
+          rule: grammar.past_simple.irregular_form
+          feedback_es: "Buena idea usar pasado, pero have es irregular: no lleva -ed. Su pasado es had."
+          minimal_correction: "had"
+          retry_hint_es: "Have es un verbo irregular: su pasado es una palabra corta, sin -ed."
+        - answers: ["have", "has"]
+          rule: grammar.past_simple.missing_past
+          feedback_es: "Last Saturday es pasado, así que el verbo también va en pasado: had."
+          minimal_correction: "had"
+          retry_hint_es: "Last Saturday ya pasó. ¿Cuál es el pasado de have?"
+        - answers: ["did had"]
+          rule: grammar.past_simple.did_base_form
+          feedback_es: "Si usas did, el verbo va en base (did have), y en una afirmación neutra no hace falta did: had."
+          minimal_correction: "had"
+          retry_hint_es: "En una afirmación en pasado basta con una sola palabra."
+        - answers: ["was have", "were have"]
+          rule: grammar.past_simple.no_be_with_main_verb
+          feedback_es: "No combinamos was / were con un verbo normal. El pasado de have va solo: had."
+          minimal_correction: "had"
+          retry_hint_es: "En pasado simple afirmativo no hace falta was / were delante del verbo."
+
+  - <<: *defaults
+    id: diag_v1.grammar.past_simple.irregular_verbs.03
+    skill: grammar.past_simple.irregular_verbs
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 3
+    prompt:
+      instruction_es: "Completa con el verbo en pasado simple (afirmativo)."
+      sentence_en: "Our designer ___ a short video for the website last week."
+      verb_hint: "make"
+    answer:
+      subject: 3s
+      tense: past_simple
+      accepted: ["made"]
+      explanation_es: "Make es irregular: su pasado es made. Last week es un tiempo terminado → pasado simple."
+      alternatives:
+        - answers: ["did make"]
+          verdict: less_natural
+          rule: style.emphatic_do
+          feedback_es: "«Our designer did make a video» es correcto, pero enfático («sí que hizo»). En una afirmación neutra decimos made."
+          retry_hint_es: "En una afirmación normal en pasado no hace falta auxiliar."
+        - answers: ["was making"]
+          verdict: partial
+          rule: task.tense_mismatch.past_continuous
+          feedback_es: "«Was making» es inglés correcto (pasado continuo: estaba haciendo). La consigna pide pasado simple: made."
+          retry_hint_es: "La consigna pide pasado simple: una sola palabra, sin -ing."
+      distractors:
+        - answers: ["maked"]
+          rule: grammar.past_simple.irregular_form
+          feedback_es: "Buena idea usar pasado, pero make es irregular: no lleva -ed. Su pasado es made."
+          minimal_correction: "made"
+          retry_hint_es: "Make es un verbo irregular: su pasado no termina en -ed."
+        - answers: ["make", "makes"]
+          rule: grammar.past_simple.missing_past
+          feedback_es: "Last week es pasado, así que el verbo también va en pasado: made."
+          minimal_correction: "made"
+          retry_hint_es: "Last week ya pasó. ¿Cuál es el pasado de make?"
+        - answers: ["did made"]
+          rule: grammar.past_simple.did_base_form
+          feedback_es: "Si usas did, el verbo va en base (did make), y en una afirmación neutra no hace falta did: made."
+          minimal_correction: "made"
+          retry_hint_es: "En una afirmación en pasado basta con una sola palabra."
+        - answers: ["has made"]
+          rule: grammar.past_simple.finished_time_no_present_perfect
+          feedback_es: "Has made existe, pero no se usa con un tiempo terminado como last week. Ahí va pasado simple: made."
+          minimal_correction: "made"
+          retry_hint_es: "Last week es un momento terminado. ¿Qué tiempo verbal va con eso?"
+
+  # ───────────── grammar.past_simple.did_base_form ─────────────
+  - <<: *defaults
+    id: diag_v1.grammar.past_simple.did_base_form.01
+    skill: grammar.past_simple.did_base_form
+    type: choice
+    cefr_estimate: A1
+    difficulty: 2
+    prompt:
+      instruction_es: "Elige la pregunta correcta sobre ayer."
+      question_en: "Which question is correct?"
+      options:
+        - { id: a, text: "Do you go to the gym yesterday?" }
+        - { id: b, text: "Did you go to the gym yesterday?" }
+        - { id: c, text: "Went you to the gym yesterday?" }
+        - { id: d, text: "Were you go to the gym yesterday?" }
+    answer:
+      correct_option: b
+      explanation_es: "En pasado, las preguntas usan Did + sujeto + verbo base: Did you go…? El pasado lo marca did, por eso go no cambia."
+      option_feedback:
+        a:
+          rule: grammar.past_simple.did_for_past
+          feedback_es: "Buena estructura de pregunta, pero yesterday es pasado: el auxiliar debe ser Did, no Do."
+          retry_hint_es: "Yesterday ya pasó. ¿Cuál es el pasado del auxiliar do?"
+        c:
+          rule: grammar.past_simple.question_needs_did
+          feedback_es: "En inglés no basta con mover el verbo al inicio: la pregunta necesita un auxiliar. Did you go…?"
+          retry_hint_es: "Las preguntas con verbos normales empiezan con un auxiliar."
+        d:
+          rule: grammar.past_simple.no_be_with_main_verb
+          feedback_es: "Were no forma preguntas con un verbo normal como go. Usamos Did: Did you go…?"
+          retry_hint_es: "Con un verbo normal como go, el auxiliar de pasado no es were."
+
+  - <<: *defaults
+    id: diag_v1.grammar.past_simple.did_base_form.02
+    skill: grammar.past_simple.did_base_form
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Completa en negativo, en pasado simple, con el verbo finish."
+      sentence_en: "I ___ my homework last night because I was very tired."
+      verb_hint: "not / finish"
+    answer:
+      subject: 1s
+      polarity: negative
+      tense: past_simple
+      accepted: ["didn't finish"]
+      explanation_es: "En pasado, la negativa es didn't (did not) + verbo base. Did ya marca el pasado, así que finish queda sin -ed."
+      alternatives:
+        - answers: ["couldn't finish"]
+          verdict: partial
+          rule: task.structure_mismatch.modal
+          feedback_es: "«I couldn't finish» es correcto y muy natural (no pude terminar). La consigna pedía el pasado simple de finish, sin could: didn't finish."
+          retry_hint_es: "Usa el auxiliar del pasado simple, sin verbos como can / could."
+        - answers: ["hadn't finished"]
+          verdict: partial
+          rule: task.tense_mismatch.past_perfect
+          feedback_es: "«Hadn't finished» es pasado perfecto, inglés correcto. La consigna pedía pasado simple: didn't finish."
+          retry_hint_es: "La consigna pide pasado simple: auxiliar de pasado + not + verbo base."
+      distractors:
+        - answers: ["didn't finished"]
+          rule: grammar.past_simple.did_base_form
+          feedback_es: "¡Muy bien el didn't! Como didn't ya marca el pasado, el verbo va en base: finish, sin -ed."
+          minimal_correction: "didn't finish"
+          retry_hint_es: "El pasado ya está en el auxiliar. ¿Cómo queda el verbo después?"
+        - answers: ["don't finish", "doesn't finish"]
+          rule: grammar.past_simple.did_for_past
+          feedback_es: "Buena estructura negativa, pero last night es pasado: el auxiliar debe ser didn't."
+          minimal_correction: "didn't finish"
+          retry_hint_es: "Last night ya pasó. ¿Cuál es el pasado de don't?"
+        - answers: ["not finished", "no finished", "not finish", "no finish"]
+          rule: grammar.past_simple.negative_needs_auxiliary
+          feedback_es: "En inglés la negativa necesita un auxiliar antes de not. En pasado: didn't finish."
+          minimal_correction: "didn't finish"
+          retry_hint_es: "Falta una palabra auxiliar antes de not."
+        - answers: ["wasn't finish", "wasn't finished"]
+          rule: grammar.past_simple.no_be_with_main_verb
+          feedback_es: "Wasn't no se usa para negar un verbo normal como finish. Usamos didn't: didn't finish."
+          minimal_correction: "didn't finish"
+          retry_hint_es: "Para negar un verbo normal en pasado, el auxiliar no es was."
+
+  - <<: *defaults
+    id: diag_v1.grammar.past_simple.did_base_form.03
+    skill: grammar.past_simple.did_base_form
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 3
+    prompt:
+      instruction_es: "Completa la pregunta en pasado simple con el verbo go."
+      sentence_en: "Did Marta ___ to the meeting yesterday?"
+      verb_hint: "go"
+    answer:
+      subject: 3s
+      polarity: question
+      tense: past_simple
+      accepted: ["go"]
+      explanation_es: "Después de did el verbo siempre va en base: Did Marta go…? El pasado ya lo marca did."
+      distractors:
+        - answers: ["went"]
+          rule: grammar.past_simple.did_base_form
+          feedback_es: "Es un error muy común: como did ya marca el pasado, el verbo vuelve a la base. Did Marta go…?"
+          minimal_correction: "go"
+          retry_hint_es: "El pasado ya está en did. ¿Necesita el verbo marcarlo otra vez?"
+        - answers: ["goes"]
+          rule: grammar.do_does.base_form
+          feedback_es: "Después de did el verbo va en base, sin -s ni -es: go."
+          minimal_correction: "go"
+          retry_hint_es: "Después de un auxiliar, el verbo no lleva terminaciones."
+        - answers: ["gone"]
+          rule: grammar.past_simple.participle_instead_of_base
+          feedback_es: "Gone es el participio (para have gone). Después de did va la forma base: go."
+          minimal_correction: "go"
+          retry_hint_es: "Después de did usamos la forma más simple del verbo."
+        - answers: ["going"]
+          rule: grammar.past_simple.did_base_form
+          feedback_es: "Después de did no usamos -ing; el verbo va en base: go."
+          minimal_correction: "go"
+          retry_hint_es: "Después de did, el verbo va sin ninguna terminación."
+
+  # ───────────── grammar.future.will_base_form ─────────────
+  - <<: *defaults
+    id: diag_v1.grammar.future.will_base_form.01
+    skill: grammar.future.will_base_form
+    type: fill_blank
+    cefr_estimate: A1
+    difficulty: 2
+    prompt:
+      instruction_es: "Le haces una promesa a tu profesor. Completa con will + el verbo."
+      sentence_en: "I ___ harder for the next exam."
+      verb_hint: "study"
+    answer:
+      subject: 1s
+      tense: future_will
+      accepted: ["will study"]
+      explanation_es: "Para promesas usamos will + verbo base, sin to ni -ing: I will study (I'll study)."
+      alternatives:
+        - answers: ["am going to study"]
+          verdict: partial
+          rule: task.tense_mismatch.be_going_to
+          feedback_es: "«I'm going to study harder» es inglés correcto (un plan). La consigna pedía will, que es lo típico para una promesa: will study."
+          retry_hint_es: "La consigna pide will. ¿Cómo va el verbo después de will?"
+        - answers: ["am studying"]
+          verdict: partial
+          rule: task.tense_mismatch.present_continuous
+          feedback_es: "El presente continuo puede hablar de planes ya organizados, pero para una promesa usamos will: will study."
+          retry_hint_es: "Es una promesa y la consigna pide will."
+      distractors:
+        - answers: ["will studying"]
+          rule: grammar.future.will_no_ing
+          feedback_es: "¡Muy bien el will! Después de will el verbo va en base, sin -ing: will study."
+          minimal_correction: "will study"
+          retry_hint_es: "Después de will, el verbo va sin terminaciones."
+        - answers: ["will to study"]
+          rule: grammar.future.will_no_to
+          feedback_es: "Casi: después de will no va to. Es will + verbo base: will study."
+          minimal_correction: "will study"
+          retry_hint_es: "Revisa si entre will y el verbo hace falta otra palabra."
+        - answers: ["will studies"]
+          rule: grammar.future.will_no_s
+          feedback_es: "Después de will el verbo va en base, sin -s ni -es: will study."
+          minimal_correction: "will study"
+          retry_hint_es: "Después de will, el verbo va en su forma más simple."
+        - answers: ["study"]
+          rule: grammar.future.missing_will
+          feedback_es: "En español decimos «estudio más» como promesa, pero en inglés el presente no sirve aquí. Usamos will: will study."
+          minimal_correction: "will study"
+          retry_hint_es: "Es una promesa sobre el futuro. ¿Qué palabra falta delante del verbo?"
+
+  - <<: *defaults
+    id: diag_v1.grammar.future.will_base_form.02
+    skill: grammar.future.will_base_form
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 3
+    prompt:
+      instruction_es: "Un compañero te pregunta: «Can we talk about the budget today?». Decides en ese momento y respondes. Completa con will + el verbo."
+      sentence_en: "I ___ you in the lobby in ten minutes."
+      verb_hint: "meet"
+    answer:
+      subject: 1s
+      tense: future_will
+      accepted: ["will meet"]
+      explanation_es: "Para una decisión que tomas en el momento usamos will + verbo base: I will meet (I'll meet)."
+      alternatives:
+        - answers: ["am going to meet"]
+          verdict: partial
+          rule: task.tense_mismatch.be_going_to
+          feedback_es: "«I'm going to meet you» es inglés correcto, pero suena a plan decidido antes. Para una decisión del momento, la consigna pide will: will meet."
+          retry_hint_es: "Es una decisión de este momento y la consigna pide will."
+        - answers: ["am meeting"]
+          verdict: partial
+          rule: task.tense_mismatch.present_continuous
+          feedback_es: "«I'm meeting you» es inglés correcto para un plan ya acordado. Aquí decides en el momento, y la consigna pide will: will meet."
+          retry_hint_es: "Es una decisión de este momento y la consigna pide will."
+      distractors:
+        - answers: ["will meeting"]
+          rule: grammar.future.will_no_ing
+          feedback_es: "¡Muy bien el will! Después de will el verbo va en base, sin -ing: will meet."
+          minimal_correction: "will meet"
+          retry_hint_es: "Después de will, el verbo va sin terminaciones."
+        - answers: ["will to meet"]
+          rule: grammar.future.will_no_to
+          feedback_es: "Casi: después de will no va to. Es will + verbo base: will meet."
+          minimal_correction: "will meet"
+          retry_hint_es: "Revisa si entre will y el verbo hace falta otra palabra."
+        - answers: ["will meets"]
+          rule: grammar.future.will_no_s
+          feedback_es: "Después de will el verbo va en base, sin -s: will meet."
+          minimal_correction: "will meet"
+          retry_hint_es: "Después de will, el verbo va en su forma más simple."
+        - answers: ["meet"]
+          rule: grammar.future.missing_will
+          feedback_es: "En español decimos «te veo en diez minutos», pero en inglés aquí hace falta will: will meet."
+          minimal_correction: "will meet"
+          retry_hint_es: "Hablas del futuro. ¿Qué palabra falta delante del verbo?"
+        - answers: ["am meet"]
+          rule: grammar.present_simple.no_be_with_main_verb
+          feedback_es: "Am no acompaña a un verbo normal. Para esta decisión del momento usamos will: will meet."
+          minimal_correction: "will meet"
+          retry_hint_es: "La consigna pide will delante del verbo."
+
+  - <<: *defaults
+    id: diag_v1.grammar.future.will_base_form.03
+    skill: grammar.future.will_base_form
+    type: choice
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Elige la oración correcta. Es una predicción."
+      question_en: "Which sentence is correct?"
+      options:
+        - { id: a, text: "I think our app will gets more users next year." }
+        - { id: b, text: "I think our app will get more users next year." }
+        - { id: c, text: "I think our app will to get more users next year." }
+        - { id: d, text: "I think our app will getting more users next year." }
+    answer:
+      correct_option: b
+      explanation_es: "Para predicciones (I think…) usamos will + verbo base: will get. Después de will no va -s, to ni -ing."
+      option_feedback:
+        a:
+          rule: grammar.future.will_no_s
+          feedback_es: "Bien el will. Aunque el sujeto sea our app (it), después de will el verbo va en base, sin -s: will get."
+          retry_hint_es: "Después de will, ¿el verbo cambia según el sujeto?"
+        c:
+          rule: grammar.future.will_no_to
+          feedback_es: "Después de will no va to: will get."
+          retry_hint_es: "Revisa si entre will y el verbo hace falta otra palabra."
+        d:
+          rule: grammar.future.will_no_ing
+          feedback_es: "Después de will el verbo va en base, sin -ing: will get."
+          retry_hint_es: "Después de will, el verbo va sin terminaciones."
+
+  # ───────────── grammar.infinitive.want_to ─────────────
+  - <<: *defaults
+    id: diag_v1.grammar.infinitive.want_to.01
+    skill: grammar.infinitive.want_to
+    type: fill_blank
+    cefr_estimate: A1
+    difficulty: 1
+    prompt:
+      instruction_es: "Completa con la forma correcta del verbo learn después de want."
+      sentence_en: "I want ___ English for my job."
+      verb_hint: "learn"
+    answer:
+      subject: 1s
+      tense: infinitive
+      accepted: ["to learn"]
+      explanation_es: "Después de want usamos to + verbo base: I want to learn. En español «quiero aprender» no lleva nada en medio, pero en inglés to es obligatorio."
+      distractors:
+        - answers: ["learning"]
+          rule: grammar.infinitive.want_to_not_ing
+          feedback_es: "Es un error muy común: después de want no va -ing, sino to + verbo base: to learn."
+          minimal_correction: "to learn"
+          retry_hint_es: "Después de want, el verbo no lleva -ing. ¿Qué palabra va antes de él?"
+        - answers: ["learn"]
+          rule: grammar.infinitive.want_needs_to
+          feedback_es: "Casi: en inglés, después de want hace falta to: want to learn."
+          minimal_correction: "to learn"
+          retry_hint_es: "Entre want y el verbo falta una palabrita."
+        - answers: ["to learning"]
+          rule: grammar.infinitive.to_base_form
+          feedback_es: "¡Muy bien el to! Después de to el verbo va en base, sin -ing: to learn."
+          minimal_correction: "to learn"
+          retry_hint_es: "Después de to, el verbo va en su forma más simple."
+        - answers: ["for learn", "for learning"]
+          rule: grammar.infinitive.want_to_not_for
+          feedback_es: "Después de want no usamos for + verbo. Es want to + verbo base: to learn."
+          minimal_correction: "to learn"
+          retry_hint_es: "La palabra que va entre want y el verbo no es for."
+
+  - <<: *defaults
+    id: diag_v1.grammar.infinitive.want_to.02
+    skill: grammar.infinitive.want_to
+    type: choice
+    cefr_estimate: A2
+    difficulty: 3
+    prompt:
+      instruction_es: "Elige la oración correcta."
+      question_en: "Which sentence is correct?"
+      options:
+        - { id: a, text: "My boss wants that I finish the report today." }
+        - { id: b, text: "My boss wants me to finish the report today." }
+        - { id: c, text: "My boss wants me finish the report today." }
+        - { id: d, text: "My boss wants me finishing the report today." }
+    answer:
+      correct_option: b
+      explanation_es: "Para decir que alguien quiere que otra persona haga algo usamos want + persona + to + verbo base: wants me to finish."
+      option_feedback:
+        a:
+          rule: grammar.infinitive.want_object_to_not_that
+          feedback_es: "Es la traducción directa de «quiere que yo termine», pero en inglés want no va con that. Se dice wants me to finish."
+          retry_hint_es: "En inglés, want no va seguido de that + oración. Piensa en la estructura want + persona + …"
+        c:
+          rule: grammar.infinitive.want_needs_to
+          feedback_es: "Muy bien wants me. Solo falta to antes del verbo: wants me to finish."
+          retry_hint_es: "Entre me y el verbo falta una palabrita."
+        d:
+          rule: grammar.infinitive.want_to_not_ing
+          feedback_es: "Después de want + persona no usamos -ing, sino to + verbo base: wants me to finish."
+          retry_hint_es: "Después de want + persona, el verbo no lleva -ing."
+
+  # ───────────── vocabulary.everyday_numbers_time_dates ─────────────
+  - <<: *defaults
+    id: diag_v1.vocabulary.everyday_numbers_time_dates.01
+    skill: vocabulary.everyday_numbers_time_dates
+    type: choice
+    cefr_estimate: A1
+    difficulty: 1
+    prompt:
+      instruction_es: "Elige cómo se escribe el número en inglés."
+      question_en: "How do you write 13 in words?"
+      options:
+        - { id: a, text: "thirty" }
+        - { id: b, text: "thirteen" }
+        - { id: c, text: "threeteen" }
+        - { id: d, text: "three" }
+    answer:
+      correct_option: b
+      explanation_es: "13 = thirteen. Ojo: los números del 13 al 19 terminan en -teen (thirteen, fourteen…) y las decenas en -ty (thirty = 30)."
+      option_feedback:
+        a:
+          rule: vocabulary.numbers.teen_vs_ty
+          feedback_es: "Thirty es 30. Los números del 13 al 19 terminan en -teen: 13 = thirteen."
+          retry_hint_es: "Del 13 al 19, los números terminan en -teen; las decenas terminan en -ty."
+        c:
+          rule: vocabulary.numbers.irregular_spelling
+          feedback_es: "Buena idea usar -teen, pero 13 tiene una ortografía especial: thirteen (no three-)."
+          retry_hint_es: "El comienzo de 13 se escribe igual que el de 30 y el de third."
+        d:
+          rule: vocabulary.numbers.basic
+          feedback_es: "Three es 3. 13 es thirteen."
+          retry_hint_es: "Buscamos el número que va después de twelve."
+
+  - <<: *defaults
+    id: diag_v1.vocabulary.everyday_numbers_time_dates.02
+    skill: vocabulary.everyday_numbers_time_dates
+    type: choice
+    cefr_estimate: A1
+    difficulty: 2
+    prompt:
+      instruction_es: "Elige las preposiciones correctas para la hora y el día."
+      question_en: "My English class starts ___ 7 p.m. ___ Monday."
+      options:
+        - { id: a, text: "at / on" }
+        - { id: b, text: "in / on" }
+        - { id: c, text: "on / in" }
+        - { id: d, text: "at / in" }
+    answer:
+      correct_option: a
+      explanation_es: "Usamos at con horas (at 7 p.m.) y on con días (on Monday). In se usa con meses, años y partes del día (in May, in the morning)."
+      option_feedback:
+        b:
+          rule: vocabulary.prepositions_time.at_clock_time
+          feedback_es: "Bien el on Monday. Con una hora exacta usamos at: at 7 p.m."
+          retry_hint_es: "Revisa la preposición que va con una hora exacta."
+        c:
+          rule: vocabulary.prepositions_time.at_on_in
+          feedback_es: "Están al revés de lo que necesitamos: con horas va at (at 7 p.m.) y con días va on (on Monday)."
+          retry_hint_es: "Una preposición es para horas exactas y otra para días de la semana."
+        d:
+          rule: vocabulary.prepositions_time.on_days
+          feedback_es: "Bien el at 7 p.m. Con días de la semana usamos on: on Monday."
+          retry_hint_es: "Revisa la preposición que va con los días de la semana."
+
+  - <<: *defaults
+    id: diag_v1.vocabulary.everyday_numbers_time_dates.03
+    skill: vocabulary.everyday_numbers_time_dates
+    type: choice
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Elige la palabra que completa la fecha."
+      question_en: "Our company party is on the ___ of June."
+      options:
+        - { id: a, text: "three" }
+        - { id: b, text: "third" }
+        - { id: c, text: "threeth" }
+        - { id: d, text: "thirty" }
+    answer:
+      correct_option: b
+      explanation_es: "En las fechas usamos números ordinales: the third of June (3 de junio). En inglés americano también se escribe June 3 y se dice «June third»."
+      option_feedback:
+        a:
+          rule: vocabulary.dates.ordinal_numbers
+          feedback_es: "En español decimos «el tres de junio», pero en inglés las fechas usan ordinales: the third of June."
+          retry_hint_es: "En inglés, las fechas usan números de orden (primero, segundo, tercero…)."
+        c:
+          rule: vocabulary.dates.irregular_ordinals
+          feedback_es: "Buena idea usar un ordinal. Pero 3 es irregular: third (como first y second)."
+          retry_hint_es: "El ordinal de 3 es irregular, como el de 1 y el de 2."
+        d:
+          rule: vocabulary.numbers.teen_vs_ty
+          feedback_es: "Thirty es 30 y no es ordinal. Para una fecha usamos ordinales: the third of June."
+          retry_hint_es: "Las fechas usan números de orden, no números normales."
+
+  # ───────────── vocabulary.work_study_technology_startups ─────────────
+  - <<: *defaults
+    id: diag_v1.vocabulary.work_study_technology_startups.01
+    skill: vocabulary.work_study_technology_startups
+    type: choice
+    cefr_estimate: A1
+    difficulty: 1
+    prompt:
+      instruction_es: "Elige la palabra que completa la oración."
+      question_en: "Maria writes code and builds apps. She is a ___."
+      options:
+        - { id: a, text: "developer" }
+        - { id: b, text: "receptionist" }
+        - { id: c, text: "lawyer" }
+        - { id: d, text: "salesperson" }
+    answer:
+      correct_option: a
+      explanation_es: "A developer escribe código y crea programas o apps (desarrolladora)."
+      option_feedback:
+        b:
+          rule: vocabulary.work.job_titles
+          feedback_es: "A receptionist recibe a las personas en una oficina o un hotel. Quien escribe código es a developer."
+          retry_hint_es: "Busca la profesión de quien escribe código."
+        c:
+          rule: vocabulary.work.job_titles
+          feedback_es: "A lawyer es abogado o abogada. Quien escribe código es a developer."
+          retry_hint_es: "Busca la profesión de quien escribe código."
+        d:
+          rule: vocabulary.work.job_titles
+          feedback_es: "A salesperson vende productos. Quien escribe código es a developer."
+          retry_hint_es: "Busca la profesión de quien escribe código."
+
+  - <<: *defaults
+    id: diag_v1.vocabulary.work_study_technology_startups.02
+    skill: vocabulary.work_study_technology_startups
+    type: choice
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Elige la palabra que completa la oración."
+      question_en: "Our startup needs money to grow. Next week we are meeting with two ___ who might put $50,000 into the company."
+      options:
+        - { id: a, text: "investors" }
+        - { id: b, text: "employees" }
+        - { id: c, text: "users" }
+        - { id: d, text: "competitors" }
+    answer:
+      correct_option: a
+      explanation_es: "Investors (inversionistas) ponen dinero en una empresa para que crezca, a cambio de una parte del negocio."
+      option_feedback:
+        b:
+          rule: vocabulary.startups.investors
+          feedback_es: "Employees son los trabajadores de la empresa; reciben dinero, no lo ponen. Quienes ponen dinero son investors."
+          retry_hint_es: "Busca a las personas que ponen dinero en una empresa."
+        c:
+          rule: vocabulary.startups.investors
+          feedback_es: "Users son las personas que usan el producto. Quienes ponen dinero en la empresa para que crezca son investors."
+          retry_hint_es: "Busca a las personas que ponen dinero en una empresa."
+        d:
+          rule: vocabulary.startups.investors
+          feedback_es: "Competitors son otras empresas que venden algo parecido (la competencia). Quienes ponen dinero son investors."
+          retry_hint_es: "Busca a las personas que ponen dinero en una empresa."
+
+  # ═════════════════════════ Bloque 2 · Lectura ═════════════════════════
+  # El mismo texto se repite en los 3 ítems para que cada uno sea autocontenido.
+
+  - <<: *defaults
+    id: diag_v1.reading.main_idea.01
+    skill: reading.main_idea
+    type: choice
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Lee el texto y responde. Puedes volver a leerlo las veces que quieras."
+      passage_title_en: "Bread Before 9"
+      passage_en: "Sofia works at a small bakery in Trujillo. Every morning, many customers wait in a long line to buy fresh bread. Last year, Sofia and her friend Mateo had an idea: a simple app for ordering bread before you arrive. Mateo is a developer, so he built the app in the evenings after work. Now customers order on their phones and pick up their bread at the counter. They don't wait in line anymore, and the bakery sells more bread before 9 a.m. The app is still small. It has about 400 users, and it isn't available in other cities yet. Sofia and Mateo don't make much money from it, but they are happy with the results. Next year, they want to add delivery and work with two more bakeries."
+      question_en: "What is the text mainly about?"
+      options:
+        - { id: a, text: "A bakery app that helps customers buy bread without waiting in line" }
+        - { id: b, text: "How Sofia makes fresh bread every morning" }
+        - { id: c, text: "Why Mateo wants a job at a bigger company" }
+        - { id: d, text: "A plan to open new bakeries in other cities" }
+    answer:
+      correct_option: a
+      explanation_es: "Todo el texto gira en torno a la app: por qué la crearon (las colas), cómo funciona, cuántos usuarios tiene y sus planes."
+      option_feedback:
+        b:
+          rule: reading.main_idea.detail_not_topic
+          feedback_es: "El texto menciona pan fresco, pero no explica cómo se hace. Habla sobre todo de la app para pedir pan."
+          retry_hint_es: "Piensa en qué tema aparece en casi todas las oraciones del texto."
+        c:
+          rule: reading.main_idea.not_in_text
+          feedback_es: "El texto no dice que Mateo quiera otro trabajo; solo que construyó la app después de su trabajo."
+          retry_hint_es: "Busca la opción que resume todo el texto, no un dato que no aparece."
+        d:
+          rule: reading.main_idea.misread_detail
+          feedback_es: "El texto dice que la app aún no está en otras ciudades y que quieren trabajar con dos panaderías más, no abrir panaderías nuevas. El tema principal es la app."
+          retry_hint_es: "Vuelve a leer el final del texto con calma y piensa en el tema de todo el texto."
+
+  - <<: *defaults
+    id: diag_v1.reading.specific_information.01
+    skill: reading.specific_information
+    type: choice
+    cefr_estimate: A2
+    difficulty: 1
+    prompt:
+      instruction_es: "Lee el texto y responde. Puedes volver a leerlo las veces que quieras."
+      passage_title_en: "Bread Before 9"
+      passage_en: "Sofia works at a small bakery in Trujillo. Every morning, many customers wait in a long line to buy fresh bread. Last year, Sofia and her friend Mateo had an idea: a simple app for ordering bread before you arrive. Mateo is a developer, so he built the app in the evenings after work. Now customers order on their phones and pick up their bread at the counter. They don't wait in line anymore, and the bakery sells more bread before 9 a.m. The app is still small. It has about 400 users, and it isn't available in other cities yet. Sofia and Mateo don't make much money from it, but they are happy with the results. Next year, they want to add delivery and work with two more bakeries."
+      question_en: "How many users does the app have?"
+      options:
+        - { id: a, text: "About 40" }
+        - { id: b, text: "About 400" }
+        - { id: c, text: "About 4,000" }
+        - { id: d, text: "About 9" }
+    answer:
+      correct_option: b
+      explanation_es: "El texto dice: «It has about 400 users» (four hundred = cuatrocientos)."
+      option_feedback:
+        a:
+          rule: reading.specific_information.numbers
+          feedback_es: "El texto dice about 400 users (four hundred). Forty sería 40."
+          retry_hint_es: "Busca la palabra users en el texto y lee el número que va antes."
+        c:
+          rule: reading.specific_information.numbers
+          feedback_es: "El texto dice about 400 users (four hundred), no four thousand."
+          retry_hint_es: "Busca la palabra users en el texto y lee el número que va antes."
+        d:
+          rule: reading.specific_information.wrong_detail
+          feedback_es: "El 9 del texto es una hora (before 9 a.m.), no la cantidad de usuarios. La app tiene about 400 users."
+          retry_hint_es: "Hay dos números en el texto. ¿Cuál va junto a la palabra users?"
+
+  - <<: *defaults
+    id: diag_v1.reading.specific_information.02
+    skill: reading.specific_information
+    type: choice
+    cefr_estimate: A2
+    difficulty: 3
+    prompt:
+      instruction_es: "Lee el texto y responde. Puedes volver a leerlo las veces que quieras."
+      passage_title_en: "Bread Before 9"
+      passage_en: "Sofia works at a small bakery in Trujillo. Every morning, many customers wait in a long line to buy fresh bread. Last year, Sofia and her friend Mateo had an idea: a simple app for ordering bread before you arrive. Mateo is a developer, so he built the app in the evenings after work. Now customers order on their phones and pick up their bread at the counter. They don't wait in line anymore, and the bakery sells more bread before 9 a.m. The app is still small. It has about 400 users, and it isn't available in other cities yet. Sofia and Mateo don't make much money from it, but they are happy with the results. Next year, they want to add delivery and work with two more bakeries."
+      question_en: "According to the text, which sentence is true now?"
+      options:
+        - { id: a, text: "The app is available in many cities." }
+        - { id: b, text: "Customers don't wait in line anymore." }
+        - { id: c, text: "Sofia and Mateo make a lot of money from the app." }
+        - { id: d, text: "The app has a delivery service." }
+    answer:
+      correct_option: b
+      explanation_es: "El texto dice: «They don't wait in line anymore» (ya no hacen cola). Not anymore = ya no."
+      option_feedback:
+        a:
+          rule: reading.specific_information.negation
+          feedback_es: "El texto dice lo contrario: «it isn't available in other cities yet» (todavía no está en otras ciudades)."
+          retry_hint_es: "Busca la palabra cities en el texto y fíjate si la oración es afirmativa o negativa."
+        c:
+          rule: reading.specific_information.negation
+          feedback_es: "El texto dice lo contrario: «Sofia and Mateo don't make much money from it» (no ganan mucho dinero)."
+          retry_hint_es: "Busca la palabra money en el texto y fíjate si hay un not (don't)."
+        d:
+          rule: reading.specific_information.time_reference
+          feedback_es: "El delivery es un plan para next year (el próximo año); todavía no existe."
+          retry_hint_es: "Busca la palabra delivery y fíjate si habla del presente o del futuro."
+
+  # ═════════════════════════ Bloque 3 · Escritura ═════════════════════════
+
+  - <<: *defaults
+    id: diag_v1.writing.task_fulfillment.01
+    skill: writing.task_fulfillment
+    type: open_response
+    rubric_version: writing_v1
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Escritura libre, sin diccionario ni traductor. Escribe en inglés como puedas, entre 30 y 90 palabras. Ahora no corregimos nada: solo queremos ver cómo escribes hoy para armar tu plan."
+      task_en: "Describe a typical weekday in your life. What time do you get up? What do you do in the morning, in the afternoon, and in the evening? When do you work or study?"
+      min_words: 30
+      max_words: 90
+    answer:
+      rubric: writing_v1
+      expected_level: A2
+      focus_skills:
+        - writing.task_fulfillment
+        - writing.accuracy
+        - writing.coherence
+        - writing.range
+        - grammar.present_simple.subject_verb_agreement
+        - vocabulary.everyday_numbers_time_dates
+        - vocabulary.work_study_technology_startups
+      reviewer_notes_es: "Cumple la tarea si describe un día de semana habitual (no un día concreto del pasado) con al menos tres momentos o actividades en orden (mañana, tarde, noche) e incluye cuándo trabaja o estudia. Lo esperable en A2: presente simple para rutinas (I get up, I work, I study), al menos una hora (at 7 a.m.) o expresión de tiempo (in the morning, after lunch), adverbios de frecuencia (usually, always) y conectores básicos (and, then, after that, because). Evidencia útil para el plan: -s en 3.ª persona si menciona a otras personas, preposiciones de tiempo (at / on / in) y uso de am / is / are con verbos normales (✗ I am work). Si escribe en pasado sobre «ayer», la tarea se cumple solo parcialmente. No penalizar ortografía que no impide entender."
+
+  - <<: *defaults
+    id: diag_v1.writing.task_fulfillment.02
+    skill: writing.task_fulfillment
+    type: open_response
+    rubric_version: writing_v1
+    cefr_estimate: A2
+    difficulty: 3
+    prompt:
+      instruction_es: "Escritura libre, sin diccionario ni traductor. Escribe en inglés como puedas, entre 30 y 90 palabras. Ahora no corregimos nada: solo queremos ver cómo escribes hoy para armar tu plan."
+      task_en: "Write a short message to a friend about your plans for next weekend. Say what you are going to do, where, and with whom. Invite your friend to join you for one activity."
+      min_words: 30
+      max_words: 90
+    answer:
+      rubric: writing_v1
+      expected_level: A2
+      focus_skills:
+        - writing.task_fulfillment
+        - writing.accuracy
+        - writing.coherence
+        - writing.range
+        - grammar.future.be_going_to
+        - grammar.future.will_base_form
+        - grammar.present_continuous.auxiliary_be_ing
+        - grammar.infinitive.want_to
+      reviewer_notes_es: "Cumple la tarea si tiene forma de mensaje a un amigo (saludo y/o despedida informal), cuenta al menos dos planes para el próximo fin de semana con algún detalle de lugar o compañía, e incluye una invitación clara (Do you want to come…? / Would you like to…? / Let's…). Lo esperable en A2: futuro con be going to, will o presente continuo para planes (I'm going to visit, I'm meeting), want to + verbo base, expresiones de tiempo (on Saturday, in the afternoon) y conectores (and, then, but, because). Evidencia útil para el plan: errores como will + -ing / will to, want + -ing, falta de am / is / are en going to. Si no hay invitación o habla del fin de semana pasado, la tarea se cumple solo parcialmente. No penalizar ortografía que no impide entender."

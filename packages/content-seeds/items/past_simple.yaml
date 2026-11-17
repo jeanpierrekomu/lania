@@ -1,0 +1,669 @@
+# Banco semilla — pasado simple: did / didn't + verbo base (grammar_closed_v1)
+# Contenido ORIGINAL escrito para el piloto. review_status: pilot = usable en piloto privado,
+# PENDIENTE de revisión por docente de inglés (spec §12.4). No es material del ICPNA.
+#
+# Formato (ADR-004): ver items/present_simple.yaml.
+# Todos los fill_blank llevan tense: past_simple → los diagnósticos genéricos del presente simple
+# NO se aplican; por eso cada error esperable está declarado como distractor.
+
+defaults: &defaults
+  version: 1
+  skill: grammar.past_simple.did_base_form
+  pool: practice
+  rubric_version: grammar_closed_v1
+  license: original
+  review_status: pilot
+
+items:
+  # ───────────── Lección: past-simple-did ─────────────
+  - <<: *defaults
+    id: grammar.past_simple.did.001
+    type: choice
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Elige la oración correcta. Sin pistas: queremos ver qué recuerdas."
+      question_en: "Which sentence is correct?"
+      options:
+        - { id: a, text: "I didn't finished the report yesterday." }
+        - { id: b, text: "I didn't finish the report yesterday." }
+        - { id: c, text: "I not finished the report yesterday." }
+        - { id: d, text: "I don't finished the report yesterday." }
+      hint_es: "En la negativa del pasado, ¿cuántas veces marcamos el pasado?"
+    answer:
+      correct_option: b
+      explanation_es: "En la negativa del pasado, did ya lleva el pasado; por eso el verbo queda en forma base: didn't finish."
+      option_feedback:
+        a:
+          rule: grammar.past_simple.did_base_form
+          feedback_es: "Casi. El pasado ya está en didn't; si también pones finished, lo marcas dos veces. Después de didn't va el verbo base: finish."
+          retry_hint_es: "Mira el verbo que va después de didn't: ¿necesita -ed si didn't ya indica pasado?"
+        c:
+          rule: grammar.past_simple.negative_needs_did
+          feedback_es: "En español basta con «no», pero en inglés la negativa necesita un auxiliar antes de not. En pasado: didn't + verbo base."
+          retry_hint_es: "En inglés, not casi nunca va solo delante de un verbo normal. ¿Qué auxiliar falta?"
+        d:
+          rule: grammar.past_simple.did_for_past
+          feedback_es: "Don't es del presente. Yesterday pide pasado, y el pasado de don't es didn't. Además, después del auxiliar va el verbo base."
+          retry_hint_es: "Yesterday indica pasado. ¿Qué forma tiene el auxiliar do en pasado?"
+
+  - <<: *defaults
+    id: grammar.past_simple.did.002
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Hablas de la hackathon del sábado pasado. Completa en negativo, en pasado simple, con did + not."
+      sentence_en: "Our team ___ the demo on time last Saturday."
+      verb_hint: "not / finish"
+      hint_es: "En la negativa del pasado, el pasado lo lleva el auxiliar, no el verbo."
+    answer:
+      subject: 3s
+      polarity: negative
+      tense: past_simple
+      verb: { base: finish, third: finishes, ing: finishing }
+      accepted: ["didn't finish"]
+      explanation_es: "Last Saturday pide pasado. La negativa es didn't (did not) + verbo base: didn't finish. El pasado ya está en did, así que finish no lleva -ed."
+      alternatives:
+        - answers: ["couldn't finish"]
+          verdict: partial
+          rule: task.form_mismatch.modal
+          feedback_es: "«Our team couldn't finish the demo» es inglés correcto («no pudo terminar»), pero la consigna pedía did + not: didn't finish."
+          retry_hint_es: "La consigna pide el auxiliar del pasado simple, no un verbo como could."
+      distractors:
+        - answers: ["didn't finished"]
+          rule: grammar.past_simple.did_base_form
+          feedback_es: "Muy bien el didn't. Solo un detalle: el pasado ya está en did, así que el verbo va en base, sin -ed."
+          minimal_correction: "didn't finish"
+          retry_hint_es: "Revisa el verbo después de didn't: ¿hace falta marcar el pasado dos veces?"
+        - answers: ["didn't finishing", "didn't finishes"]
+          rule: grammar.past_simple.did_base_form
+          feedback_es: "Buen auxiliar. Después de didn't el verbo va en su forma base, sin -ing ni -es."
+          minimal_correction: "didn't finish"
+          retry_hint_es: "Después de didn't, el verbo va tal como aparece en el diccionario."
+        - answers: ["not finished", "no finished", "not finish", "no finish"]
+          rule: grammar.past_simple.negative_needs_did
+          feedback_es: "En español decimos «no terminó», pero en inglés la negativa necesita un auxiliar antes de not. En pasado: didn't finish."
+          minimal_correction: "didn't finish"
+          retry_hint_es: "Falta una palabra antes de not. ¿Cuál es el auxiliar del pasado?"
+        - answers: ["doesn't finish", "don't finish"]
+          rule: grammar.past_simple.did_for_past
+          feedback_es: "Buena estructura de negativa, pero en presente. Last Saturday pide pasado: didn't finish."
+          minimal_correction: "didn't finish"
+          retry_hint_es: "Fíjate en last Saturday. ¿El auxiliar está en presente o en pasado?"
+        - answers: ["wasn't finish", "wasn't finished", "weren't finish"]
+          rule: grammar.past_simple.no_be_with_main_verb
+          feedback_es: "Wasn't no forma la negativa de un verbo normal como finish (es como decir «no fue terminó»). Usamos didn't + verbo base."
+          minimal_correction: "didn't finish"
+          retry_hint_es: "Con un verbo normal no usamos was/were para negar. ¿Qué auxiliar usamos?"
+        - answers: ["hasn't finished", "haven't finished"]
+          rule: grammar.past_simple.finished_time_marker
+          feedback_es: "El presente perfecto no se usa con un tiempo terminado como last Saturday. Aquí va pasado simple: didn't finish."
+          minimal_correction: "didn't finish"
+          retry_hint_es: "Last Saturday ya terminó. ¿Qué tiempo verbal usamos con un momento terminado?"
+
+  - <<: *defaults
+    id: grammar.past_simple.did.003
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Completa la pregunta en pasado simple con el verbo go."
+      sentence_en: "Did you ___ to Cusco on your last vacation?"
+      verb_hint: "go"
+      hint_es: "La pregunta ya empieza con Did. ¿Hace falta marcar el pasado otra vez?"
+    answer:
+      subject: 2s
+      polarity: question
+      tense: past_simple
+      verb: { base: go, third: goes, ing: going }
+      accepted: ["go"]
+      explanation_es: "En preguntas del pasado, Did lleva el pasado y el verbo queda en base: Did you go…?"
+      distractors:
+        - answers: ["went"]
+          rule: grammar.past_simple.did_base_form
+          feedback_es: "Went es el pasado de go y es correcto en afirmativas (I went). Pero después de Did el verbo vuelve a su forma base: Did you go?"
+          minimal_correction: "go"
+          retry_hint_es: "Did ya marca el pasado. ¿Qué forma del verbo va después?"
+        - answers: ["gone"]
+          rule: grammar.past_simple.did_base_form
+          feedback_es: "Gone es participio (se usa con have: have gone). Después de Did va el verbo base: go."
+          minimal_correction: "go"
+          retry_hint_es: "Después de Did no usamos participio. Busca la forma más simple del verbo."
+        - answers: ["going", "goes"]
+          rule: grammar.past_simple.did_base_form
+          feedback_es: "Después de Did el verbo va en base, sin -ing ni -es: Did you go?"
+          minimal_correction: "go"
+          retry_hint_es: "Después de Did, el verbo va tal como aparece en el diccionario."
+
+  - <<: *defaults
+    id: grammar.past_simple.did.004
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Completa la pregunta con el auxiliar correcto. Es una pregunta sobre el pasado."
+      sentence_en: "___ you study for the exam yesterday?"
+      hint_es: "Mira la palabra yesterday y el verbo study, que está en forma base."
+    answer:
+      subject: 2s
+      polarity: question
+      tense: past_simple
+      accepted: ["did"]
+      explanation_es: "Yesterday pide pasado y study es un verbo normal, así que la pregunta empieza con Did: Did you study…?"
+      distractors:
+        - answers: ["do"]
+          rule: grammar.past_simple.did_for_past
+          feedback_es: "Do es para preguntas en presente. Con yesterday necesitamos el pasado: Did."
+          minimal_correction: "Did"
+          retry_hint_es: "Fíjate en yesterday. ¿Cuál es el pasado de do?"
+        - answers: ["does"]
+          rule: grammar.past_simple.did_for_past
+          feedback_es: "Does es presente y además es para he / she / it. Con yesterday y you: Did."
+          minimal_correction: "Did"
+          retry_hint_es: "Yesterday indica pasado. El auxiliar del pasado es igual para todos los sujetos."
+        - answers: ["were", "was"]
+          rule: grammar.past_simple.no_be_with_main_verb
+          feedback_es: "Este es el clásico «Were you study?». Were no forma preguntas con un verbo normal como study. Usamos Did: Did you study…?"
+          minimal_correction: "Did"
+          retry_hint_es: "Was/were no acompañan a un verbo normal en forma base. ¿Qué auxiliar sí lo hace?"
+        - answers: ["are"]
+          rule: grammar.past_simple.no_be_with_main_verb
+          feedback_es: "«Are you study yesterday?» mezcla dos errores: are es presente y no acompaña a un verbo normal. Usamos Did."
+          minimal_correction: "Did"
+          retry_hint_es: "Busca el auxiliar que acompaña a verbos normales y que además está en pasado."
+        - answers: ["have"]
+          rule: grammar.past_simple.finished_time_marker
+          feedback_es: "Have no va con study en forma base ni con yesterday. Para preguntar por un momento terminado: Did."
+          minimal_correction: "Did"
+          retry_hint_es: "Yesterday es un tiempo terminado. ¿Qué auxiliar usa el pasado simple?"
+
+  - <<: *defaults
+    id: grammar.past_simple.did.005
+    type: choice
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Tu jefa te pregunta por un informe. Elige la respuesta corta correcta."
+      question_en: "“Did you finish the report?” — “Yes, I ___.”"
+      options:
+        - { id: a, text: "do" }
+        - { id: b, text: "was" }
+        - { id: c, text: "did" }
+        - { id: d, text: "done" }
+      hint_es: "En la respuesta corta repetimos el mismo auxiliar de la pregunta."
+    answer:
+      correct_option: c
+      explanation_es: "La respuesta corta repite el auxiliar de la pregunta: Did you…? → Yes, I did. / No, I didn't."
+      option_feedback:
+        a:
+          rule: grammar.past_simple.short_answer_auxiliary
+          feedback_es: "Do es del presente. La pregunta usa Did, así que la respuesta corta es Yes, I did."
+          retry_hint_es: "Mira con qué palabra empieza la pregunta y repítela."
+        b:
+          rule: grammar.past_simple.short_answer_auxiliary
+          feedback_es: "Was respondería a una pregunta con Were you…?. Esta pregunta usa Did: Yes, I did."
+          retry_hint_es: "La respuesta corta usa el mismo auxiliar que la pregunta."
+        d:
+          rule: grammar.past_simple.short_answer_auxiliary
+          feedback_es: "Done es participio y no funciona solo como respuesta corta. Repetimos el auxiliar de la pregunta: Yes, I did."
+          retry_hint_es: "No necesitas el verbo principal: solo el auxiliar de la pregunta."
+
+  - <<: *defaults
+    id: grammar.past_simple.did.006
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 3
+    prompt:
+      instruction_es: "Completa en afirmativo, en pasado simple. Compara con la primera parte de la oración."
+      sentence_en: "On Saturday I didn't go to the party, but I ___ to the movies."
+      verb_hint: "go"
+      hint_es: "En la parte negativa el pasado está en didn't. En la afirmativa no hay auxiliar: ¿dónde va el pasado?"
+    answer:
+      subject: 1s
+      polarity: affirmative
+      tense: past_simple
+      verb: { base: go, third: goes, ing: going }
+      accepted: ["went"]
+      explanation_es: "En la negativa el pasado lo lleva didn't (didn't go). En la afirmativa no hay auxiliar, así que el verbo mismo va en pasado. Go es irregular: went."
+      alternatives:
+        - answers: ["did go"]
+          verdict: less_natural
+          rule: style.emphatic_did
+          feedback_es: "«I did go to the movies» es correcto y aquí suena a contraste enfático («pero al cine sí fui»). En una afirmación neutra decimos went."
+        - answers: ["was going"]
+          verdict: partial
+          rule: task.tense_mismatch.past_continuous
+          feedback_es: "«I was going to the movies» es inglés correcto, pero es pasado continuo («iba al cine»). La consigna pedía pasado simple: went."
+          retry_hint_es: "La consigna pide pasado simple: un solo verbo, sin was."
+      distractors:
+        - answers: ["go"]
+          rule: grammar.past_simple.affirmative_needs_past
+          feedback_es: "Después de didn't usamos go, pero en una afirmativa no hay didn't: el verbo mismo va en pasado. Go es irregular: went."
+          minimal_correction: "went"
+          retry_hint_es: "Aquí no hay auxiliar. ¿Cuál es el pasado de go? Ojo: es irregular."
+        - answers: ["goed"]
+          rule: grammar.past_simple.irregular_form
+          feedback_es: "Bien pensado: el pasado regular lleva -ed. Pero go es irregular: su pasado es went."
+          minimal_correction: "went"
+          retry_hint_es: "Go es un verbo irregular: su pasado no termina en -ed."
+        - answers: ["gone"]
+          rule: grammar.past_simple.irregular_form
+          feedback_es: "Gone es participio (se usa con have). El pasado simple de go es went."
+          minimal_correction: "went"
+          retry_hint_es: "Gone necesita have delante. Busca la forma del pasado simple."
+        - answers: ["did went"]
+          rule: grammar.past_simple.did_base_form
+          feedback_es: "Aquí sobra did. En una afirmación basta con el verbo en pasado: went."
+          minimal_correction: "went"
+          retry_hint_es: "En la afirmativa neutra no hace falta auxiliar. ¿Qué palabra sobra?"
+        - answers: ["was go", "was went"]
+          rule: grammar.past_simple.no_be_with_main_verb
+          feedback_es: "Was no acompaña a un verbo normal (es como decir «fue fui»). Solo el verbo en pasado: went."
+          minimal_correction: "went"
+          retry_hint_es: "Sobra una palabra: el pasado simple afirmativo es un solo verbo."
+        - answers: ["have gone"]
+          rule: grammar.past_simple.finished_time_marker
+          feedback_es: "El presente perfecto no se usa con un tiempo terminado como on Saturday. Aquí va pasado simple: went."
+          minimal_correction: "went"
+          retry_hint_es: "On Saturday ya terminó. ¿Qué tiempo verbal usamos?"
+
+  # ───────────── Banco para repaso (ítems distintos a la lección) ─────────────
+  - <<: *defaults
+    id: grammar.past_simple.did.007
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Completa en negativo, en pasado simple, con did + not."
+      sentence_en: "Sofía ___ English last night because she was tired."
+      verb_hint: "not / study"
+      hint_es: "Last night pide pasado. ¿Dónde va el pasado en la negativa?"
+    answer:
+      subject: 3s
+      polarity: negative
+      tense: past_simple
+      verb: { base: study, third: studies, ing: studying }
+      accepted: ["didn't study"]
+      explanation_es: "La negativa del pasado es didn't + verbo base para todos los sujetos: Sofía didn't study."
+      alternatives:
+        - answers: ["wasn't studying"]
+          verdict: partial
+          rule: task.tense_mismatch.past_continuous
+          feedback_es: "«Sofía wasn't studying» es inglés correcto (pasado continuo: «no estaba estudiando»), pero la consigna pedía pasado simple con did: didn't study."
+          retry_hint_es: "La consigna pide did + not + verbo base."
+        - answers: ["couldn't study"]
+          verdict: partial
+          rule: task.form_mismatch.modal
+          feedback_es: "«Sofía couldn't study» es inglés correcto («no pudo estudiar»), pero la consigna pedía did + not: didn't study."
+          retry_hint_es: "La consigna pide el auxiliar del pasado simple, no could."
+      distractors:
+        - answers: ["didn't studied", "didn't studies"]
+          rule: grammar.past_simple.did_base_form
+          feedback_es: "Muy bien el didn't. Después de didn't el verbo va en base, sin -ed ni -s: study."
+          minimal_correction: "didn't study"
+          retry_hint_es: "Después de didn't, el verbo va tal como aparece en el diccionario."
+        - answers: ["not studied", "no studied", "not study", "no study"]
+          rule: grammar.past_simple.negative_needs_did
+          feedback_es: "En inglés la negativa necesita un auxiliar antes de not. En pasado: didn't study."
+          minimal_correction: "didn't study"
+          retry_hint_es: "Falta el auxiliar antes de not. ¿Cuál es el del pasado?"
+        - answers: ["doesn't study", "don't study"]
+          rule: grammar.past_simple.did_for_past
+          feedback_es: "Esa negativa es del presente. Last night pide pasado: didn't study."
+          minimal_correction: "didn't study"
+          retry_hint_es: "Fíjate en last night. ¿El auxiliar está en presente o en pasado?"
+        - answers: ["wasn't study", "wasn't studied"]
+          rule: grammar.past_simple.no_be_with_main_verb
+          feedback_es: "Wasn't no niega un verbo normal como study. Usamos didn't + verbo base."
+          minimal_correction: "didn't study"
+          retry_hint_es: "Con un verbo normal no usamos was para negar. ¿Qué auxiliar usamos?"
+        - answers: ["hasn't studied"]
+          rule: grammar.past_simple.finished_time_marker
+          feedback_es: "El presente perfecto no va con last night, que es un tiempo terminado. Aquí: didn't study."
+          minimal_correction: "didn't study"
+          retry_hint_es: "Last night ya terminó. ¿Qué tiempo verbal corresponde?"
+
+  - <<: *defaults
+    id: grammar.past_simple.did.008
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 3
+    prompt:
+      instruction_es: "Escribe el inicio de la pregunta en pasado simple: auxiliar + you + verbo."
+      sentence_en: "___ the bug yesterday afternoon?"
+      verb_hint: "you / fix"
+      hint_es: "Una pregunta en pasado empieza con el auxiliar del pasado, y el verbo queda en base."
+    answer:
+      subject: 2s
+      polarity: question
+      tense: past_simple
+      verb: { base: fix, third: fixes, ing: fixing }
+      accepted: ["Did you fix"]
+      explanation_es: "Pregunta en pasado: Did + sujeto + verbo base. El pasado ya está en Did, así que fix no lleva -ed: Did you fix the bug…?"
+      alternatives:
+        - answers: ["You fixed"]
+          verdict: partial
+          rule: task.question_form.declarative
+          feedback_es: "«You fixed the bug yesterday afternoon?» se escucha en conversación, con entonación de pregunta, pero suena a sorpresa o confirmación. La consigna pedía la pregunta con auxiliar: Did you fix…?"
+          retry_hint_es: "La consigna pide empezar con el auxiliar del pasado."
+      distractors:
+        - answers: ["Did you fixed"]
+          rule: grammar.past_simple.did_base_form
+          feedback_es: "Muy bien el orden. Solo el verbo: después de Did va la forma base, sin -ed."
+          minimal_correction: "Did you fix"
+          retry_hint_es: "Did ya marca el pasado. Revisa la terminación del verbo."
+        - answers: ["Do you fix", "Does you fix"]
+          rule: grammar.past_simple.did_for_past
+          feedback_es: "Buena estructura de pregunta, pero en presente. Yesterday afternoon pide pasado: Did you fix…?"
+          minimal_correction: "Did you fix"
+          retry_hint_es: "Fíjate en yesterday. ¿Cuál es el auxiliar del pasado?"
+        - answers: ["Were you fix", "Were you fixed", "Are you fix", "Was you fix"]
+          rule: grammar.past_simple.no_be_with_main_verb
+          feedback_es: "Were / are no forman preguntas con un verbo normal como fix. Usamos Did: Did you fix…?"
+          minimal_correction: "Did you fix"
+          retry_hint_es: "Con un verbo normal, la pregunta no usa was/were. ¿Qué auxiliar sí?"
+        - answers: ["Fixed you", "Did fix you"]
+          rule: grammar.question.word_order
+          feedback_es: "En español podemos decir «¿Arreglaste tú…?», pero en inglés el orden es fijo: auxiliar + sujeto + verbo → Did you fix…?"
+          minimal_correction: "Did you fix"
+          retry_hint_es: "Revisa el orden: ¿qué va primero, el sujeto o el verbo?"
+        - answers: ["Have you fixed"]
+          rule: grammar.past_simple.finished_time_marker
+          feedback_es: "El presente perfecto no va con yesterday afternoon, que ya terminó. Aquí: Did you fix…?"
+          minimal_correction: "Did you fix"
+          retry_hint_es: "Yesterday afternoon es un tiempo terminado. ¿Qué auxiliar corresponde?"
+
+  - <<: *defaults
+    id: grammar.past_simple.did.009
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Te preguntan «Did your team win the hackathon?». No ganaron. Completa la respuesta corta."
+      sentence_en: "No, we ___."
+      hint_es: "La respuesta corta repite el auxiliar de la pregunta, en negativo."
+    answer:
+      subject: 1p
+      polarity: negative
+      tense: past_simple
+      accepted: ["didn't"]
+      explanation_es: "La pregunta usa Did, así que la respuesta corta negativa es No, we didn't (did not)."
+      alternatives:
+        - answers: ["didn't win", "didn't win it", "didn't win the hackathon"]
+          verdict: valid_alternative
+          rule: grammar.past_simple.long_answer
+          feedback_es: "Correcto: didn't + verbo base. También es natural la respuesta corta: No, we didn't."
+      distractors:
+        - answers: ["didn't won"]
+          rule: grammar.past_simple.did_base_form
+          feedback_es: "Buen didn't. Después de didn't el verbo va en base: didn't win. (O solo la respuesta corta: No, we didn't.)"
+          minimal_correction: "didn't"
+          retry_hint_es: "Revisa el verbo después de didn't, o prueba con la respuesta corta, sin verbo principal."
+        - answers: ["don't", "doesn't"]
+          rule: grammar.past_simple.short_answer_auxiliary
+          feedback_es: "Esa es la respuesta corta del presente. La pregunta usa Did: No, we didn't."
+          minimal_correction: "didn't"
+          retry_hint_es: "Repite el auxiliar de la pregunta, pero en negativo."
+        - answers: ["weren't", "wasn't"]
+          rule: grammar.past_simple.short_answer_auxiliary
+          feedback_es: "Weren't respondería a una pregunta con Were you…?. Esta pregunta usa Did: No, we didn't."
+          minimal_correction: "didn't"
+          retry_hint_es: "La respuesta corta usa el mismo auxiliar que la pregunta."
+        - answers: ["not", "no", "not win", "no win"]
+          rule: grammar.past_simple.negative_needs_did
+          feedback_es: "En inglés la respuesta corta necesita el auxiliar: No, we didn't."
+          minimal_correction: "didn't"
+          retry_hint_es: "Falta el auxiliar de la pregunta, en negativo."
+
+  - <<: *defaults
+    id: grammar.past_simple.did.010
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Completa en afirmativo, en pasado simple."
+      sentence_en: "Last summer we ___ a lot of photos in Cusco."
+      verb_hint: "take"
+      hint_es: "Last summer pide pasado. Take es irregular."
+    answer:
+      subject: 1p
+      polarity: affirmative
+      tense: past_simple
+      verb: { base: take, third: takes, ing: taking }
+      accepted: ["took"]
+      explanation_es: "En la afirmativa del pasado no hay auxiliar: el verbo mismo va en pasado. Take es irregular: took."
+      alternatives:
+        - answers: ["did take"]
+          verdict: less_natural
+          rule: style.emphatic_did
+          feedback_es: "«We did take a lot of photos» es correcto, pero enfático («sí que tomamos muchas fotos»). En una afirmación neutra decimos took."
+      distractors:
+        - answers: ["take"]
+          rule: grammar.past_simple.affirmative_needs_past
+          feedback_es: "Last summer pide pasado. En la afirmativa el verbo mismo cambia: take → took."
+          minimal_correction: "took"
+          retry_hint_es: "Aquí no hay auxiliar. ¿Cuál es el pasado de take? Es irregular."
+        - answers: ["taked"]
+          rule: grammar.past_simple.irregular_form
+          feedback_es: "Bien pensado: el pasado regular lleva -ed. Pero take es irregular: took."
+          minimal_correction: "took"
+          retry_hint_es: "Take es irregular: su pasado no termina en -ed."
+        - answers: ["taken", "have taken"]
+          rule: grammar.past_simple.irregular_form
+          feedback_es: "Taken es participio (have taken) y no va con un tiempo terminado como last summer. El pasado simple es took."
+          minimal_correction: "took"
+          retry_hint_es: "Busca la forma del pasado simple, no la del participio."
+        - answers: ["did took"]
+          rule: grammar.past_simple.did_base_form
+          feedback_es: "Aquí sobra did. En la afirmativa basta con el verbo en pasado: took."
+          minimal_correction: "took"
+          retry_hint_es: "En la afirmativa neutra no hace falta auxiliar."
+        - answers: ["were take", "were took"]
+          rule: grammar.past_simple.no_be_with_main_verb
+          feedback_es: "Were no acompaña a un verbo normal. Solo el verbo en pasado: took."
+          minimal_correction: "took"
+          retry_hint_es: "Sobra una palabra: el pasado simple afirmativo es un solo verbo."
+
+  - <<: *defaults
+    id: grammar.past_simple.did.011
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 3
+    prompt:
+      instruction_es: "Completa en afirmativo, en pasado simple. Compara con la segunda parte de la oración."
+      sentence_en: "Yesterday I ___ the proposal, but I didn't send it."
+      verb_hint: "write"
+      hint_es: "En la parte negativa el pasado está en didn't. En la afirmativa, el verbo mismo va en pasado. Write es irregular."
+    answer:
+      subject: 1s
+      polarity: affirmative
+      tense: past_simple
+      verb: { base: write, third: writes, ing: writing }
+      accepted: ["wrote"]
+      explanation_es: "Afirmativa en pasado: el verbo cambia (write → wrote). Negativa: didn't + verbo base (didn't send)."
+      alternatives:
+        - answers: ["did write"]
+          verdict: less_natural
+          rule: style.emphatic_did
+          feedback_es: "«I did write the proposal» es correcto y enfático («sí la escribí»). En una afirmación neutra decimos wrote."
+        - answers: ["was writing"]
+          verdict: partial
+          rule: task.tense_mismatch.past_continuous
+          feedback_es: "«I was writing the proposal» es inglés correcto (pasado continuo: «estaba escribiendo»), pero la consigna pedía pasado simple: wrote."
+          retry_hint_es: "La consigna pide pasado simple: un solo verbo, sin was."
+      distractors:
+        - answers: ["write"]
+          rule: grammar.past_simple.affirmative_needs_past
+          feedback_es: "Yesterday pide pasado. En la afirmativa el verbo mismo cambia: write → wrote."
+          minimal_correction: "wrote"
+          retry_hint_es: "Aquí no hay auxiliar. ¿Cuál es el pasado de write? Es irregular."
+        - answers: ["writed"]
+          rule: grammar.past_simple.irregular_form
+          feedback_es: "Bien pensado: el pasado regular lleva -ed. Pero write es irregular: wrote."
+          minimal_correction: "wrote"
+          retry_hint_es: "Write es irregular: su pasado no termina en -ed."
+        - answers: ["written", "have written"]
+          rule: grammar.past_simple.irregular_form
+          feedback_es: "Written es participio (have written) y no va con yesterday. El pasado simple es wrote."
+          minimal_correction: "wrote"
+          retry_hint_es: "Busca la forma del pasado simple, no la del participio."
+        - answers: ["did wrote"]
+          rule: grammar.past_simple.did_base_form
+          feedback_es: "Aquí sobra did. En la afirmativa basta con el verbo en pasado: wrote."
+          minimal_correction: "wrote"
+          retry_hint_es: "En la afirmativa neutra no hace falta auxiliar."
+        - answers: ["was write", "was wrote"]
+          rule: grammar.past_simple.no_be_with_main_verb
+          feedback_es: "Was no acompaña a un verbo normal. Solo el verbo en pasado: wrote."
+          minimal_correction: "wrote"
+          retry_hint_es: "Sobra una palabra: el pasado simple afirmativo es un solo verbo."
+
+  - <<: *defaults
+    id: grammar.past_simple.did.012
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Completa la pregunta con el auxiliar correcto. Es una pregunta sobre el pasado."
+      sentence_en: "What ___ you do last weekend?"
+      hint_es: "Mira last weekend. El verbo do después de you es el verbo principal («hacer»)."
+    answer:
+      subject: 2s
+      polarity: question
+      tense: past_simple
+      accepted: ["did"]
+      explanation_es: "Pregunta en pasado con palabra interrogativa: What + did + sujeto + verbo base. Aquí do es el verbo principal («hacer»): What did you do…?"
+      distractors:
+        - answers: ["do"]
+          rule: grammar.past_simple.did_for_past
+          feedback_es: "«What do you do?» pregunta por tu trabajo o tu rutina (presente). Con last weekend necesitamos pasado: What did you do?"
+          minimal_correction: "did"
+          retry_hint_es: "Fíjate en last weekend. ¿Cuál es el pasado del auxiliar do?"
+        - answers: ["does"]
+          rule: grammar.past_simple.did_for_past
+          feedback_es: "Does es presente y para he / she / it. Con last weekend y you: did."
+          minimal_correction: "did"
+          retry_hint_es: "Last weekend indica pasado. El auxiliar del pasado es igual para todos."
+        - answers: ["were", "was", "are"]
+          rule: grammar.past_simple.no_be_with_main_verb
+          feedback_es: "Were / are no forman preguntas con un verbo normal como do. Usamos did: What did you do?"
+          minimal_correction: "did"
+          retry_hint_es: "El verbo principal es do («hacer»). ¿Qué auxiliar del pasado lo acompaña?"
+        - answers: ["have"]
+          rule: grammar.past_simple.finished_time_marker
+          feedback_es: "Have no va con do en forma base ni con last weekend, que ya terminó. Usamos did."
+          minimal_correction: "did"
+          retry_hint_es: "Last weekend es un tiempo terminado. ¿Qué auxiliar usa el pasado simple?"
+
+  - <<: *defaults
+    id: grammar.past_simple.did.013
+    type: choice
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Elige la pregunta correcta sobre un viaje que ya pasó."
+      question_en: "Which question is correct?"
+      options:
+        - { id: a, text: "Did you went to Machu Picchu on your trip?" }
+        - { id: b, text: "Did you go to Machu Picchu on your trip?" }
+        - { id: c, text: "Went you to Machu Picchu on your trip?" }
+        - { id: d, text: "Were you go to Machu Picchu on your trip?" }
+      hint_es: "En una pregunta en pasado, el pasado se marca una sola vez."
+    answer:
+      correct_option: b
+      explanation_es: "Pregunta en pasado: Did + sujeto + verbo base. Did ya lleva el pasado: Did you go…?"
+      option_feedback:
+        a:
+          rule: grammar.past_simple.did_base_form
+          feedback_es: "Casi. Did ya marca el pasado, así que el verbo vuelve a la base: go, no went."
+          retry_hint_es: "Mira el verbo que va después de Did: ¿necesita estar en pasado?"
+        c:
+          rule: grammar.question.word_order
+          feedback_es: "En español podemos empezar con el verbo («¿Fuiste tú…?»), pero en inglés la pregunta con un verbo normal necesita auxiliar: Did you go…?"
+          retry_hint_es: "Las preguntas con verbos normales empiezan con un auxiliar."
+        d:
+          rule: grammar.past_simple.no_be_with_main_verb
+          feedback_es: "Were no forma preguntas con un verbo normal como go. Usamos Did: Did you go…?"
+          retry_hint_es: "Was/were no acompañan a un verbo normal. ¿Qué auxiliar sí?"
+
+  - <<: *defaults
+    id: grammar.past_simple.did.014
+    type: choice
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Ana sí aprobó el examen. Elige la respuesta corta correcta."
+      question_en: "“Did Ana pass the exam?” — “Yes, she ___.”"
+      options:
+        - { id: a, text: "did" }
+        - { id: b, text: "does" }
+        - { id: c, text: "was" }
+        - { id: d, text: "didn't" }
+      hint_es: "La respuesta corta repite el auxiliar de la pregunta."
+    answer:
+      correct_option: a
+      explanation_es: "La pregunta usa Did, así que la respuesta corta afirmativa es Yes, she did."
+      option_feedback:
+        b:
+          rule: grammar.past_simple.short_answer_auxiliary
+          feedback_es: "Does es del presente. La pregunta usa Did: Yes, she did."
+          retry_hint_es: "Mira con qué auxiliar empieza la pregunta."
+        c:
+          rule: grammar.past_simple.short_answer_auxiliary
+          feedback_es: "Was respondería a una pregunta con Was she…?. Esta pregunta usa Did: Yes, she did."
+          retry_hint_es: "La respuesta corta usa el mismo auxiliar que la pregunta."
+        d:
+          rule: grammar.short_answer.polarity
+          feedback_es: "Didn't es negativo y no combina con Yes. Ana sí aprobó: Yes, she did."
+          retry_hint_es: "Yes va con la forma afirmativa del auxiliar."
+
+  - <<: *defaults
+    id: grammar.past_simple.did.015
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Completa en negativo, en pasado simple, con did + not."
+      sentence_en: "The client ___ to our email yesterday, so I called her this morning."
+      verb_hint: "not / reply"
+      hint_es: "En la negativa del pasado, el pasado lo lleva el auxiliar."
+    answer:
+      subject: 3s
+      polarity: negative
+      tense: past_simple
+      verb: { base: reply, third: replies, ing: replying }
+      accepted: ["didn't reply"]
+      explanation_es: "Negativa en pasado: didn't (did not) + verbo base, para cualquier sujeto: the client didn't reply."
+      alternatives:
+        - answers: ["couldn't reply"]
+          verdict: partial
+          rule: task.form_mismatch.modal
+          feedback_es: "«The client couldn't reply» es inglés correcto («no pudo responder»), pero la consigna pedía did + not: didn't reply."
+          retry_hint_es: "La consigna pide el auxiliar del pasado simple, no could."
+      distractors:
+        - answers: ["didn't replied", "didn't replies"]
+          rule: grammar.past_simple.did_base_form
+          feedback_es: "Muy bien el didn't. Después de didn't el verbo va en base: reply (sin -ied ni -ies)."
+          minimal_correction: "didn't reply"
+          retry_hint_es: "Después de didn't, el verbo va tal como aparece en el diccionario."
+        - answers: ["not replied", "no replied", "not reply", "no reply"]
+          rule: grammar.past_simple.negative_needs_did
+          feedback_es: "En inglés la negativa necesita un auxiliar antes de not. En pasado: didn't reply."
+          minimal_correction: "didn't reply"
+          retry_hint_es: "Falta el auxiliar antes de not. ¿Cuál es el del pasado?"
+        - answers: ["doesn't reply", "don't reply"]
+          rule: grammar.past_simple.did_for_past
+          feedback_es: "Esa negativa es del presente. Yesterday pide pasado: didn't reply."
+          minimal_correction: "didn't reply"
+          retry_hint_es: "Fíjate en yesterday. ¿El auxiliar está en presente o en pasado?"
+        - answers: ["wasn't reply", "wasn't replied"]
+          rule: grammar.past_simple.no_be_with_main_verb
+          feedback_es: "Wasn't no niega un verbo normal como reply. Usamos didn't + verbo base."
+          minimal_correction: "didn't reply"
+          retry_hint_es: "Con un verbo normal no usamos was para negar. ¿Qué auxiliar usamos?"
+        - answers: ["hasn't replied"]
+          rule: grammar.past_simple.finished_time_marker
+          feedback_es: "El presente perfecto no va con yesterday, que ya terminó. Aquí: didn't reply."
+          minimal_correction: "didn't reply"
+          retry_hint_es: "Yesterday es un tiempo terminado. ¿Qué tiempo verbal corresponde?"

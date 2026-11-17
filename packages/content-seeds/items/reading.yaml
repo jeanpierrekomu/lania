@@ -1,0 +1,356 @@
+# Preguntas de comprensión del Reading Lab (lecturas en reading/*.yaml).
+# Contenido ORIGINAL para el piloto. review_status: pilot = PENDIENTE de revisión por docente de inglés.
+#
+# Reglas:
+#   pool: reading → solo dentro de su lectura (nunca en lecciones, repasos ni diagnóstico).
+#   La respuesta se comprueba en el servidor y cuenta como evidencia de lectura.
+#   El feedback de cada opción incorrecta orienta a releer SIN revelar la respuesta.
+
+defaults: &defaults
+  version: 1
+  pool: reading
+  type: choice
+  rubric_version: grammar_closed_v1
+  license: original
+  review_status: pilot
+
+items:
+  # ───────────── new-neighbor (A1) ─────────────
+  - <<: *defaults
+    id: reading.new_neighbor.01
+    skill: reading.specific_information
+    cefr_estimate: A1
+    difficulty: 1
+    prompt:
+      instruction_es: "Lee el texto y elige la respuesta."
+      question_en: "Where is Emma from?"
+      options:
+        - { id: a, text: "Arequipa" }
+        - { id: b, text: "Canada" }
+        - { id: c, text: "The United States" }
+    answer:
+      correct_option: b
+      explanation_es: "El primer párrafo dice «she is from Canada»."
+      option_feedback:
+        a:
+          rule: reading.detail
+          feedback_es: "Arequipa es donde vive Lucía. Busca la frase «she is from…»."
+        c:
+          rule: reading.detail
+          feedback_es: "Ese país no aparece en el texto. Relee el primer párrafo."
+  - <<: *defaults
+    id: reading.new_neighbor.02
+    skill: reading.specific_information
+    cefr_estimate: A1
+    difficulty: 2
+    prompt:
+      instruction_es: "Lee el texto y elige la respuesta."
+      question_en: "How does Emma usually go to work?"
+      options:
+        - { id: a, text: "By bus" }
+        - { id: b, text: "By car" }
+        - { id: c, text: "She walks." }
+    answer:
+      correct_option: c
+      explanation_es: "«She usually walks to work», porque el hospital está cerca."
+      option_feedback:
+        a:
+          rule: reading.detail
+          feedback_es: "No se menciona ningún bus. Busca la palabra «usually» en el segundo párrafo."
+        b:
+          rule: reading.detail
+          feedback_es: "No se habla de un auto. Relee por qué el hospital está «near our street»."
+  - <<: *defaults
+    id: reading.new_neighbor.03
+    skill: reading.main_idea
+    cefr_estimate: A1
+    difficulty: 2
+    prompt:
+      instruction_es: "Lee el texto y elige la respuesta."
+      question_en: "What do Lucía and Emma do on weekends?"
+      options:
+        - { id: a, text: "They practice languages together." }
+        - { id: b, text: "They work at the hospital." }
+        - { id: c, text: "They go shopping." }
+    answer:
+      correct_option: a
+      explanation_es: "Emma practica español con Lucía y Lucía practica inglés con ella: un intercambio de idiomas."
+      option_feedback:
+        b:
+          rule: reading.main_idea
+          feedback_es: "Solo Emma trabaja en el hospital, y eso es entre semana. Relee el último párrafo."
+        c:
+          rule: reading.main_idea
+          feedback_es: "No se habla de compras. Relee qué hacen mientras toman café."
+
+  # ───────────── job-ad (A2) ─────────────
+  - <<: *defaults
+    id: reading.job_ad.01
+    skill: reading.specific_information
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Lee el texto y elige la respuesta."
+      question_en: "How many days a week can you work from home?"
+      options:
+        - { id: a, text: "Every day" }
+        - { id: b, text: "Two days" }
+        - { id: c, text: "Only on Fridays" }
+    answer:
+      correct_option: b
+      explanation_es: "«You can work from home two days a week»."
+      option_feedback:
+        a:
+          rule: reading.detail
+          feedback_es: "El trabajo es de lunes a viernes, pero no todo desde casa. Busca «from home»."
+        c:
+          rule: reading.detail
+          feedback_es: "Los viernes aparecen por otra razón (el almuerzo). Busca «from home»."
+  - <<: *defaults
+    id: reading.job_ad.02
+    skill: reading.main_idea
+    cefr_estimate: A2
+    difficulty: 3
+    prompt:
+      instruction_es: "Lee el texto y elige la respuesta."
+      question_en: "Do you need experience in customer service to apply?"
+      options:
+        - { id: a, text: "Yes, it is required." }
+        - { id: b, text: "No, but it helps." }
+        - { id: c, text: "Only if your English is B1." }
+    answer:
+      correct_option: b
+      explanation_es: "«Experience… is a plus, but it is not necessary»: suma, pero no es obligatoria."
+      option_feedback:
+        a:
+          rule: reading.main_idea
+          feedback_es: "Fíjate en «but it is not necessary» al final de esa frase."
+        c:
+          rule: reading.main_idea
+          feedback_es: "El inglés B1 es otro requisito, separado. Relee la frase sobre la experiencia."
+  - <<: *defaults
+    id: reading.job_ad.03
+    skill: reading.specific_information
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Lee el texto y elige la respuesta."
+      question_en: "What should you send to apply?"
+      options:
+        - { id: a, text: "Your CV and a short message in English" }
+        - { id: b, text: "A video in Spanish" }
+        - { id: c, text: "Your CV and a weekly report" }
+    answer:
+      correct_option: a
+      explanation_es: "«Send your CV and a short message in English»."
+      option_feedback:
+        b:
+          rule: reading.detail
+          feedback_es: "No piden video. Relee el último párrafo, que empieza con «To apply»."
+        c:
+          rule: reading.detail
+          feedback_es: "Los reportes son parte del trabajo, no de la postulación. Relee «To apply…»."
+
+  # ───────────── hotel-review (A2) ─────────────
+  - <<: *defaults
+    id: reading.hotel_review.01
+    skill: reading.specific_information
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Lee el texto y elige la respuesta."
+      question_en: "What does the writer like about the location?"
+      options:
+        - { id: a, text: "It is close to the main square and restaurants." }
+        - { id: b, text: "It is very quiet at night." }
+        - { id: c, text: "It is next to the airport." }
+    answer:
+      correct_option: a
+      explanation_es: "«Only five minutes from the main square, and there are many restaurants nearby»."
+      option_feedback:
+        b:
+          rule: reading.detail
+          feedback_es: "Al contrario: el título y el último párrafo hablan de ruido. Relee el primer párrafo."
+        c:
+          rule: reading.detail
+          feedback_es: "El aeropuerto no aparece. Busca qué está a cinco minutos."
+  - <<: *defaults
+    id: reading.hotel_review.02
+    skill: reading.main_idea
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Lee el texto y elige la respuesta."
+      question_en: "What did the staff do when the writer arrived early?"
+      options:
+        - { id: a, text: "They gave a free breakfast." }
+        - { id: b, text: "They kept the bags and gave a map." }
+        - { id: c, text: "They changed the room." }
+    answer:
+      correct_option: b
+      explanation_es: "«They let me leave my bags at the reception and gave me a free map of the city»."
+      option_feedback:
+        a:
+          rule: reading.main_idea
+          feedback_es: "El desayuno se describe, pero no fue un regalo por llegar temprano. Relee «When I arrived early»."
+        c:
+          rule: reading.main_idea
+          feedback_es: "No cambiaron la habitación: es un consejo del último párrafo. Relee el segundo párrafo."
+  - <<: *defaults
+    id: reading.hotel_review.03
+    skill: reading.main_idea
+    cefr_estimate: A2
+    difficulty: 3
+    prompt:
+      instruction_es: "Lee el texto y elige la respuesta."
+      question_en: "What is the writer's advice?"
+      options:
+        - { id: a, text: "Don't stay at this hotel." }
+        - { id: b, text: "Ask for a room on a higher floor." }
+        - { id: c, text: "Go to the bar at night." }
+    answer:
+      correct_option: b
+      explanation_es: "«If you stay here, ask for a room on a higher floor»: así evitas el ruido del bar."
+      option_feedback:
+        a:
+          rule: reading.main_idea
+          feedback_es: "La reseña tiene cosas buenas y una mala. Relee la última frase: empieza con «If you stay here»."
+        c:
+          rule: reading.main_idea
+          feedback_es: "El bar es el problema, no la recomendación. Relee la última frase."
+
+  # ───────────── project-update (B1) ─────────────
+  - <<: *defaults
+    id: reading.project_update.01
+    skill: reading.specific_information
+    cefr_estimate: B1
+    difficulty: 3
+    prompt:
+      instruction_es: "Lee el texto y elige la respuesta."
+      question_en: "What happened last Thursday?"
+      options:
+        - { id: a, text: "The app was launched." }
+        - { id: b, text: "The first version passed the internal tests." }
+        - { id: c, text: "The team found new bugs." }
+    answer:
+      correct_option: b
+      explanation_es: "«The first version passed all the internal tests last Thursday»."
+      option_feedback:
+        a:
+          rule: reading.detail
+          feedback_es: "El lanzamiento todavía no ocurrió. Busca «last Thursday» en el primer párrafo."
+        c:
+          rule: reading.detail
+          feedback_es: "Los errores se mencionan después, sin fecha. Busca «last Thursday»."
+  - <<: *defaults
+    id: reading.project_update.02
+    skill: reading.main_idea
+    cefr_estimate: B1
+    difficulty: 3
+    prompt:
+      instruction_es: "Lee el texto y elige la respuesta."
+      question_en: "Why did they move the launch to December 8?"
+      options:
+        - { id: a, text: "The design was not finished." }
+        - { id: b, text: "The payment feature still has bugs." }
+        - { id: c, text: "The marketing team needed more time." }
+    answer:
+      correct_option: b
+      explanation_es: "«The payment feature still has a few bugs, so we have decided to move the launch»."
+      option_feedback:
+        a:
+          rule: reading.main_idea
+          feedback_es: "El diseño ya está terminado (primer párrafo). Busca la palabra «so» en el segundo."
+        c:
+          rule: reading.main_idea
+          feedback_es: "Marketing prepara publicaciones mientras tanto, pero no es la causa. Busca «so» en el segundo párrafo."
+  - <<: *defaults
+    id: reading.project_update.03
+    skill: reading.specific_information
+    cefr_estimate: B1
+    difficulty: 3
+    prompt:
+      instruction_es: "Lee el texto y elige la respuesta."
+      question_en: "When will Daniela answer the team's questions?"
+      options:
+        - { id: a, text: "On Friday" }
+        - { id: b, text: "On December 8" }
+        - { id: c, text: "In the weekly meeting on Monday" }
+    answer:
+      correct_option: c
+      explanation_es: "Hay que enviarle las preguntas antes del viernes, y ella responde «in our weekly meeting on Monday»."
+      option_feedback:
+        a:
+          rule: reading.detail
+          feedback_es: "El viernes es la fecha límite para ENVIAR preguntas. Relee qué pasa después."
+        b:
+          rule: reading.detail
+          feedback_es: "Esa es la nueva fecha del lanzamiento. Busca «I'll answer them»."
+
+  # ───────────── screen-time (B1) ─────────────
+  - <<: *defaults
+    id: reading.screen_time.01
+    skill: reading.main_idea
+    cefr_estimate: B1
+    difficulty: 3
+    prompt:
+      instruction_es: "Lee el texto y elige la respuesta."
+      question_en: "According to scientists, what can using a phone in bed do?"
+      options:
+        - { id: a, text: "Help you fall asleep faster" }
+        - { id: b, text: "Make it harder to fall asleep" }
+        - { id: c, text: "Improve your mood in the morning" }
+    answer:
+      correct_option: b
+      explanation_es: "«It can make it harder to fall asleep and can reduce the quality of our rest»."
+      option_feedback:
+        a:
+          rule: reading.main_idea
+          feedback_es: "Parece relajante («It feels relaxing»), pero fíjate en lo que viene después de «but»."
+        c:
+          rule: reading.main_idea
+          feedback_es: "La mañana aparece al final, como prueba personal. Relee el primer párrafo."
+  - <<: *defaults
+    id: reading.screen_time.02
+    skill: reading.main_idea
+    cefr_estimate: B1
+    difficulty: 4
+    prompt:
+      instruction_es: "Lee el texto y elige la respuesta."
+      question_en: "What are the TWO reasons in the second paragraph?"
+      options:
+        - { id: a, text: "The bright light and the content that keeps the mind active" }
+        - { id: b, text: "The noise and the temperature of the room" }
+        - { id: c, text: "The price of the phone and the battery" }
+    answer:
+      correct_option: a
+      explanation_es: "«One reason is the bright light… Another reason is the content itself…»."
+      option_feedback:
+        b:
+          rule: reading.main_idea
+          feedback_es: "Ni el ruido ni la temperatura aparecen. Busca «One reason» y «Another reason»."
+        c:
+          rule: reading.main_idea
+          feedback_es: "El texto no habla de precios ni baterías. Busca «One reason» y «Another reason»."
+  - <<: *defaults
+    id: reading.screen_time.03
+    skill: reading.specific_information
+    cefr_estimate: B1
+    difficulty: 3
+    prompt:
+      instruction_es: "Lee el texto y elige la respuesta."
+      question_en: "How long before bed should you stop using screens?"
+      options:
+        - { id: a, text: "About thirty minutes" }
+        - { id: b, text: "About two hours" }
+        - { id: c, text: "One week" }
+    answer:
+      correct_option: a
+      explanation_es: "«Stop using screens about thirty minutes before bed»."
+      option_feedback:
+        b:
+          rule: reading.detail
+          feedback_es: "Es menos tiempo. Busca «before bed» en el tercer párrafo."
+        c:
+          rule: reading.detail
+          feedback_es: "Una semana es cuánto tiempo probar la rutina, no la hora. Busca «before bed»."

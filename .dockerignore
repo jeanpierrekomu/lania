@@ -1,0 +1,14 @@
+**/node_modules
+**/.venv
+**/__pycache__
+**/.next
+**/.mypy_cache
+**/.ruff_cache
+**/.pytest_cache
+.env
+.env.*
+apps/web
+apps/prototype
+Diseñar la plataforma educativa LANIA
+imagenes de lania
+docs

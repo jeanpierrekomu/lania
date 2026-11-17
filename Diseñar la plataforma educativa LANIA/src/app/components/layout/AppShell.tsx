@@ -1,0 +1,287 @@
+import { useState } from 'react'
+import { Link, NavLink, Outlet, useMatches, useNavigate } from 'react-router'
+import {
+  ChartLine,
+  Focus,
+  GraduationCap,
+  Headphones,
+  House,
+  LayoutGrid,
+  Map,
+  Mic,
+  PenLine,
+  Shapes,
+  SlidersHorizontal,
+  Users,
+  ChevronRight,
+  type LucideIcon,
+} from 'lucide-react'
+import { cn } from '@/app/lib/cn'
+import { Logo, LogoMark } from '@/app/components/brand/Logo'
+import { PersonAvatar } from '@/app/components/illustrations/PersonAvatar'
+import { IconButton } from '@/app/components/ui/Button'
+import { Switch } from '@/app/components/ui/Switch'
+import { Tooltip } from '@/app/components/ui/Tooltip'
+import { Modal } from '@/app/components/ui/Modal'
+import { usePreferences } from '@/app/state/preferences'
+import { useLearner } from '@/app/state/learner'
+import { useUi, type RouteHandle } from '@/app/state/ui'
+import { PEOPLE } from '@/app/data/people'
+
+interface NavItem {
+  to: string
+  label: string
+  icon: LucideIcon
+  end?: boolean
+}
+
+const NAV: { group: string; items: NavItem[] }[] = [
+  {
+    group: 'Aprender',
+    items: [
+      { to: '/app', label: 'Inicio', icon: House, end: true },
+      { to: '/app/aula', label: 'Aula con Lania', icon: GraduationCap },
+      { to: '/app/speaking', label: 'Speaking Lab', icon: Mic },
+      { to: '/app/listening', label: 'Listening Lab', icon: Headphones },
+      { to: '/app/writing', label: 'Writing Lab', icon: PenLine },
+    ],
+  },
+  {
+    group: 'Comunidad',
+    items: [
+      { to: '/app/salones', label: 'Salones', icon: Users },
+      { to: '/app/misiones', label: 'Misiones', icon: Map },
+    ],
+  },
+  { group: 'Tú', items: [{ to: '/app/progreso', label: 'Mi progreso', icon: ChartLine }] },
+]
+
+const PRACTICE = [
+  { to: '/app/speaking', label: 'Speaking Lab', desc: 'Conversa con Lania en voz alta.', icon: Mic, tone: 'bg-coral-100 text-coral-700' },
+  { to: '/app/listening', label: 'Listening Lab', desc: 'Entrena el oído a tu velocidad.', icon: Headphones, tone: 'bg-violet-100 text-violet-700' },
+  { to: '/app/writing', label: 'Writing Lab', desc: 'Escribe, revisa y reescribe.', icon: PenLine, tone: 'bg-mint-100 text-mint-700' },
+  { to: '/app/misiones', label: 'Misiones', desc: 'Situaciones reales por desbloquear.', icon: Map, tone: 'bg-amber-100 text-amber-700' },
+]
+
+function Sidebar({ full }: { full: boolean }) {
+  const { prefs, setPref } = usePreferences()
+  const { learner } = useLearner()
+  const { openPreferences, openScreens } = useUi()
+  const label = full ? 'sr-only lg:not-sr-only' : 'sr-only'
+  const onlyFull = full ? 'hidden lg:block' : 'hidden'
+  const onlyFullFlex = full ? 'hidden lg:flex' : 'hidden'
+  const onlyRail = full ? 'lg:hidden' : ''
+
+  return (
+    <aside
+      className={cn(
+        'fixed inset-y-0 left-0 z-30 hidden w-20 flex-col border-r border-line bg-surface md:flex',
+        full && 'lg:w-72',
+      )}
+      aria-label="Navegación principal"
+    >
+      <div className={cn('flex h-20 items-center px-5', full && 'lg:px-7')}>
+        <Link to="/app" className="flex items-center gap-3" aria-label="LANIA, ir al inicio">
+          <LogoMark className={cn('h-10 w-10', full && 'lg:hidden')} />
+          <Logo size="md" className={onlyFull} />
+        </Link>
+      </div>
+
+      <nav className={cn('flex-1 overflow-y-auto px-3 pb-4', full && 'lg:px-4')}>
+        {NAV.map((g) => (
+          <div key={g.group} className="mt-4 first:mt-1">
+            <p className={cn('mb-1.5 px-3 text-xs font-bold uppercase tracking-[0.14em] text-ink-soft', onlyFull)}>{g.group}</p>
+            <ul className="space-y-1">
+              {g.items.map((item) => (
+                <li key={item.to}>
+                  <Tooltip label={item.label} className={cn('w-full', full && 'lg:[&>span:last-child]:hidden')}>
+                    <NavLink
+                      to={item.to}
+                      end={item.end}
+                      className={({ isActive }) =>
+                        cn(
+                          'flex h-11 w-full items-center gap-3 rounded-2xl px-3 text-sm font-semibold transition-colors duration-200',
+                          full ? 'justify-center lg:justify-start' : 'justify-center',
+                          isActive ? 'bg-violet-100 text-violet-800' : 'text-ink-soft hover:bg-mist hover:text-ink',
+                        )
+                      }
+                    >
+                      <item.icon size={20} aria-hidden className="shrink-0" />
+                      <span className={label}>{item.label}</span>
+                    </NavLink>
+                  </Tooltip>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </nav>
+
+      <div className={cn('space-y-3 border-t border-line p-3', full && 'lg:p-4')}>
+        <div className={cn('rounded-2xl bg-violet-50 p-3', onlyFull)}>
+          <Switch
+            checked={prefs.focusMode}
+            onChange={(v) => setPref('focusMode', v)}
+            label="Modo concentración"
+            description="Menos elementos, una tarea a la vez."
+          />
+        </div>
+        <div className={cn('flex flex-col items-center gap-2', onlyRail)}>
+          <Tooltip label={prefs.focusMode ? 'Salir del modo concentración' : 'Modo concentración'}>
+            <IconButton
+              icon={Focus}
+              label={prefs.focusMode ? 'Salir del modo concentración' : 'Activar modo concentración'}
+              pressed={prefs.focusMode}
+              onClick={() => setPref('focusMode', !prefs.focusMode)}
+            />
+          </Tooltip>
+          <Tooltip label="Preferencias">
+            <IconButton icon={SlidersHorizontal} label="Preferencias de aprendizaje" onClick={openPreferences} />
+          </Tooltip>
+          <Tooltip label="Pantallas del prototipo">
+            <IconButton icon={LayoutGrid} label="Pantallas del prototipo" onClick={openScreens} />
+          </Tooltip>
+        </div>
+        <button
+          type="button"
+          onClick={openPreferences}
+          className={cn(
+            'h-11 w-full items-center gap-3 rounded-2xl px-3 text-sm font-semibold text-ink-soft transition-colors hover:bg-mist hover:text-ink',
+            onlyFullFlex,
+          )}
+        >
+          <SlidersHorizontal size={20} aria-hidden />
+          Preferencias y accesibilidad
+        </button>
+        <button
+          type="button"
+          onClick={openScreens}
+          className={cn(
+            'h-11 w-full items-center gap-3 rounded-2xl px-3 text-sm font-semibold text-ink-soft transition-colors hover:bg-mist hover:text-ink',
+            onlyFullFlex,
+          )}
+        >
+          <LayoutGrid size={20} aria-hidden />
+          Pantallas del prototipo
+        </button>
+        <Link
+          to="/app/progreso"
+          className={cn('flex items-center gap-3 rounded-2xl p-1.5 transition-colors hover:bg-mist', full ? 'justify-center lg:justify-start' : 'justify-center')}
+        >
+          <span className="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-mint-100">
+            <PersonAvatar look={PEOPLE.valentina.look} />
+          </span>
+          <span className={cn('min-w-0 flex-1', onlyFull)}>
+            <span className="block truncate text-sm font-bold text-ink">{learner.name}</span>
+            <span className="block text-xs text-ink-soft">Nivel estimado {learner.diagnostic.overall}</span>
+          </span>
+          <ChevronRight size={16} className={cn('text-ink-soft', onlyFull)} aria-hidden />
+        </Link>
+      </div>
+    </aside>
+  )
+}
+
+function MobileTopBar() {
+  const { openPreferences } = useUi()
+  return (
+    <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-line/70 bg-canvas/90 px-4 backdrop-blur md:hidden">
+      <Link to="/app" aria-label="LANIA, ir al inicio">
+        <Logo size="sm" />
+      </Link>
+      <div className="flex items-center gap-1">
+        <IconButton icon={SlidersHorizontal} label="Preferencias de aprendizaje" onClick={openPreferences} />
+        <Link to="/app/progreso" aria-label="Mi progreso" className="h-10 w-10 overflow-hidden rounded-full bg-mint-100">
+          <PersonAvatar look={PEOPLE.valentina.look} />
+        </Link>
+      </div>
+    </header>
+  )
+}
+
+function MobileTabBar({ onPractice }: { onPractice: () => void }) {
+  const tab = (isActive: boolean) =>
+    cn('flex flex-1 flex-col items-center justify-center gap-1 text-xs font-semibold', isActive ? 'text-violet-700' : 'text-ink-soft')
+  return (
+    <nav
+      aria-label="Navegación"
+      className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-surface/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden"
+    >
+      <div className="mx-auto flex h-16 max-w-md items-stretch">
+        <NavLink to="/app" end className={({ isActive }) => tab(isActive)}>
+          <House size={22} aria-hidden />
+          Inicio
+        </NavLink>
+        <NavLink to="/app/aula" className={({ isActive }) => tab(isActive)}>
+          <GraduationCap size={22} aria-hidden />
+          Aula
+        </NavLink>
+        <button type="button" onClick={onPractice} className={tab(false)}>
+          <span className="-mt-6 grid h-12 w-12 place-items-center rounded-full bg-primary text-white shadow-glow">
+            <Shapes size={22} aria-hidden />
+          </span>
+          Practicar
+        </button>
+        <NavLink to="/app/salones" className={({ isActive }) => tab(isActive)}>
+          <Users size={22} aria-hidden />
+          Salones
+        </NavLink>
+        <NavLink to="/app/progreso" className={({ isActive }) => tab(isActive)}>
+          <ChartLine size={22} aria-hidden />
+          Progreso
+        </NavLink>
+      </div>
+    </nav>
+  )
+}
+
+export function AppShell() {
+  const { prefs } = usePreferences()
+  const matches = useMatches()
+  const navigate = useNavigate()
+  const immersive = matches.some((m) => (m.handle as RouteHandle | undefined)?.immersive)
+  const [practiceOpen, setPracticeOpen] = useState(false)
+  const full = !prefs.focusMode
+
+  return (
+    <div className="min-h-dvh bg-canvas">
+      <a
+        href="#main"
+        className="sr-only z-50 rounded-full bg-ink px-4 py-2 text-sm font-semibold text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+      >
+        Saltar al contenido
+      </a>
+      <Sidebar full={full} />
+      {!immersive && <MobileTopBar />}
+      <main id="main" className={cn('min-h-dvh md:pl-20', full && 'lg:pl-72', !immersive && 'pb-24 md:pb-0')}>
+        <Outlet />
+      </main>
+      {!immersive && <MobileTabBar onPractice={() => setPracticeOpen(true)} />}
+      <Modal open={practiceOpen} onClose={() => setPracticeOpen(false)} title="¿Qué quieres practicar?" description="Elige un laboratorio. Puedes cambiar cuando quieras." size="sm">
+        <ul className="space-y-2">
+          {PRACTICE.map((p) => (
+            <li key={p.to}>
+              <button
+                type="button"
+                onClick={() => {
+                  setPracticeOpen(false)
+                  navigate(p.to)
+                }}
+                className="flex w-full items-center gap-4 rounded-2xl p-3 text-left ring-1 ring-line transition-colors hover:bg-mist"
+              >
+                <span className={cn('grid h-12 w-12 place-items-center rounded-2xl', p.tone)}>
+                  <p.icon size={22} aria-hidden />
+                </span>
+                <span className="flex-1">
+                  <span className="block font-bold text-ink">{p.label}</span>
+                  <span className="block text-sm text-ink-soft">{p.desc}</span>
+                </span>
+                <ChevronRight size={18} className="text-ink-soft" aria-hidden />
+              </button>
+            </li>
+          ))}
+        </ul>
+      </Modal>
+    </div>
+  )
+}

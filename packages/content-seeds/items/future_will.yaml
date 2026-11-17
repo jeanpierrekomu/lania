@@ -1,0 +1,711 @@
+# Banco semilla — futuro con will + verbo base (grammar_closed_v1)
+# Contenido ORIGINAL escrito para el piloto. review_status: pilot = usable en piloto privado,
+# PENDIENTE de revisión por docente de inglés (spec §12.4). No es material del ICPNA.
+#
+# Formato (ADR-004): ver items/present_simple.yaml.
+# Todos los fill_blank llevan tense: future_will → los diagnósticos genéricos del presente simple
+# NO se aplican; cada error esperable está declarado como distractor.
+# Cuando be going to (o el presente continuo de planes) también es gramatical, la consigna pide
+# will con una pista de uso (decisión en el momento, promesa, predicción, oferta) y la forma
+# alternativa se declara como `partial` con task.tense_mismatch.* y una explicación.
+# Errores reales de alumnos que cubre: will meeting / will staying / will learning /
+# will studying / will to call / I will can.
+
+defaults: &defaults
+  version: 1
+  skill: grammar.future.will_base_form
+  pool: practice
+  rubric_version: grammar_closed_v1
+  license: original
+  review_status: pilot
+
+items:
+  # ───────────── Lección: future-will ─────────────
+  - <<: *defaults
+    id: grammar.future.will.001
+    type: choice
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Elige la oración correcta. Sin pistas: queremos ver qué recuerdas."
+      question_en: "Which sentence is correct?"
+      options:
+        - { id: a, text: "I will meeting the client tomorrow." }
+        - { id: b, text: "I will meet the client tomorrow." }
+        - { id: c, text: "I will to meet the client tomorrow." }
+        - { id: d, text: "I will meets the client tomorrow." }
+      hint_es: "Después de will, el verbo va en su forma más simple."
+    answer:
+      correct_option: b
+      explanation_es: "Will va siempre con el verbo base: sin -ing, sin to y sin -s. I will meet."
+      option_feedback:
+        a:
+          rule: grammar.future.will_base_form
+          feedback_es: "Muy común: «will meeting». Después de will no va -ing; el verbo queda en base: will meet."
+          retry_hint_es: "Revisa la terminación del verbo después de will."
+        c:
+          rule: grammar.future.will_no_to
+          feedback_es: "Después de will no se pone to (no es como want to). Va directo el verbo: will meet."
+          retry_hint_es: "Will funciona como can: el verbo va directo, sin ninguna palabra en medio."
+        d:
+          rule: grammar.future.will_base_form
+          feedback_es: "Después de will el verbo no lleva -s, ni siquiera con he / she / it: will meet."
+          retry_hint_es: "Revisa la terminación del verbo después de will."
+
+  - <<: *defaults
+    id: grammar.future.will.002
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Completa con will + verbo. Es una predicción: lo que crees que pasará."
+      sentence_en: "I think the new app ___ a lot of users next year."
+      verb_hint: "get"
+      hint_es: "I think + futuro es una forma típica de predecir. ¿Qué forma toma el verbo después de will?"
+    answer:
+      subject: 3s
+      polarity: affirmative
+      tense: future_will
+      verb: { base: get, third: gets, ing: getting }
+      accepted: ["will get"]
+      explanation_es: "Para predicciones con I think usamos will + verbo base: the new app will get. Will no cambia con he / she / it."
+      alternatives:
+        - answers: ["is going to get"]
+          verdict: partial
+          rule: task.tense_mismatch.going_to
+          feedback_es: "«The new app is going to get a lot of users» es inglés correcto (be going to también sirve para predicciones), pero la consigna pedía will: will get."
+          retry_hint_es: "La consigna pide will, no be going to."
+      distractors:
+        - answers: ["will getting"]
+          rule: grammar.future.will_base_form
+          feedback_es: "Muy bien el will. Después de will el verbo va en base, sin -ing: will get."
+          minimal_correction: "will get"
+          retry_hint_es: "Revisa la terminación del verbo después de will."
+        - answers: ["will gets", "will got"]
+          rule: grammar.future.will_base_form
+          feedback_es: "Buen will. Después de will el verbo va en base, sin -s ni pasado: will get."
+          minimal_correction: "will get"
+          retry_hint_es: "Después de will, el verbo va tal como aparece en el diccionario."
+        - answers: ["will to get"]
+          rule: grammar.future.will_no_to
+          feedback_es: "Después de will no va to. Directo el verbo: will get."
+          minimal_correction: "will get"
+          retry_hint_es: "Entre will y el verbo no va ninguna palabra."
+        - answers: ["gets", "get"]
+          rule: grammar.future.needs_will
+          feedback_es: "Next year habla del futuro. Para una predicción necesitamos will + verbo base: will get."
+          minimal_correction: "will get"
+          retry_hint_es: "Fíjate en next year. ¿Qué palabra falta delante del verbo?"
+        - answers: ["going to get"]
+          rule: grammar.future.going_to_missing_be
+          feedback_es: "A going to le falta is delante (is going to get). Pero la consigna pide will: will get."
+          minimal_correction: "will get"
+          retry_hint_es: "La consigna pide will + verbo base."
+        - answers: ["is getting"]
+          rule: task.tense_mismatch.present_continuous
+          feedback_es: "El presente continuo con sentido futuro se usa para planes ya organizados, no para predicciones con I think. Aquí: will get."
+          minimal_correction: "will get"
+          retry_hint_es: "Es una predicción, no un plan organizado. ¿Qué forma de futuro pide la consigna?"
+
+  - <<: *defaults
+    id: grammar.future.will.003
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Tu jefa te recuerda una reunión. Prométele que no la olvidarás: completa en negativo con will."
+      sentence_en: "I ___ the meeting."
+      verb_hint: "not / forget"
+      hint_es: "La negativa de will tiene una contracción especial. Después, el verbo va en base."
+    answer:
+      subject: 1s
+      polarity: negative
+      tense: future_will
+      verb: { base: forget, third: forgets, ing: forgetting }
+      accepted: ["won't forget"]
+      explanation_es: "La negativa de will es will not, contraído won't, + verbo base: I won't forget. Las promesas suelen ir con will."
+      alternatives:
+        - answers: ["am not going to forget"]
+          verdict: partial
+          rule: task.tense_mismatch.going_to
+          feedback_es: "«I'm not going to forget the meeting» es inglés correcto, pero para una promesa la consigna pedía will: won't forget."
+          retry_hint_es: "La consigna pide la negativa de will."
+      distractors:
+        - answers: ["won't forgetting", "won't forgets", "won't forgot"]
+          rule: grammar.future.will_base_form
+          feedback_es: "Muy bien el won't. Después de won't el verbo va en base: forget."
+          minimal_correction: "won't forget"
+          retry_hint_es: "Después de won't, el verbo va tal como aparece en el diccionario."
+        - answers: ["won't to forget"]
+          rule: grammar.future.will_no_to
+          feedback_es: "Después de won't no va to. Directo el verbo: won't forget."
+          minimal_correction: "won't forget"
+          retry_hint_es: "Entre won't y el verbo no va ninguna palabra."
+        - answers: ["no will forget", "not will forget", "will no forget"]
+          rule: grammar.future.negative_word_order
+          feedback_es: "En español decimos «no voy a olvidar», pero en inglés not va después de will: will not forget → won't forget."
+          minimal_correction: "won't forget"
+          retry_hint_es: "Revisa el orden: ¿not va antes o después de will?"
+        - answers: ["don't forget"]
+          rule: grammar.future.needs_will
+          feedback_es: "Don't forget es una orden («no olvides»). Para prometer en futuro usamos won't forget."
+          minimal_correction: "won't forget"
+          retry_hint_es: "Es una promesa sobre el futuro. ¿Cuál es la negativa de will?"
+        - answers: ["am not forget"]
+          rule: grammar.future.no_be_with_will
+          feedback_es: "Am no forma el futuro de un verbo normal. Usamos won't + verbo base."
+          minimal_correction: "won't forget"
+          retry_hint_es: "Sobra am. ¿Qué auxiliar de futuro necesitas, en negativo?"
+
+  - <<: *defaults
+    id: grammar.future.will.004
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 3
+    prompt:
+      instruction_es: "Invitas a un amigo a un viaje. Escribe el inicio de la pregunta en futuro con will (auxiliar + you + verbo)."
+      sentence_en: "___ to Cusco with us in July?"
+      verb_hint: "you / come"
+      hint_es: "En la pregunta, will va antes del sujeto. El verbo sigue en base."
+    answer:
+      subject: 2s
+      polarity: question
+      tense: future_will
+      verb: { base: come, third: comes, ing: coming }
+      accepted: ["Will you come"]
+      explanation_es: "Pregunta con will: Will + sujeto + verbo base → Will you come…? No se necesita do."
+      alternatives:
+        - answers: ["Are you going to come"]
+          verdict: partial
+          rule: task.tense_mismatch.going_to
+          feedback_es: "«Are you going to come to Cusco?» es inglés correcto (pregunta por un plan), pero la consigna pedía will: Will you come…?"
+          retry_hint_es: "La consigna pide la pregunta con will."
+        - answers: ["Are you coming"]
+          verdict: partial
+          rule: task.tense_mismatch.present_continuous
+          feedback_es: "«Are you coming to Cusco with us?» es muy natural para planes, pero la consigna pedía will: Will you come…?"
+          retry_hint_es: "La consigna pide la pregunta con will."
+        - answers: ["Would you come"]
+          verdict: partial
+          rule: task.form_mismatch.modal
+          feedback_es: "«Would you come…?» es inglés correcto y cortés, pero la consigna pedía will: Will you come…?"
+          retry_hint_es: "La consigna pide will, no would."
+        - answers: ["You will come"]
+          verdict: partial
+          rule: task.question_form.declarative
+          feedback_es: "Con entonación de pregunta se entiende, pero suena a confirmación o sorpresa. La consigna pedía la pregunta normal: Will you come…?"
+          retry_hint_es: "En la pregunta, will cambia de lugar con el sujeto."
+      distractors:
+        - answers: ["Will you coming", "Will you comes"]
+          rule: grammar.future.will_base_form
+          feedback_es: "Muy bien el orden. Después de will el verbo va en base: Will you come…?"
+          minimal_correction: "Will you come"
+          retry_hint_es: "Revisa la terminación del verbo."
+        - answers: ["Will you to come"]
+          rule: grammar.future.will_no_to
+          feedback_es: "Después de will (y el sujeto) no va to: Will you come…?"
+          minimal_correction: "Will you come"
+          retry_hint_es: "Entre el sujeto y el verbo no va ninguna palabra."
+        - answers: ["Will come you", "Come you"]
+          rule: grammar.question.word_order
+          feedback_es: "En español podemos decir «¿Vendrás tú…?», pero en inglés el orden es fijo: will + sujeto + verbo → Will you come…?"
+          minimal_correction: "Will you come"
+          retry_hint_es: "Revisa el orden: will, luego el sujeto, luego el verbo."
+        - answers: ["Do you come", "Do you will come"]
+          rule: grammar.future.no_do_with_will
+          feedback_es: "Will ya es el auxiliar: no necesita do. Además, con in July hablamos del futuro: Will you come…?"
+          minimal_correction: "Will you come"
+          retry_hint_es: "Will funciona solo como auxiliar. ¿Qué palabra sobra o falta?"
+        - answers: ["Are you come"]
+          rule: grammar.future.no_be_with_will
+          feedback_es: "Are no forma preguntas con un verbo normal en base. Con will: Will you come…?"
+          minimal_correction: "Will you come"
+          retry_hint_es: "La consigna pide will como auxiliar al inicio."
+
+  - <<: *defaults
+    id: grammar.future.will.005
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Completa con will + verbo. Es una promesa."
+      sentence_en: "I ___ you tonight, I promise."
+      verb_hint: "call"
+      hint_es: "Will no es como want: no necesita ninguna palabra antes del verbo."
+    answer:
+      subject: 1s
+      polarity: affirmative
+      tense: future_will
+      verb: { base: call, third: calls, ing: calling }
+      accepted: ["will call"]
+      explanation_es: "Las promesas van con will + verbo base, sin to: I will call (I'll call) you tonight."
+      alternatives:
+        - answers: ["am going to call"]
+          verdict: partial
+          rule: task.tense_mismatch.going_to
+          feedback_es: "«I'm going to call you tonight» es inglés correcto, pero suena a plan, no a promesa. La consigna pedía will: will call."
+          retry_hint_es: "Para prometer, la consigna pide will."
+        - answers: ["am calling"]
+          verdict: partial
+          rule: task.tense_mismatch.present_continuous
+          feedback_es: "«I'm calling you tonight» es inglés correcto para algo ya organizado, pero la consigna pedía una promesa con will: will call."
+          retry_hint_es: "Para prometer, la consigna pide will."
+      distractors:
+        - answers: ["will to call"]
+          rule: grammar.future.will_no_to
+          feedback_es: "Muy común por want to / need to, pero will no lleva to. Directo el verbo: will call."
+          minimal_correction: "will call"
+          retry_hint_es: "Entre will y el verbo no va ninguna palabra."
+        - answers: ["will calling", "will calls", "will called"]
+          rule: grammar.future.will_base_form
+          feedback_es: "Muy bien el will. Después de will el verbo va en base: will call."
+          minimal_correction: "will call"
+          retry_hint_es: "Después de will, el verbo va tal como aparece en el diccionario."
+        - answers: ["call"]
+          rule: grammar.future.needs_will
+          feedback_es: "En español decimos «te llamo esta noche», pero en inglés una promesa sobre el futuro necesita will: will call."
+          minimal_correction: "will call"
+          retry_hint_es: "Falta el auxiliar del futuro delante del verbo."
+        - answers: ["going to call"]
+          rule: grammar.future.going_to_missing_be
+          feedback_es: "A going to le falta am delante (I'm going to call). Pero la consigna pide una promesa con will: will call."
+          minimal_correction: "will call"
+          retry_hint_es: "La consigna pide will + verbo base."
+        - answers: ["am call"]
+          rule: grammar.future.no_be_with_will
+          feedback_es: "Am no acompaña a un verbo normal en base. Para prometer: will call."
+          minimal_correction: "will call"
+          retry_hint_es: "Sobra am. ¿Qué auxiliar de futuro necesitas?"
+
+  - <<: *defaults
+    id: grammar.future.will.006
+    type: choice
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Tu compañera te pregunta por un archivo. Elige la respuesta corta correcta."
+      question_en: "“Will you send me the file today?” — “Yes, I ___.”"
+      options:
+        - { id: a, text: "do" }
+        - { id: b, text: "will" }
+        - { id: c, text: "am" }
+        - { id: d, text: "send" }
+      hint_es: "En la respuesta corta repetimos el auxiliar de la pregunta."
+    answer:
+      correct_option: b
+      explanation_es: "La pregunta usa Will, así que la respuesta corta es Yes, I will. / No, I won't."
+      option_feedback:
+        a:
+          rule: grammar.future.short_answer_auxiliary
+          feedback_es: "Do responde a preguntas con Do you…?. Esta pregunta usa Will: Yes, I will."
+          retry_hint_es: "Mira con qué palabra empieza la pregunta y repítela."
+        c:
+          rule: grammar.future.short_answer_auxiliary
+          feedback_es: "Am responde a preguntas con Are you…?. Esta pregunta usa Will: Yes, I will."
+          retry_hint_es: "La respuesta corta usa el mismo auxiliar que la pregunta."
+        d:
+          rule: grammar.future.short_answer_auxiliary
+          feedback_es: "«Yes, I send» suena a presente y le falta el auxiliar. La respuesta corta repite will: Yes, I will."
+          retry_hint_es: "No necesitas el verbo principal: solo el auxiliar de la pregunta."
+
+  # ───────────── Banco para repaso (ítems distintos a la lección) ─────────────
+  - <<: *defaults
+    id: grammar.future.will.007
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 3
+    prompt:
+      instruction_es: "Completa con el futuro de can («poder»), usando will."
+      sentence_en: "I ___ help you with the presentation tomorrow."
+      verb_hint: "can (futuro)"
+      hint_es: "Will y can no pueden ir juntos. Hay otra expresión que significa «poder» y sí funciona después de will."
+    answer:
+      subject: 1s
+      polarity: affirmative
+      tense: future_will
+      accepted: ["will be able to"]
+      explanation_es: "Will y can son auxiliares y no se combinan (✗ will can). Para el futuro de «poder» usamos will be able to + verbo base."
+      alternatives:
+        - answers: ["can"]
+          verdict: partial
+          rule: task.form_mismatch.can
+          feedback_es: "«I can help you with the presentation tomorrow» es inglés correcto y natural, pero la consigna pedía la forma con will: will be able to."
+          retry_hint_es: "La consigna pide usar will. ¿Qué expresión con will significa «poder»?"
+        - answers: ["am going to be able to"]
+          verdict: partial
+          rule: task.tense_mismatch.going_to
+          feedback_es: "«I'm going to be able to help you» es inglés correcto, pero la consigna pedía will: will be able to."
+          retry_hint_es: "La consigna pide will, no be going to."
+      distractors:
+        - answers: ["will can", "will could"]
+          rule: grammar.future.will_with_modal
+          feedback_es: "Muy común: «I will can». Will y can no van juntos. El futuro de «poder» es will be able to."
+          minimal_correction: "will be able to"
+          retry_hint_es: "Después de will no puede ir otro auxiliar como can. ¿Qué expresión significa «ser capaz de»?"
+        - answers: ["will able to", "will be able"]
+          rule: grammar.future.be_able_to_form
+          feedback_es: "Casi. La expresión completa es be able to: will be able to help."
+          minimal_correction: "will be able to"
+          retry_hint_es: "Revisa la expresión completa: tiene tres palabras después de will."
+        - answers: ["can will", "will be can"]
+          rule: grammar.future.will_with_modal
+          feedback_es: "Can no se combina con will en ningún orden. Usamos will be able to."
+          minimal_correction: "will be able to"
+          retry_hint_es: "Reemplaza can por una expresión que sí funcione después de will."
+
+  - <<: *defaults
+    id: grammar.future.will.008
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Completa con will + verbo. Estás decidiendo en este momento."
+      sentence_en: "It's raining a lot. I think I ___ at home tonight."
+      verb_hint: "stay"
+      hint_es: "Para decisiones que tomas al hablar, usamos will + verbo base."
+    answer:
+      subject: 1s
+      polarity: affirmative
+      tense: future_will
+      verb: { base: stay, third: stays, ing: staying }
+      accepted: ["will stay"]
+      explanation_es: "Decisión en el momento (I think…): will + verbo base → I will stay (I'll stay)."
+      alternatives:
+        - answers: ["am going to stay"]
+          verdict: partial
+          rule: task.tense_mismatch.going_to
+          feedback_es: "«I'm going to stay at home» es inglés correcto, pero suena a algo ya decidido. Para una decisión en el momento, la consigna pedía will: will stay."
+          retry_hint_es: "Decides en este momento: la consigna pide will."
+        - answers: ["am staying"]
+          verdict: partial
+          rule: task.tense_mismatch.present_continuous
+          feedback_es: "«I'm staying at home tonight» es inglés correcto para un plan, pero la consigna pedía una decisión en el momento con will: will stay."
+          retry_hint_es: "Decides en este momento: la consigna pide will."
+      distractors:
+        - answers: ["will staying", "will stays"]
+          rule: grammar.future.will_base_form
+          feedback_es: "Muy bien el will. Después de will el verbo va en base, sin -ing ni -s: will stay."
+          minimal_correction: "will stay"
+          retry_hint_es: "Revisa la terminación del verbo después de will."
+        - answers: ["will to stay"]
+          rule: grammar.future.will_no_to
+          feedback_es: "Después de will no va to: will stay."
+          minimal_correction: "will stay"
+          retry_hint_es: "Entre will y el verbo no va ninguna palabra."
+        - answers: ["stay", "staying"]
+          rule: grammar.future.needs_will
+          feedback_es: "En español decimos «creo que me quedo», pero en inglés una decisión sobre el futuro necesita will: will stay."
+          minimal_correction: "will stay"
+          retry_hint_es: "Falta el auxiliar del futuro delante del verbo."
+        - answers: ["going to stay"]
+          rule: grammar.future.going_to_missing_be
+          feedback_es: "A going to le falta am delante (I'm going to stay). Pero aquí decides en el momento: will stay."
+          minimal_correction: "will stay"
+          retry_hint_es: "La consigna pide will + verbo base."
+
+  - <<: *defaults
+    id: grammar.future.will.009
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Completa con will + verbo. Es una promesa a tu profesor."
+      sentence_en: "I promise I ___ the new words before the next class."
+      verb_hint: "learn"
+      hint_es: "Después de will, el verbo va sin cambios."
+    answer:
+      subject: 1s
+      polarity: affirmative
+      tense: future_will
+      verb: { base: learn, third: learns, ing: learning }
+      accepted: ["will learn"]
+      explanation_es: "Promesa → will + verbo base: I will learn (I'll learn)."
+      alternatives:
+        - answers: ["am going to learn"]
+          verdict: partial
+          rule: task.tense_mismatch.going_to
+          feedback_es: "«I promise I'm going to learn…» es inglés correcto, pero con I promise lo más natural, y lo que pedía la consigna, es will: will learn."
+          retry_hint_es: "Con I promise, la consigna pide will."
+      distractors:
+        - answers: ["will learning", "will learns", "will learned"]
+          rule: grammar.future.will_base_form
+          feedback_es: "Muy bien el will. Después de will el verbo va en base: will learn."
+          minimal_correction: "will learn"
+          retry_hint_es: "Después de will, el verbo va tal como aparece en el diccionario."
+        - answers: ["will to learn"]
+          rule: grammar.future.will_no_to
+          feedback_es: "Después de will no va to: will learn."
+          minimal_correction: "will learn"
+          retry_hint_es: "Entre will y el verbo no va ninguna palabra."
+        - answers: ["learn"]
+          rule: grammar.future.needs_will
+          feedback_es: "En español a veces decimos «te prometo que las aprendo», pero en inglés una promesa sobre el futuro necesita will: will learn."
+          minimal_correction: "will learn"
+          retry_hint_es: "Falta el auxiliar del futuro delante del verbo."
+        - answers: ["am learn"]
+          rule: grammar.future.no_be_with_will
+          feedback_es: "Am no acompaña a un verbo normal en base. Para prometer: will learn."
+          minimal_correction: "will learn"
+          retry_hint_es: "Sobra am. ¿Qué auxiliar de futuro necesitas?"
+
+  - <<: *defaults
+    id: grammar.future.will.010
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Tu amiga te convence de no salir. Decides en este momento. Completa con will + verbo."
+      sentence_en: "OK, you're right. I ___ for the exam tonight."
+      verb_hint: "study"
+      hint_es: "Decisión en el momento → will. ¿Cómo queda el verbo después de will?"
+    answer:
+      subject: 1s
+      polarity: affirmative
+      tense: future_will
+      verb: { base: study, third: studies, ing: studying }
+      accepted: ["will study"]
+      explanation_es: "Decisión tomada al hablar → will + verbo base: I will study (I'll study)."
+      alternatives:
+        - answers: ["am going to study"]
+          verdict: partial
+          rule: task.tense_mismatch.going_to
+          feedback_es: "«I'm going to study» es inglés correcto, pero suena a un plan que ya tenías. Para una decisión en el momento, la consigna pedía will: will study."
+          retry_hint_es: "Decides en este momento: la consigna pide will."
+        - answers: ["am studying"]
+          verdict: partial
+          rule: task.tense_mismatch.present_continuous
+          feedback_es: "«I'm studying for the exam tonight» es inglés correcto para un plan ya organizado, pero la consigna pedía una decisión en el momento con will: will study."
+          retry_hint_es: "Decides en este momento: la consigna pide will."
+      distractors:
+        - answers: ["will studying", "will studies", "will studied"]
+          rule: grammar.future.will_base_form
+          feedback_es: "Muy bien el will. Después de will el verbo va en base: will study."
+          minimal_correction: "will study"
+          retry_hint_es: "Después de will, el verbo va tal como aparece en el diccionario."
+        - answers: ["will to study"]
+          rule: grammar.future.will_no_to
+          feedback_es: "Después de will no va to: will study."
+          minimal_correction: "will study"
+          retry_hint_es: "Entre will y el verbo no va ninguna palabra."
+        - answers: ["study", "studying"]
+          rule: grammar.future.needs_will
+          feedback_es: "En español decimos «ok, estudio esta noche», pero en inglés una decisión sobre el futuro necesita will: will study."
+          minimal_correction: "will study"
+          retry_hint_es: "Falta el auxiliar del futuro delante del verbo."
+        - answers: ["going to study"]
+          rule: grammar.future.going_to_missing_be
+          feedback_es: "A going to le falta am delante (I'm going to study). Pero aquí decides en el momento: will study."
+          minimal_correction: "will study"
+          retry_hint_es: "La consigna pide will + verbo base."
+
+  - <<: *defaults
+    id: grammar.future.will.011
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Tu compañero no puede ir al aeropuerto. Te ofreces en este momento. Completa con will + verbo."
+      sentence_en: "No problem, I ___ the client at the airport."
+      verb_hint: "meet"
+      hint_es: "Ofrecimiento en el momento → will. El verbo va sin cambios."
+    answer:
+      subject: 1s
+      polarity: affirmative
+      tense: future_will
+      verb: { base: meet, third: meets, ing: meeting }
+      accepted: ["will meet"]
+      explanation_es: "Ofrecimientos y decisiones al hablar → will + verbo base: I will meet (I'll meet) the client."
+      alternatives:
+        - answers: ["am going to meet"]
+          verdict: partial
+          rule: task.tense_mismatch.going_to
+          feedback_es: "«I'm going to meet the client» es inglés correcto, pero suena a algo ya planeado. Para un ofrecimiento en el momento, la consigna pedía will: will meet."
+          retry_hint_es: "Te ofreces en este momento: la consigna pide will."
+        - answers: ["am meeting"]
+          verdict: partial
+          rule: task.tense_mismatch.present_continuous
+          feedback_es: "«I'm meeting the client» es inglés correcto para una cita ya organizada, pero aquí te ofreces en el momento: will meet."
+          retry_hint_es: "Te ofreces en este momento: la consigna pide will."
+      distractors:
+        - answers: ["will meeting"]
+          rule: grammar.future.will_base_form
+          feedback_es: "Muy común: «will meeting». Después de will el verbo va en base, sin -ing: will meet."
+          minimal_correction: "will meet"
+          retry_hint_es: "Revisa la terminación del verbo después de will."
+        - answers: ["will meets", "will met"]
+          rule: grammar.future.will_base_form
+          feedback_es: "Buen will. Después de will el verbo va en base, sin -s ni pasado: will meet."
+          minimal_correction: "will meet"
+          retry_hint_es: "Después de will, el verbo va tal como aparece en el diccionario."
+        - answers: ["will to meet"]
+          rule: grammar.future.will_no_to
+          feedback_es: "Después de will no va to: will meet."
+          minimal_correction: "will meet"
+          retry_hint_es: "Entre will y el verbo no va ninguna palabra."
+        - answers: ["meet", "meeting"]
+          rule: grammar.future.needs_will
+          feedback_es: "En español decimos «yo recojo al cliente», pero en inglés un ofrecimiento para el futuro necesita will: will meet."
+          minimal_correction: "will meet"
+          retry_hint_es: "Falta el auxiliar del futuro delante del verbo."
+
+  - <<: *defaults
+    id: grammar.future.will.012
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 3
+    prompt:
+      instruction_es: "Tu amigo está nervioso por el examen. Tranquilízalo con una predicción: completa en negativo con will."
+      sentence_en: "Tomorrow's test ___ difficult."
+      verb_hint: "not / be"
+      hint_es: "La negativa de will tiene una contracción especial. El verbo be va en su forma base."
+    answer:
+      subject: 3s
+      polarity: negative
+      tense: future_will
+      verb: { base: be, third: is, ing: being }
+      accepted: ["won't be"]
+      explanation_es: "La negativa de will es won't (will not) + verbo base. La base de is es be: won't be."
+      alternatives:
+        - answers: ["isn't going to be"]
+          verdict: partial
+          rule: task.tense_mismatch.going_to
+          feedback_es: "«Tomorrow's test isn't going to be difficult» es inglés correcto, pero la consigna pedía will: won't be."
+          retry_hint_es: "La consigna pide la negativa de will."
+        - answers: ["isn't"]
+          verdict: partial
+          rule: task.tense_mismatch.present_simple
+          feedback_es: "«Tomorrow's test isn't difficult» es inglés correcto (describe el examen), pero la consigna pedía una predicción con will: won't be."
+          retry_hint_es: "La consigna pide la negativa de will + el verbo be."
+      distractors:
+        - answers: ["won't is", "won't being"]
+          rule: grammar.future.will_base_form
+          feedback_es: "Muy bien el won't. Después de won't el verbo va en base, y la base de is es be: won't be."
+          minimal_correction: "won't be"
+          retry_hint_es: "¿Cuál es la forma base de is / am / are?"
+        - answers: ["won't to be"]
+          rule: grammar.future.will_no_to
+          feedback_es: "Después de won't no va to: won't be."
+          minimal_correction: "won't be"
+          retry_hint_es: "Entre won't y el verbo no va ninguna palabra."
+        - answers: ["no will be", "not will be", "will be not"]
+          rule: grammar.future.negative_word_order
+          feedback_es: "Not va justo después de will: will not be → won't be."
+          minimal_correction: "won't be"
+          retry_hint_es: "Revisa el orden: not va pegado a will."
+        - answers: ["won't"]
+          rule: grammar.future.will_needs_verb
+          feedback_es: "Falta el verbo después de won't: won't be difficult."
+          minimal_correction: "won't be"
+          retry_hint_es: "Después de won't necesitas un verbo antes de difficult."
+
+  - <<: *defaults
+    id: grammar.future.will.013
+    type: choice
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Elige la pregunta correcta con will."
+      question_en: "Which question is correct?"
+      options:
+        - { id: a, text: "Will you to call me later?" }
+        - { id: b, text: "Will you call me later?" }
+        - { id: c, text: "Will you calling me later?" }
+        - { id: d, text: "Do you will call me later?" }
+      hint_es: "Will funciona solo: no necesita do, ni to, ni -ing."
+    answer:
+      correct_option: b
+      explanation_es: "Pregunta con will: Will + sujeto + verbo base → Will you call me later?"
+      option_feedback:
+        a:
+          rule: grammar.future.will_no_to
+          feedback_es: "Después de will (y el sujeto) no va to: Will you call…?"
+          retry_hint_es: "Entre el sujeto y el verbo no va ninguna palabra."
+        c:
+          rule: grammar.future.will_base_form
+          feedback_es: "Después de will el verbo va en base, sin -ing: Will you call…?"
+          retry_hint_es: "Revisa la terminación del verbo."
+        d:
+          rule: grammar.future.no_do_with_will
+          feedback_es: "Will ya es el auxiliar; no se combina con do. La pregunta empieza directamente con Will."
+          retry_hint_es: "Un auxiliar es suficiente. ¿Cuál sobra?"
+
+  - <<: *defaults
+    id: grammar.future.will.014
+    type: choice
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Marco no va a terminar hoy. Elige la respuesta corta correcta."
+      question_en: "“Will Marco finish the project today?” — “No, he ___.”"
+      options:
+        - { id: a, text: "doesn't" }
+        - { id: b, text: "won't" }
+        - { id: c, text: "isn't" }
+        - { id: d, text: "willn't" }
+      hint_es: "La respuesta corta repite el auxiliar de la pregunta, en negativo."
+    answer:
+      correct_option: b
+      explanation_es: "La pregunta usa Will, así que la respuesta corta negativa es No, he won't (will not)."
+      option_feedback:
+        a:
+          rule: grammar.future.short_answer_auxiliary
+          feedback_es: "Doesn't responde a preguntas con Does…?. Esta pregunta usa Will: No, he won't."
+          retry_hint_es: "Mira con qué auxiliar empieza la pregunta."
+        c:
+          rule: grammar.future.short_answer_auxiliary
+          feedback_es: "Isn't responde a preguntas con Is…?. Esta pregunta usa Will: No, he won't."
+          retry_hint_es: "La respuesta corta usa el mismo auxiliar que la pregunta."
+        d:
+          rule: grammar.future.wont_contraction
+          feedback_es: "Buena idea usar will en negativo, pero la contracción de will not es irregular: won't."
+          retry_hint_es: "La contracción de will not no sigue la regla normal de -n't. ¿Cómo se escribe?"
+
+  - <<: *defaults
+    id: grammar.future.will.015
+    type: fill_blank
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "En la hackathon nadie quiere presentar la demo. Decides hacerlo en este momento. Completa con will + verbo."
+      sentence_en: "OK, I ___ it!"
+      verb_hint: "do"
+      hint_es: "Decisión en el momento → will. Ojo: en inglés «hacer» puede ser do o make."
+    answer:
+      subject: 1s
+      polarity: affirmative
+      tense: future_will
+      verb: { base: do, third: does, ing: doing }
+      accepted: ["will do"]
+      explanation_es: "Decisión al hablar → will + verbo base: OK, I will do it (I'll do it)!"
+      alternatives:
+        - answers: ["am going to do"]
+          verdict: partial
+          rule: task.tense_mismatch.going_to
+          feedback_es: "«I'm going to do it» es inglés correcto, pero suena a algo ya decidido antes. Para una decisión en el momento, la consigna pedía will: will do."
+          retry_hint_es: "Decides en este momento: la consigna pide will."
+        - answers: ["am doing"]
+          verdict: partial
+          rule: task.tense_mismatch.present_continuous
+          feedback_es: "«I'm doing it!» es inglés correcto («lo estoy haciendo»), pero la consigna pedía una decisión sobre el futuro con will: will do."
+          retry_hint_es: "Decides en este momento: la consigna pide will."
+      distractors:
+        - answers: ["will doing", "will does", "will did"]
+          rule: grammar.future.will_base_form
+          feedback_es: "Muy bien el will. Después de will el verbo va en base: will do."
+          minimal_correction: "will do"
+          retry_hint_es: "Después de will, el verbo va tal como aparece en el diccionario."
+        - answers: ["will to do"]
+          rule: grammar.future.will_no_to
+          feedback_es: "Después de will no va to: will do."
+          minimal_correction: "will do"
+          retry_hint_es: "Entre will y el verbo no va ninguna palabra."
+        - answers: ["do"]
+          rule: grammar.future.needs_will
+          feedback_es: "En español decimos «ok, yo lo hago», pero en inglés una decisión sobre el futuro necesita will: will do."
+          minimal_correction: "will do"
+          retry_hint_es: "Falta el auxiliar del futuro delante del verbo."
+        - answers: ["will make", "make"]
+          rule: vocabulary.do_make
+          feedback_es: "En español ambos son «hacer», pero aquí la consigna pide do (do it = encargarse de algo): will do."
+          minimal_correction: "will do"
+          retry_hint_es: "Usa el verbo que te da la consigna."

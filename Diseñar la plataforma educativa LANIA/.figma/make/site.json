@@ -1,0 +1,12 @@
+{
+  "description": "Academia de inglés con IA para Latinoamérica: diagnóstico, clases adaptativas con Lania, práctica oral, salones de conversación y progreso real.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  },
+  "title": "LANIA · Habla inglés sin miedo",
+  "language": "es"
+}

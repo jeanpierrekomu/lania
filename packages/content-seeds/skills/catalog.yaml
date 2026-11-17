@@ -1,0 +1,124 @@
+# Catálogo de habilidades (spec §2.3). Solo `grammar.present_simple.subject_verb_agreement`
+# tiene contenido en la Entrega 1; el resto existe para que el modelo de datos sea estable.
+skills:
+  - code: grammar.present_simple.subject_verb_agreement
+    domain: grammar
+    cefr_range: A1-A2
+    name_es: "Presente simple y concordancia"
+    description_es: "Usa el presente simple para rutinas y hechos, con -s en 3.ª persona singular y do/does en preguntas y negativas."
+    prerequisites: []
+    rubric_version: grammar_closed_v1
+  - code: grammar.present_continuous.auxiliary_be_ing
+    domain: grammar
+    cefr_range: A1-A2
+    name_es: "Presente continuo (am/is/are + -ing)"
+    description_es: "Describe acciones en curso o temporales con am/is/are + verbo-ing."
+    prerequisites: [grammar.present_simple.subject_verb_agreement]
+    rubric_version: grammar_closed_v1
+  - code: grammar.past_simple.irregular_verbs
+    domain: grammar
+    cefr_range: A2
+    name_es: "Pasado simple: verbos irregulares"
+    description_es: "Usa formas irregulares frecuentes del pasado (went, had, made...)."
+    prerequisites: [grammar.present_simple.subject_verb_agreement]
+    rubric_version: grammar_closed_v1
+  - code: grammar.past_simple.did_base_form
+    domain: grammar
+    cefr_range: A2
+    name_es: "Pasado simple: did + verbo base"
+    description_es: "Forma preguntas y negativas en pasado con did/didn't + verbo base."
+    prerequisites: [grammar.past_simple.irregular_verbs]
+    rubric_version: grammar_closed_v1
+  - code: grammar.future.will_base_form
+    domain: grammar
+    cefr_range: A2
+    name_es: "Futuro con will + verbo base"
+    description_es: "Usa will + verbo base (sin -ing ni to) para decisiones, promesas y predicciones."
+    prerequisites: [grammar.present_simple.subject_verb_agreement]
+    rubric_version: grammar_closed_v1
+  - code: grammar.future.be_going_to
+    domain: grammar
+    cefr_range: A2
+    name_es: "Futuro con be going to"
+    description_es: "Expresa planes con am/is/are going to + verbo base."
+    prerequisites: [grammar.present_continuous.auxiliary_be_ing]
+    rubric_version: grammar_closed_v1
+  - code: grammar.infinitive.want_to
+    domain: grammar
+    cefr_range: A1-A2
+    name_es: "want to + verbo base"
+    description_es: "Expresa deseos con want to + verbo base (no want + -ing)."
+    prerequisites: [grammar.present_simple.subject_verb_agreement]
+    rubric_version: grammar_closed_v1
+  - code: vocabulary.everyday_numbers_time_dates
+    domain: vocabulary
+    cefr_range: A1-A2
+    name_es: "Números, horas y fechas"
+    description_es: "Comprende y produce números, horas y fechas de uso cotidiano."
+    prerequisites: []
+    rubric_version: grammar_closed_v1
+  - code: vocabulary.work_study_technology_startups
+    domain: vocabulary
+    cefr_range: A2-B1
+    name_es: "Trabajo, estudio, tecnología y startups"
+    description_es: "Vocabulario para hablar de trabajo, estudio, producto y emprendimiento."
+    prerequisites: []
+    rubric_version: grammar_closed_v1
+  # ───────────── Diagnóstico diag_v1: lectura y escritura ─────────────
+  - code: reading.main_idea
+    domain: reading
+    cefr_range: A1-A2
+    name_es: "Lectura: idea principal"
+    description_es: "Identifica de qué trata un texto breve y sencillo sobre temas cotidianos o de trabajo."
+    prerequisites: []
+    rubric_version: grammar_closed_v1
+  - code: reading.specific_information
+    domain: reading
+    cefr_range: A1-A2
+    name_es: "Lectura: información específica"
+    description_es: "Encuentra datos concretos en un texto breve (números, horas, lugares) y entiende frases negativas."
+    prerequisites: []
+    rubric_version: grammar_closed_v1
+  # ───────────── Listening Lab ─────────────
+  - code: listening.main_idea
+    domain: listening
+    cefr_range: A1-B1
+    name_es: "Escucha: idea principal"
+    description_es: "Entiende de qué trata una conversación breve y qué decide o necesita cada persona."
+    prerequisites: []
+    rubric_version: grammar_closed_v1
+  - code: listening.specific_information
+    domain: listening
+    cefr_range: A1-B1
+    name_es: "Escucha: información específica"
+    description_es: "Capta datos concretos en una conversación (horas, precios, lugares, nombres)."
+    prerequisites: []
+    rubric_version: grammar_closed_v1
+  - code: writing.task_fulfillment
+    domain: writing
+    cefr_range: A1-A2
+    name_es: "Escritura: cumplir la tarea"
+    description_es: "Responde a lo que pide la consigna (tema, propósito y extensión) con información suficiente."
+    prerequisites: []
+    rubric_version: writing_v1
+  - code: writing.accuracy
+    domain: writing
+    cefr_range: A1-A2
+    name_es: "Escritura: precisión gramatical"
+    description_es: "Escribe oraciones simples con gramática y ortografía que no impiden entender el mensaje."
+    prerequisites: []
+    rubric_version: writing_v1
+  - code: writing.coherence
+    domain: writing
+    cefr_range: A1-A2
+    name_es: "Escritura: coherencia y conectores"
+    description_es: "Organiza las ideas en orden lógico y las une con conectores básicos (and, but, because, then)."
+    prerequisites: []
+    rubric_version: writing_v1
+  - code: writing.range
+    domain: writing
+    cefr_range: A1-A2
+    name_es: "Escritura: variedad de vocabulario y estructuras"
+    description_es: "Usa vocabulario cotidiano y estructuras variadas, sin repetir siempre las mismas palabras."
+    prerequisites: []
+    rubric_version: writing_v1

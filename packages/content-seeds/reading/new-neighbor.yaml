@@ -1,0 +1,23 @@
+# Lectura ORIGINAL para el piloto (pendiente de revisión docente). Preguntas en items/reading.yaml.
+slug: new-neighbor
+version: 1
+title_en: "My New Neighbor"
+title_es: "Mi nueva vecina"
+kind_es: "Texto personal"
+level: A1
+topic: cotidiano
+review_status: pilot
+paragraphs:
+  - "My name is Lucía and I live in a small apartment in Arequipa. Last month, a new neighbor moved in next door. Her name is Emma and she is from Canada."
+  - "Emma is a nurse. She works at the hospital near our street, so she usually walks to work. She leaves home very early, at six in the morning, and she comes back at three in the afternoon."
+  - "On weekends, Emma practices Spanish with me, and I practice English with her. We drink coffee and talk for one hour. She says my English is getting better every week!"
+glossary:
+  - { en: "neighbor", es: "vecino / vecina" }
+  - { en: "moved in", es: "se mudó (a vivir aquí)" }
+  - { en: "next door", es: "en la casa / el departamento de al lado" }
+  - { en: "nurse", es: "enfermera / enfermero" }
+  - { en: "getting better", es: "está mejorando" }
+questions:
+  reading.new_neighbor.01: 0
+  reading.new_neighbor.02: 1
+  reading.new_neighbor.03: 2

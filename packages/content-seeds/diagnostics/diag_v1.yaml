@@ -1,0 +1,48 @@
+# Diagnóstico de ubicación diag_v1 (A1–A2). Contenido original, review_status: pilot.
+# Ítems en items/diagnostic_v1.yaml (pool: diagnostic). Dentro de cada habilidad: A1 primero, luego A2.
+version: diag_v1
+title_es: "Diagnóstico de inglés: descubre tu punto de partida"
+blocks:
+  - id: grammar_vocab
+    title_es: "Gramática y vocabulario"
+    intro_es: "Empezamos con oraciones cortas del día a día. No hay pistas ni tiempo límite: responde con lo que sabes hoy. Si no sabes una, elige «No lo sé»: nos ayuda más que adivinar, y equivocarse aquí también sirve para armar tu plan."
+    items:
+      - diag_v1.grammar.present_simple.subject_verb_agreement.01
+      - diag_v1.grammar.present_simple.subject_verb_agreement.02
+      - diag_v1.grammar.present_simple.subject_verb_agreement.03
+      - diag_v1.grammar.present_continuous.auxiliary_be_ing.01
+      - diag_v1.grammar.present_continuous.auxiliary_be_ing.02
+      - diag_v1.grammar.present_continuous.auxiliary_be_ing.03
+      - diag_v1.grammar.past_simple.irregular_verbs.01
+      - diag_v1.grammar.past_simple.irregular_verbs.02
+      - diag_v1.grammar.past_simple.irregular_verbs.03
+      - diag_v1.grammar.past_simple.did_base_form.01
+      - diag_v1.grammar.past_simple.did_base_form.02
+      - diag_v1.grammar.past_simple.did_base_form.03
+      - diag_v1.grammar.future.will_base_form.01
+      - diag_v1.grammar.future.will_base_form.02
+      - diag_v1.grammar.future.will_base_form.03
+      - diag_v1.grammar.infinitive.want_to.01
+      - diag_v1.grammar.infinitive.want_to.02
+      - diag_v1.vocabulary.everyday_numbers_time_dates.01
+      - diag_v1.vocabulary.everyday_numbers_time_dates.02
+      - diag_v1.vocabulary.everyday_numbers_time_dates.03
+      - diag_v1.vocabulary.work_study_technology_startups.01
+      - diag_v1.vocabulary.work_study_technology_startups.02
+  - id: reading
+    title_es: "Lectura"
+    intro_es: "Ahora vas a leer un texto corto sobre una pequeña startup. Léelo con calma; puedes volver a él en cada pregunta. No necesitas entender todas las palabras para responder."
+    items:
+      - diag_v1.reading.main_idea.01
+      - diag_v1.reading.specific_information.01
+      - diag_v1.reading.specific_information.02
+  - id: writing
+    title_es: "Escritura"
+    intro_es: "Último paso: dos textos cortos y libres. Escribe sin diccionario ni traductor, como te salga. No te corregimos mientras escribes: verás la evaluación de tus textos en el informe final."
+    items:
+      - diag_v1.writing.task_fulfillment.01
+      - diag_v1.writing.task_fulfillment.02
+not_assessed_es:
+  - "Comprensión auditiva (listening): esta versión del diagnóstico no la mide. Llegará con la práctica por voz en una próxima versión."
+  - "Expresión oral (speaking): esta versión del diagnóstico no la mide. También llegará con la práctica por voz en una próxima versión."
+  - "Pronunciación: nunca la deducimos de lo que escribes. Solo la evaluaremos cuando practiques hablando."

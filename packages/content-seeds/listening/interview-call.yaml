@@ -1,0 +1,29 @@
+slug: interview-call
+version: 1
+title_es: "Una llamada para la entrevista"
+context_es: "Una reclutadora llama a Diego para agendar una entrevista de trabajo."
+level: A2
+topic: entrevistas
+review_status: pilot
+speakers:
+  - { name: Laura, voice: marin }
+  - { name: Diego, voice: cedar }
+segments:
+  - { speaker: Laura, text_en: "Hello, is this Diego Ramos? This is Laura from Brightside Software." }
+  - { speaker: Diego, text_en: "Yes, speaking. Hi, Laura!" }
+  - { speaker: Laura, text_en: "We read your application for the junior developer position, and we'd like to invite you to an interview." }
+  - { speaker: Diego, text_en: "That's great news. Thank you!" }
+  - { speaker: Laura, text_en: "Are you free on Thursday at ten in the morning?" }
+  - { speaker: Diego, text_en: "I'm sorry, I have a class on Thursday morning. Is Friday possible?" }
+  - { speaker: Laura, text_en: "Sure. How about Friday at three in the afternoon? It's an online interview, so you only need a computer and a good connection." }
+  - { speaker: Diego, text_en: "Perfect. Friday at three works for me." }
+  - { speaker: Laura, text_en: "Great. I'll send you the link by email today." }
+questions:
+  listening.interview_call.01: 2
+  listening.interview_call.02: 6
+  listening.interview_call.03: 6
+dictation:
+  segment: 8
+  before: "Great. I'll send you the link by "
+  answer: "email"
+  after: " today."

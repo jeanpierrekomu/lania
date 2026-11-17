@@ -1,0 +1,6572 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "LANIA API",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api/v1/health": {
+      "get": {
+        "tags": [
+          "system"
+        ],
+        "summary": "Health",
+        "operationId": "health_api_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/me": {
+      "get": {
+        "tags": [
+          "me"
+        ],
+        "summary": "Me",
+        "operationId": "me_api_v1_me_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/lessons/{slug}": {
+      "get": {
+        "tags": [
+          "learning"
+        ],
+        "summary": "Lesson",
+        "operationId": "lesson_api_v1_lessons__slug__get",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Slug"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LessonOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/api/v1/learning/next": {
+      "get": {
+        "tags": [
+          "learning"
+        ],
+        "summary": "Learning Next",
+        "operationId": "learning_next_api_v1_learning_next_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NextMissionOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/attempts": {
+      "post": {
+        "tags": [
+          "learning"
+        ],
+        "summary": "Create Attempt",
+        "operationId": "create_attempt_api_v1_attempts_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AttemptIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AttemptResultOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/evaluations/{evaluation_id}/dispute": {
+      "post": {
+        "tags": [
+          "learning"
+        ],
+        "summary": "Dispute",
+        "operationId": "dispute_api_v1_evaluations__evaluation_id__dispute_post",
+        "parameters": [
+          {
+            "name": "evaluation_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Evaluation Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DisputeIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DisputeOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/api/v1/reviews/session": {
+      "get": {
+        "tags": [
+          "learning"
+        ],
+        "summary": "Review Session",
+        "operationId": "review_session_api_v1_reviews_session_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewSessionOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/progress": {
+      "get": {
+        "tags": [
+          "learning"
+        ],
+        "summary": "Progress",
+        "operationId": "progress_api_v1_progress_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProgressOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/me/preferences": {
+      "put": {
+        "tags": [
+          "me"
+        ],
+        "summary": "Put Preferences",
+        "operationId": "put_preferences_api_v1_me_preferences_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PreferencesIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/me/onboarding": {
+      "put": {
+        "tags": [
+          "me"
+        ],
+        "summary": "Put Onboarding",
+        "operationId": "put_onboarding_api_v1_me_onboarding_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OnboardingIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/me/pilot-consent": {
+      "post": {
+        "tags": [
+          "me"
+        ],
+        "summary": "Pilot Consent",
+        "operationId": "pilot_consent_api_v1_me_pilot_consent_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/privacy/export": {
+      "get": {
+        "tags": [
+          "privacy"
+        ],
+        "summary": "Privacy Export",
+        "operationId": "privacy_export_api_v1_privacy_export_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivacyExportOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/privacy/account": {
+      "delete": {
+        "tags": [
+          "privacy"
+        ],
+        "summary": "Privacy Delete Account",
+        "operationId": "privacy_delete_account_api_v1_privacy_account_delete",
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/diagnostics": {
+      "post": {
+        "tags": [
+          "diagnostic"
+        ],
+        "summary": "Start Diagnostic",
+        "operationId": "start_diagnostic_api_v1_diagnostics_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiagnosticStateOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/diagnostics/current": {
+      "get": {
+        "tags": [
+          "diagnostic"
+        ],
+        "summary": "Current Diagnostic",
+        "operationId": "current_diagnostic_api_v1_diagnostics_current_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiagnosticCurrentOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/diagnostics/{run_id}/answers": {
+      "post": {
+        "tags": [
+          "diagnostic"
+        ],
+        "summary": "Answer Diagnostic",
+        "operationId": "answer_diagnostic_api_v1_diagnostics__run_id__answers_post",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DiagnosticAnswerIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiagnosticStateOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/api/v1/diagnostics/{run_id}/report": {
+      "get": {
+        "tags": [
+          "diagnostic"
+        ],
+        "summary": "Diagnostic Report",
+        "operationId": "diagnostic_report_api_v1_diagnostics__run_id__report_get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiagnosticReportOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/api/v1/writing/prompts": {
+      "get": {
+        "tags": [
+          "writing"
+        ],
+        "summary": "Writing Prompts",
+        "operationId": "writing_prompts_api_v1_writing_prompts_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/WritingPromptOut"
+                  },
+                  "type": "array",
+                  "title": "Response Writing Prompts Api V1 Writing Prompts Get"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/writing/submissions": {
+      "get": {
+        "tags": [
+          "writing"
+        ],
+        "summary": "Writing History",
+        "operationId": "writing_history_api_v1_writing_submissions_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/WritingSubmissionOut"
+                  },
+                  "type": "array",
+                  "title": "Response Writing History Api V1 Writing Submissions Get"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "writing"
+        ],
+        "summary": "Writing Submit",
+        "operationId": "writing_submit_api_v1_writing_submissions_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WritingSubmissionIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WritingSubmissionOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/listening/episodes": {
+      "get": {
+        "tags": [
+          "listening"
+        ],
+        "summary": "Listening Episodes",
+        "operationId": "listening_episodes_api_v1_listening_episodes_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/EpisodeSummaryOut"
+                  },
+                  "type": "array",
+                  "title": "Response Listening Episodes Api V1 Listening Episodes Get"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/listening/episodes/{slug}": {
+      "get": {
+        "tags": [
+          "listening"
+        ],
+        "summary": "Listening Episode",
+        "operationId": "listening_episode_api_v1_listening_episodes__slug__get",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Slug"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EpisodeOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/api/v1/listening/episodes/{slug}/segments/{index}/audio": {
+      "get": {
+        "tags": [
+          "listening"
+        ],
+        "summary": "Listening Audio",
+        "operationId": "listening_audio_api_v1_listening_episodes__slug__segments__index__audio_get",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Slug"
+            }
+          },
+          {
+            "name": "index",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Index"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "audio/mpeg": {}
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/api/v1/reading/texts": {
+      "get": {
+        "tags": [
+          "reading"
+        ],
+        "summary": "Reading Texts",
+        "operationId": "reading_texts_api_v1_reading_texts_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ReadingSummaryOut"
+                  },
+                  "type": "array",
+                  "title": "Response Reading Texts Api V1 Reading Texts Get"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/reading/texts/{slug}": {
+      "get": {
+        "tags": [
+          "reading"
+        ],
+        "summary": "Reading Text",
+        "operationId": "reading_text_api_v1_reading_texts__slug__get",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Slug"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadingOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/api/v1/reading/texts/{slug}/audio": {
+      "get": {
+        "tags": [
+          "reading"
+        ],
+        "summary": "Reading Audio",
+        "operationId": "reading_audio_api_v1_reading_texts__slug__audio_get",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Slug"
+            }
+          },
+          {
+            "name": "what",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^(p|w):\\d{1,2}$",
+              "title": "What"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "audio/mpeg": {}
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/api/v1/speaking/scenarios": {
+      "get": {
+        "tags": [
+          "speaking"
+        ],
+        "summary": "Speaking Scenarios",
+        "operationId": "speaking_scenarios_api_v1_speaking_scenarios_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ScenarioSummaryOut"
+                  },
+                  "type": "array",
+                  "title": "Response Speaking Scenarios Api V1 Speaking Scenarios Get"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/speaking/sessions": {
+      "post": {
+        "tags": [
+          "speaking"
+        ],
+        "summary": "Speaking Start",
+        "operationId": "speaking_start_api_v1_speaking_sessions_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SpeakingStartIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SpeakingSessionOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/speaking/sessions/{session_id}": {
+      "get": {
+        "tags": [
+          "speaking"
+        ],
+        "summary": "Speaking Get",
+        "operationId": "speaking_get_api_v1_speaking_sessions__session_id__get",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Session Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SpeakingSessionOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/api/v1/speaking/sessions/{session_id}/turns": {
+      "post": {
+        "tags": [
+          "speaking"
+        ],
+        "summary": "Speaking Turn",
+        "operationId": "speaking_turn_api_v1_speaking_sessions__session_id__turns_post",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Session Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_speaking_turn_api_v1_speaking_sessions__session_id__turns_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SpeakingSessionOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/api/v1/speaking/sessions/{session_id}/audio": {
+      "get": {
+        "tags": [
+          "speaking"
+        ],
+        "summary": "Speaking Audio",
+        "operationId": "speaking_audio_api_v1_speaking_sessions__session_id__audio_get",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Session Id"
+            }
+          },
+          {
+            "name": "what",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^(prompt:\\d{1,2}|turn:[0-9a-f-]{36})$",
+              "title": "What"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "audio/mpeg": {}
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/api/v1/missions": {
+      "get": {
+        "tags": [
+          "missions"
+        ],
+        "summary": "Missions List",
+        "operationId": "missions_list_api_v1_missions_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/MissionProgressOut"
+                  },
+                  "type": "array",
+                  "title": "Response Missions List Api V1 Missions Get"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/rooms": {
+      "get": {
+        "tags": [
+          "rooms"
+        ],
+        "summary": "Rooms List",
+        "operationId": "rooms_list_api_v1_rooms_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/RoomOut"
+                  },
+                  "type": "array",
+                  "title": "Response Rooms List Api V1 Rooms Get"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/rooms/{room_id}/join": {
+      "post": {
+        "tags": [
+          "rooms"
+        ],
+        "summary": "Rooms Join",
+        "operationId": "rooms_join_api_v1_rooms__room_id__join_post",
+        "parameters": [
+          {
+            "name": "room_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Room Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/api/v1/rooms/{room_id}/leave": {
+      "post": {
+        "tags": [
+          "rooms"
+        ],
+        "summary": "Rooms Leave",
+        "operationId": "rooms_leave_api_v1_rooms__room_id__leave_post",
+        "parameters": [
+          {
+            "name": "room_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Room Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/api/v1/rooms/{room_id}/messages": {
+      "get": {
+        "tags": [
+          "rooms"
+        ],
+        "summary": "Rooms Messages",
+        "operationId": "rooms_messages_api_v1_rooms__room_id__messages_get",
+        "parameters": [
+          {
+            "name": "room_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Room Id"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "After"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RoomMessageOut"
+                  },
+                  "title": "Response Rooms Messages Api V1 Rooms  Room Id  Messages Get"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "rooms"
+        ],
+        "summary": "Rooms Post",
+        "operationId": "rooms_post_api_v1_rooms__room_id__messages_post",
+        "parameters": [
+          {
+            "name": "room_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Room Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RoomMessageIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomMessageOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/api/v1/rooms/{room_id}/messages/{message_id}/report": {
+      "post": {
+        "tags": [
+          "rooms"
+        ],
+        "summary": "Rooms Report",
+        "operationId": "rooms_report_api_v1_rooms__room_id__messages__message_id__report_post",
+        "parameters": [
+          {
+            "name": "room_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Room Id"
+            }
+          },
+          {
+            "name": "message_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Message Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/api/v1/tutor/conversations": {
+      "post": {
+        "tags": [
+          "tutor"
+        ],
+        "summary": "New Conversation",
+        "operationId": "new_conversation_api_v1_tutor_conversations_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TutorConversationIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TutorConversationOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tutor/conversations/latest": {
+      "get": {
+        "tags": [
+          "tutor"
+        ],
+        "summary": "Latest Conversation",
+        "operationId": "latest_conversation_api_v1_tutor_conversations_latest_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/TutorConversationOut"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Latest Conversation Api V1 Tutor Conversations Latest Get"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tutor/conversations/{conversation_id}": {
+      "get": {
+        "tags": [
+          "tutor"
+        ],
+        "summary": "Get Conversation",
+        "operationId": "get_conversation_api_v1_tutor_conversations__conversation_id__get",
+        "parameters": [
+          {
+            "name": "conversation_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Conversation Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TutorConversationOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/api/v1/tutor/conversations/{conversation_id}/messages": {
+      "post": {
+        "tags": [
+          "tutor"
+        ],
+        "summary": "Send Tutor Message",
+        "operationId": "send_tutor_message_api_v1_tutor_conversations__conversation_id__messages_post",
+        "parameters": [
+          {
+            "name": "conversation_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Conversation Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TutorMessageIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TutorTurnOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/api/v1/feedback": {
+      "post": {
+        "tags": [
+          "me"
+        ],
+        "summary": "Send Feedback",
+        "operationId": "send_feedback_api_v1_feedback_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeedbackIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/feedback": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Admin Feedback",
+        "operationId": "admin_feedback_api_v1_admin_feedback_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/FeedbackOut"
+                  },
+                  "type": "array",
+                  "title": "Response Admin Feedback Api V1 Admin Feedback Get"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/disputes": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Admin Disputes",
+        "operationId": "admin_disputes_api_v1_admin_disputes_get",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^(open|accepted|rejected)$",
+              "default": "open",
+              "title": "Status"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DisputeReviewOut"
+                  },
+                  "title": "Response Admin Disputes Api V1 Admin Disputes Get"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/disputes/{dispute_id}/resolve": {
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Admin Resolve",
+        "operationId": "admin_resolve_api_v1_admin_disputes__dispute_id__resolve_post",
+        "parameters": [
+          {
+            "name": "dispute_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Dispute Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DisputeResolveIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DisputeReviewOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/api/v1/admin/ai-usage": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Admin Ai Usage",
+        "operationId": "admin_ai_usage_api_v1_admin_ai_usage_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AiUsageOut"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/dev/session": {
+      "post": {
+        "tags": [
+          "dev-only"
+        ],
+        "summary": "Dev Session",
+        "operationId": "dev_session_api_v1_dev_session_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DevSessionIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/dev/clock": {
+      "get": {
+        "tags": [
+          "dev-only"
+        ],
+        "summary": "Get Clock",
+        "operationId": "get_clock_api_v1_dev_clock_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClockOut"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "dev-only"
+        ],
+        "summary": "Set Clock",
+        "description": "Adelanta el reloj del servidor para probar repasos diferidos sin esperar días.",
+        "operationId": "set_clock_api_v1_dev_clock_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClockIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClockOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AiUsageOut": {
+        "properties": {
+          "period_start": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Period Start"
+          },
+          "requests": {
+            "type": "integer",
+            "title": "Requests"
+          },
+          "ok": {
+            "type": "integer",
+            "title": "Ok"
+          },
+          "invalid_output": {
+            "type": "integer",
+            "title": "Invalid Output"
+          },
+          "errors": {
+            "type": "integer",
+            "title": "Errors"
+          },
+          "input_tokens": {
+            "type": "integer",
+            "title": "Input Tokens"
+          },
+          "output_tokens": {
+            "type": "integer",
+            "title": "Output Tokens"
+          },
+          "estimated_cost_usd": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Estimated Cost Usd"
+          },
+          "cost_known_for_all": {
+            "type": "boolean",
+            "title": "Cost Known For All"
+          },
+          "p50_latency_ms": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P50 Latency Ms"
+          },
+          "p95_latency_ms": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P95 Latency Ms"
+          }
+        },
+        "type": "object",
+        "required": [
+          "period_start",
+          "requests",
+          "ok",
+          "invalid_output",
+          "errors",
+          "input_tokens",
+          "output_tokens",
+          "estimated_cost_usd",
+          "cost_known_for_all",
+          "p50_latency_ms",
+          "p95_latency_ms"
+        ],
+        "title": "AiUsageOut"
+      },
+      "AttemptIn": {
+        "properties": {
+          "exercise_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Exercise Id"
+          },
+          "client_submission_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client Submission Id",
+            "description": "UUID generado por el cliente; reenviarlo no duplica el intento."
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "practice",
+              "review"
+            ],
+            "title": "Mode"
+          },
+          "answer_text": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 300,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Answer Text"
+          },
+          "option_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 8,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Option Id"
+          },
+          "hint_count": {
+            "type": "integer",
+            "maximum": 10.0,
+            "minimum": 0.0,
+            "title": "Hint Count",
+            "default": 0
+          },
+          "retry_of": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Retry Of"
+          }
+        },
+        "type": "object",
+        "required": [
+          "exercise_id",
+          "client_submission_id",
+          "mode"
+        ],
+        "title": "AttemptIn"
+      },
+      "AttemptResultOut": {
+        "properties": {
+          "attempt_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Attempt Id"
+          },
+          "idempotent_replay": {
+            "type": "boolean",
+            "title": "Idempotent Replay"
+          },
+          "evaluation": {
+            "$ref": "#/components/schemas/EvaluationOut"
+          },
+          "mastery": {
+            "$ref": "#/components/schemas/MasteryOut"
+          },
+          "next_review": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ReviewOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "attempt_id",
+          "idempotent_replay",
+          "evaluation",
+          "mastery",
+          "next_review"
+        ],
+        "title": "AttemptResultOut"
+      },
+      "Body_speaking_turn_api_v1_speaking_sessions__session_id__turns_post": {
+        "properties": {
+          "client_turn_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client Turn Id"
+          },
+          "text": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Text"
+          },
+          "seconds": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 600.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Seconds"
+          },
+          "audio": {
+            "anyOf": [
+              {
+                "type": "string",
+                "contentMediaType": "application/octet-stream"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Audio"
+          }
+        },
+        "type": "object",
+        "required": [
+          "client_turn_id"
+        ],
+        "title": "Body_speaking_turn_api_v1_speaking_sessions__session_id__turns_post"
+      },
+      "ChoiceOptionOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "text"
+        ],
+        "title": "ChoiceOptionOut"
+      },
+      "ClockIn": {
+        "properties": {
+          "advance_days": {
+            "type": "integer",
+            "maximum": 60.0,
+            "minimum": 0.0,
+            "title": "Advance Days",
+            "default": 0
+          },
+          "reset": {
+            "type": "boolean",
+            "title": "Reset",
+            "default": false
+          }
+        },
+        "type": "object",
+        "title": "ClockIn"
+      },
+      "ClockOut": {
+        "properties": {
+          "now": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Now"
+          },
+          "offset_days": {
+            "type": "number",
+            "title": "Offset Days"
+          }
+        },
+        "type": "object",
+        "required": [
+          "now",
+          "offset_days"
+        ],
+        "title": "ClockOut"
+      },
+      "DevSessionIn": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "maxLength": 254,
+            "minLength": 3,
+            "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+            "title": "Email"
+          },
+          "display_name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 60,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Display Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email"
+        ],
+        "title": "DevSessionIn"
+      },
+      "DiagnosticAnswerIn": {
+        "properties": {
+          "exercise_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Exercise Id"
+          },
+          "client_submission_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client Submission Id"
+          },
+          "answer_text": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Answer Text"
+          },
+          "option_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 8,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Option Id"
+          },
+          "unsure": {
+            "type": "boolean",
+            "title": "Unsure",
+            "description": "«No lo sé»: mejor que adivinar; cuenta como no logrado.",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "exercise_id",
+          "client_submission_id"
+        ],
+        "title": "DiagnosticAnswerIn"
+      },
+      "DiagnosticBlockOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": [
+              "grammar_vocab",
+              "reading",
+              "writing"
+            ],
+            "title": "Id"
+          },
+          "title_es": {
+            "type": "string",
+            "title": "Title Es"
+          },
+          "intro_es": {
+            "type": "string",
+            "title": "Intro Es"
+          },
+          "index": {
+            "type": "integer",
+            "title": "Index"
+          },
+          "total_blocks": {
+            "type": "integer",
+            "title": "Total Blocks"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title_es",
+          "intro_es",
+          "index",
+          "total_blocks"
+        ],
+        "title": "DiagnosticBlockOut"
+      },
+      "DiagnosticCurrentOut": {
+        "properties": {
+          "active": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DiagnosticStateOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "last_completed_run_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Completed Run Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "active",
+          "last_completed_run_id"
+        ],
+        "title": "DiagnosticCurrentOut"
+      },
+      "DiagnosticReportOut": {
+        "properties": {
+          "run_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Run Id"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "completed_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Completed At"
+          },
+          "sections": {
+            "items": {
+              "$ref": "#/components/schemas/SectionOut"
+            },
+            "type": "array",
+            "title": "Sections"
+          },
+          "strengths_es": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Strengths Es"
+          },
+          "needs_es": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Needs Es"
+          },
+          "missions": {
+            "items": {
+              "$ref": "#/components/schemas/MissionOut"
+            },
+            "type": "array",
+            "title": "Missions"
+          },
+          "writing": {
+            "items": {
+              "$ref": "#/components/schemas/WritingFeedbackOut"
+            },
+            "type": "array",
+            "title": "Writing"
+          },
+          "caveats_es": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Caveats Es"
+          },
+          "not_assessed_es": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Not Assessed Es"
+          },
+          "confirmation_suggested": {
+            "type": "boolean",
+            "title": "Confirmation Suggested"
+          },
+          "pending_evaluations": {
+            "type": "integer",
+            "title": "Pending Evaluations"
+          }
+        },
+        "type": "object",
+        "required": [
+          "run_id",
+          "version",
+          "completed_at",
+          "sections",
+          "strengths_es",
+          "needs_es",
+          "missions",
+          "writing",
+          "caveats_es",
+          "not_assessed_es",
+          "confirmation_suggested",
+          "pending_evaluations"
+        ],
+        "title": "DiagnosticReportOut"
+      },
+      "DiagnosticStateOut": {
+        "properties": {
+          "run_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Run Id"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "in_progress",
+              "completed"
+            ],
+            "title": "Status"
+          },
+          "answered": {
+            "type": "integer",
+            "title": "Answered"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "block": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DiagnosticBlockOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "first_in_block": {
+            "type": "boolean",
+            "title": "First In Block"
+          },
+          "item": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ExerciseOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "not_assessed_es": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Not Assessed Es"
+          }
+        },
+        "type": "object",
+        "required": [
+          "run_id",
+          "version",
+          "status",
+          "answered",
+          "total",
+          "block",
+          "first_in_block",
+          "item",
+          "not_assessed_es"
+        ],
+        "title": "DiagnosticStateOut"
+      },
+      "DictationOut": {
+        "properties": {
+          "segment": {
+            "type": "integer",
+            "title": "Segment"
+          },
+          "before": {
+            "type": "string",
+            "title": "Before"
+          },
+          "answer": {
+            "type": "string",
+            "title": "Answer"
+          },
+          "after": {
+            "type": "string",
+            "title": "After"
+          }
+        },
+        "type": "object",
+        "required": [
+          "segment",
+          "before",
+          "answer",
+          "after"
+        ],
+        "title": "DictationOut"
+      },
+      "DisputeIn": {
+        "properties": {
+          "reason": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 3,
+            "title": "Reason"
+          }
+        },
+        "type": "object",
+        "required": [
+          "reason"
+        ],
+        "title": "DisputeIn"
+      },
+      "DisputeOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "open",
+              "accepted",
+              "rejected"
+            ],
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "status"
+        ],
+        "title": "DisputeOut"
+      },
+      "DisputeResolveIn": {
+        "properties": {
+          "decision": {
+            "type": "string",
+            "enum": [
+              "accept",
+              "reject"
+            ],
+            "title": "Decision"
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 3,
+            "title": "Note"
+          }
+        },
+        "type": "object",
+        "required": [
+          "decision",
+          "note"
+        ],
+        "title": "DisputeResolveIn"
+      },
+      "DisputeReviewOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "open",
+              "accepted",
+              "rejected"
+            ],
+            "title": "Status"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          },
+          "item_external_id": {
+            "type": "string",
+            "title": "Item External Id"
+          },
+          "prompt_en": {
+            "type": "string",
+            "title": "Prompt En"
+          },
+          "learner_answer": {
+            "type": "string",
+            "title": "Learner Answer"
+          },
+          "verdict": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "correct",
+                  "valid_alternative",
+                  "less_natural",
+                  "spelling_error",
+                  "partial",
+                  "incorrect"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Verdict"
+          },
+          "matched_rule": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Matched Rule"
+          },
+          "expected_answer": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Answer"
+          },
+          "feedback_es": {
+            "type": "string",
+            "title": "Feedback Es"
+          },
+          "rubric_version": {
+            "type": "string",
+            "title": "Rubric Version"
+          },
+          "grader_version": {
+            "type": "string",
+            "title": "Grader Version"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "created_at",
+          "status",
+          "reason",
+          "item_external_id",
+          "prompt_en",
+          "learner_answer",
+          "verdict",
+          "matched_rule",
+          "expected_answer",
+          "feedback_es",
+          "rubric_version",
+          "grader_version"
+        ],
+        "title": "DisputeReviewOut"
+      },
+      "EpisodeOut": {
+        "properties": {
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "title_es": {
+            "type": "string",
+            "title": "Title Es"
+          },
+          "context_es": {
+            "type": "string",
+            "title": "Context Es"
+          },
+          "level": {
+            "type": "string",
+            "title": "Level"
+          },
+          "topic": {
+            "type": "string",
+            "title": "Topic"
+          },
+          "speakers": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Speakers"
+          },
+          "segments": {
+            "items": {
+              "$ref": "#/components/schemas/ListeningSegmentOut"
+            },
+            "type": "array",
+            "title": "Segments"
+          },
+          "questions": {
+            "items": {
+              "$ref": "#/components/schemas/ListeningQuestionOut"
+            },
+            "type": "array",
+            "title": "Questions"
+          },
+          "dictation": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DictationOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "server_audio": {
+            "type": "boolean",
+            "title": "Server Audio",
+            "description": "Hay voz del servidor; si no, la app usa la voz del navegador."
+          }
+        },
+        "type": "object",
+        "required": [
+          "slug",
+          "title_es",
+          "context_es",
+          "level",
+          "topic",
+          "speakers",
+          "segments",
+          "questions",
+          "dictation",
+          "server_audio"
+        ],
+        "title": "EpisodeOut"
+      },
+      "EpisodeSummaryOut": {
+        "properties": {
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "title_es": {
+            "type": "string",
+            "title": "Title Es"
+          },
+          "context_es": {
+            "type": "string",
+            "title": "Context Es"
+          },
+          "level": {
+            "type": "string",
+            "title": "Level"
+          },
+          "topic": {
+            "type": "string",
+            "title": "Topic"
+          },
+          "speakers": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Speakers"
+          },
+          "questions": {
+            "type": "integer",
+            "title": "Questions"
+          },
+          "solved": {
+            "type": "integer",
+            "title": "Solved"
+          }
+        },
+        "type": "object",
+        "required": [
+          "slug",
+          "title_es",
+          "context_es",
+          "level",
+          "topic",
+          "speakers",
+          "questions",
+          "solved"
+        ],
+        "title": "EpisodeSummaryOut"
+      },
+      "ErrorBody": {
+        "properties": {
+          "error_code": {
+            "type": "string",
+            "enum": [
+              "AUTH_REQUIRED",
+              "AUTH_INVALID",
+              "NOT_FOUND",
+              "INVALID_EXERCISE",
+              "INVALID_INPUT",
+              "CONFLICT",
+              "REVIEW_REQUIRED",
+              "INTERNAL",
+              "FORBIDDEN",
+              "QUOTA_EXCEEDED",
+              "PROVIDER_UNAVAILABLE",
+              "AI_NOT_CONFIGURED",
+              "RATE_LIMITED"
+            ],
+            "title": "Error Code"
+          },
+          "message_es": {
+            "type": "string",
+            "title": "Message Es"
+          },
+          "retryable": {
+            "type": "boolean",
+            "title": "Retryable"
+          },
+          "request_id": {
+            "type": "string",
+            "title": "Request Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "error_code",
+          "message_es",
+          "retryable",
+          "request_id"
+        ],
+        "title": "ErrorBody"
+      },
+      "EvaluationOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "graded",
+              "needs_review"
+            ],
+            "title": "Status"
+          },
+          "verdict": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "correct",
+                  "valid_alternative",
+                  "less_natural",
+                  "spelling_error",
+                  "partial",
+                  "incorrect"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Verdict"
+          },
+          "score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Score"
+          },
+          "max_score": {
+            "type": "number",
+            "title": "Max Score"
+          },
+          "matched_rule": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Matched Rule"
+          },
+          "feedback_es": {
+            "type": "string",
+            "title": "Feedback Es"
+          },
+          "explanation_es": {
+            "type": "string",
+            "title": "Explanation Es"
+          },
+          "expected_answer": {
+            "type": "string",
+            "title": "Expected Answer"
+          },
+          "correct_sentence": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Correct Sentence"
+          },
+          "your_answer": {
+            "type": "string",
+            "title": "Your Answer"
+          },
+          "errors": {
+            "items": {
+              "$ref": "#/components/schemas/GradeErrorOut"
+            },
+            "type": "array",
+            "title": "Errors"
+          },
+          "confidence": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "title": "Confidence"
+          },
+          "rubric_version": {
+            "type": "string",
+            "title": "Rubric Version"
+          },
+          "grader_version": {
+            "type": "string",
+            "title": "Grader Version"
+          },
+          "review_status": {
+            "type": "string",
+            "enum": [
+              "none",
+              "disputed",
+              "upheld",
+              "overturned"
+            ],
+            "title": "Review Status"
+          },
+          "next_action": {
+            "type": "string",
+            "enum": [
+              "continue",
+              "retry"
+            ],
+            "title": "Next Action"
+          },
+          "retry_hint_es": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Retry Hint Es",
+            "description": "Pista SIN la respuesta, para mostrar antes del segundo intento."
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "verdict",
+          "score",
+          "max_score",
+          "matched_rule",
+          "feedback_es",
+          "explanation_es",
+          "expected_answer",
+          "correct_sentence",
+          "your_answer",
+          "errors",
+          "confidence",
+          "rubric_version",
+          "grader_version",
+          "review_status",
+          "next_action"
+        ],
+        "title": "EvaluationOut"
+      },
+      "ExerciseOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "external_id": {
+            "type": "string",
+            "title": "External Id"
+          },
+          "version": {
+            "type": "integer",
+            "title": "Version"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "choice",
+              "fill_blank",
+              "open_response"
+            ],
+            "title": "Type"
+          },
+          "skill_code": {
+            "type": "string",
+            "title": "Skill Code"
+          },
+          "difficulty": {
+            "type": "integer",
+            "title": "Difficulty"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "warmup",
+              "practice",
+              "review",
+              "diagnostic"
+            ],
+            "title": "Role"
+          },
+          "instruction_es": {
+            "type": "string",
+            "title": "Instruction Es"
+          },
+          "sentence_en": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sentence En"
+          },
+          "verb_hint": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Verb Hint"
+          },
+          "question_en": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Question En"
+          },
+          "options": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/ChoiceOptionOut"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Options"
+          },
+          "hint_es": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hint Es"
+          },
+          "passage_title_en": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Passage Title En"
+          },
+          "passage_en": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Passage En"
+          },
+          "task_en": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Task En"
+          },
+          "min_words": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min Words"
+          },
+          "max_words": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Words"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "external_id",
+          "version",
+          "type",
+          "skill_code",
+          "difficulty",
+          "role",
+          "instruction_es"
+        ],
+        "title": "ExerciseOut",
+        "description": "Solo la parte pública del ítem: nunca claves ni distractores."
+      },
+      "FeedbackIn": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "bug",
+              "idea",
+              "content",
+              "other"
+            ],
+            "title": "Kind",
+            "default": "bug"
+          },
+          "message": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 3,
+            "title": "Message"
+          },
+          "page": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200,
+                "pattern": "^/[A-Za-z0-9/_\\-?=&.%]*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Page"
+          }
+        },
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "title": "FeedbackIn"
+      },
+      "FeedbackOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "bug",
+              "idea",
+              "content",
+              "other"
+            ],
+            "title": "Kind"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "page": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Page"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "new",
+              "seen",
+              "done"
+            ],
+            "title": "Status"
+          },
+          "author": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Author"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "kind",
+          "message",
+          "page",
+          "status",
+          "author",
+          "created_at"
+        ],
+        "title": "FeedbackOut"
+      },
+      "GlossaryOut": {
+        "properties": {
+          "en": {
+            "type": "string",
+            "title": "En"
+          },
+          "es": {
+            "type": "string",
+            "title": "Es"
+          }
+        },
+        "type": "object",
+        "required": [
+          "en",
+          "es"
+        ],
+        "title": "GlossaryOut"
+      },
+      "GradeErrorOut": {
+        "properties": {
+          "rule_code": {
+            "type": "string",
+            "title": "Rule Code"
+          },
+          "explanation_es": {
+            "type": "string",
+            "title": "Explanation Es"
+          },
+          "span": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Span"
+          },
+          "minimal_correction": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Minimal Correction"
+          }
+        },
+        "type": "object",
+        "required": [
+          "rule_code",
+          "explanation_es"
+        ],
+        "title": "GradeErrorOut"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HealthOut": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "const": "ok",
+            "title": "Status"
+          },
+          "app_env": {
+            "type": "string",
+            "title": "App Env"
+          },
+          "auth_mode": {
+            "type": "string",
+            "title": "Auth Mode"
+          },
+          "ai_available": {
+            "type": "boolean",
+            "title": "Ai Available"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "app_env",
+          "auth_mode",
+          "ai_available"
+        ],
+        "title": "HealthOut"
+      },
+      "LessonContentOut": {
+        "properties": {
+          "goal_es": {
+            "type": "string",
+            "title": "Goal Es"
+          },
+          "concept_es": {
+            "type": "string",
+            "title": "Concept Es"
+          },
+          "analogy_es": {
+            "type": "string",
+            "title": "Analogy Es"
+          },
+          "examples": {
+            "items": {
+              "$ref": "#/components/schemas/LessonExampleOut"
+            },
+            "type": "array",
+            "title": "Examples"
+          },
+          "spelling_es": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Spelling Es",
+            "default": []
+          },
+          "common_trap_es": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Common Trap Es"
+          }
+        },
+        "type": "object",
+        "required": [
+          "goal_es",
+          "concept_es",
+          "analogy_es",
+          "examples"
+        ],
+        "title": "LessonContentOut"
+      },
+      "LessonExampleOut": {
+        "properties": {
+          "en": {
+            "type": "string",
+            "title": "En"
+          },
+          "es": {
+            "type": "string",
+            "title": "Es"
+          }
+        },
+        "type": "object",
+        "required": [
+          "en",
+          "es"
+        ],
+        "title": "LessonExampleOut"
+      },
+      "LessonOut": {
+        "properties": {
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "version": {
+            "type": "integer",
+            "title": "Version"
+          },
+          "title_es": {
+            "type": "string",
+            "title": "Title Es"
+          },
+          "level": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Level"
+          },
+          "skill_code": {
+            "type": "string",
+            "title": "Skill Code"
+          },
+          "skill_name_es": {
+            "type": "string",
+            "title": "Skill Name Es"
+          },
+          "review_status": {
+            "type": "string",
+            "title": "Review Status"
+          },
+          "content": {
+            "$ref": "#/components/schemas/LessonContentOut"
+          },
+          "exercises": {
+            "items": {
+              "$ref": "#/components/schemas/ExerciseOut"
+            },
+            "type": "array",
+            "title": "Exercises"
+          }
+        },
+        "type": "object",
+        "required": [
+          "slug",
+          "version",
+          "title_es",
+          "level",
+          "skill_code",
+          "skill_name_es",
+          "review_status",
+          "content",
+          "exercises"
+        ],
+        "title": "LessonOut"
+      },
+      "ListeningQuestionOut": {
+        "properties": {
+          "exercise_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Exercise Id"
+          },
+          "question_en": {
+            "type": "string",
+            "title": "Question En"
+          },
+          "instruction_es": {
+            "type": "string",
+            "title": "Instruction Es"
+          },
+          "options": {
+            "items": {
+              "$ref": "#/components/schemas/ChoiceOptionOut"
+            },
+            "type": "array",
+            "title": "Options"
+          },
+          "segment": {
+            "type": "integer",
+            "title": "Segment"
+          },
+          "solved": {
+            "type": "boolean",
+            "title": "Solved"
+          }
+        },
+        "type": "object",
+        "required": [
+          "exercise_id",
+          "question_en",
+          "instruction_es",
+          "options",
+          "segment",
+          "solved"
+        ],
+        "title": "ListeningQuestionOut"
+      },
+      "ListeningSegmentOut": {
+        "properties": {
+          "speaker": {
+            "type": "string",
+            "title": "Speaker"
+          },
+          "text_en": {
+            "type": "string",
+            "title": "Text En"
+          }
+        },
+        "type": "object",
+        "required": [
+          "speaker",
+          "text_en"
+        ],
+        "title": "ListeningSegmentOut"
+      },
+      "MasteryOut": {
+        "properties": {
+          "skill_code": {
+            "type": "string",
+            "title": "Skill Code"
+          },
+          "skill_name_es": {
+            "type": "string",
+            "title": "Skill Name Es"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "not_assessed",
+              "emerging",
+              "developing",
+              "proficient",
+              "review_due"
+            ],
+            "title": "State"
+          },
+          "confidence": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "title": "Confidence"
+          },
+          "evidence_count": {
+            "type": "integer",
+            "title": "Evidence Count"
+          },
+          "recent_accuracy": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recent Accuracy"
+          },
+          "distinct_days": {
+            "type": "integer",
+            "title": "Distinct Days"
+          },
+          "rationale_es": {
+            "type": "string",
+            "title": "Rationale Es"
+          },
+          "algorithm_version": {
+            "type": "string",
+            "title": "Algorithm Version"
+          }
+        },
+        "type": "object",
+        "required": [
+          "skill_code",
+          "skill_name_es",
+          "state",
+          "confidence",
+          "evidence_count",
+          "recent_accuracy",
+          "distinct_days",
+          "rationale_es",
+          "algorithm_version"
+        ],
+        "title": "MasteryOut"
+      },
+      "MeOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "display_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Display Name"
+          },
+          "locale": {
+            "type": "string",
+            "title": "Locale"
+          },
+          "timezone": {
+            "type": "string",
+            "title": "Timezone"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "student",
+              "content_editor",
+              "teacher_reviewer",
+              "moderator",
+              "admin"
+            ],
+            "title": "Role"
+          },
+          "pilot_consent_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pilot Consent At"
+          },
+          "onboarding": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/OnboardingOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "preferences": {
+            "$ref": "#/components/schemas/PreferencesOut"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "display_name",
+          "locale",
+          "timezone",
+          "role",
+          "preferences"
+        ],
+        "title": "MeOut"
+      },
+      "MissionOut": {
+        "properties": {
+          "skill_code": {
+            "type": "string",
+            "title": "Skill Code"
+          },
+          "title_es": {
+            "type": "string",
+            "title": "Title Es"
+          },
+          "why_es": {
+            "type": "string",
+            "title": "Why Es"
+          },
+          "href": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Href"
+          },
+          "available": {
+            "type": "boolean",
+            "title": "Available"
+          }
+        },
+        "type": "object",
+        "required": [
+          "skill_code",
+          "title_es",
+          "why_es",
+          "href",
+          "available"
+        ],
+        "title": "MissionOut"
+      },
+      "MissionProgressOut": {
+        "properties": {
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "title_es": {
+            "type": "string",
+            "title": "Title Es"
+          },
+          "situation_es": {
+            "type": "string",
+            "title": "Situation Es"
+          },
+          "level": {
+            "type": "string",
+            "title": "Level"
+          },
+          "topic": {
+            "type": "string",
+            "title": "Topic"
+          },
+          "icon": {
+            "type": "string",
+            "enum": [
+              "briefcase",
+              "plane",
+              "users",
+              "coffee"
+            ],
+            "title": "Icon"
+          },
+          "steps": {
+            "items": {
+              "$ref": "#/components/schemas/MissionStepOut"
+            },
+            "type": "array",
+            "title": "Steps"
+          },
+          "done": {
+            "type": "integer",
+            "title": "Done"
+          },
+          "recommended": {
+            "type": "boolean",
+            "title": "Recommended"
+          }
+        },
+        "type": "object",
+        "required": [
+          "slug",
+          "title_es",
+          "situation_es",
+          "level",
+          "topic",
+          "icon",
+          "steps",
+          "done",
+          "recommended"
+        ],
+        "title": "MissionProgressOut"
+      },
+      "MissionStepOut": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "lesson",
+              "listening",
+              "reading",
+              "writing",
+              "speaking"
+            ],
+            "title": "Kind"
+          },
+          "title_es": {
+            "type": "string",
+            "title": "Title Es"
+          },
+          "href": {
+            "type": "string",
+            "title": "Href"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "done",
+              "now",
+              "todo"
+            ],
+            "title": "State"
+          }
+        },
+        "type": "object",
+        "required": [
+          "kind",
+          "title_es",
+          "href",
+          "state"
+        ],
+        "title": "MissionStepOut"
+      },
+      "NextMissionOut": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "review",
+              "lesson",
+              "diagnostic",
+              "none"
+            ],
+            "title": "Kind"
+          },
+          "title_es": {
+            "type": "string",
+            "title": "Title Es"
+          },
+          "reason_es": {
+            "type": "string",
+            "title": "Reason Es"
+          },
+          "href": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Href"
+          },
+          "skill_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Skill Code"
+          },
+          "due_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Due At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "kind",
+          "title_es",
+          "reason_es",
+          "href",
+          "skill_code"
+        ],
+        "title": "NextMissionOut"
+      },
+      "OnboardingIn": {
+        "properties": {
+          "display_name": {
+            "type": "string",
+            "maxLength": 60,
+            "minLength": 1,
+            "title": "Display Name"
+          },
+          "goal": {
+            "type": "string",
+            "pattern": "^[a-z_]{2,30}$",
+            "title": "Goal"
+          },
+          "self_level": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]{1,10}$",
+            "title": "Self Level"
+          },
+          "interests": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 5,
+            "minItems": 1,
+            "title": "Interests"
+          },
+          "session_minutes": {
+            "type": "integer",
+            "enum": [
+              5,
+              15,
+              30
+            ],
+            "title": "Session Minutes"
+          },
+          "teacher_style": {
+            "type": "string",
+            "enum": [
+              "divertida",
+              "tranquila",
+              "exigente"
+            ],
+            "title": "Teacher Style"
+          },
+          "pilot_consent": {
+            "type": "boolean",
+            "title": "Pilot Consent",
+            "description": "Acepta participar en el piloto (obligatorio para continuar)."
+          }
+        },
+        "type": "object",
+        "required": [
+          "display_name",
+          "goal",
+          "self_level",
+          "interests",
+          "session_minutes",
+          "teacher_style",
+          "pilot_consent"
+        ],
+        "title": "OnboardingIn"
+      },
+      "OnboardingOut": {
+        "properties": {
+          "goal": {
+            "type": "string",
+            "title": "Goal"
+          },
+          "self_level": {
+            "type": "string",
+            "title": "Self Level"
+          },
+          "interests": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Interests"
+          },
+          "session_minutes": {
+            "type": "integer",
+            "enum": [
+              5,
+              15,
+              30
+            ],
+            "title": "Session Minutes"
+          },
+          "onboarded_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Onboarded At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "goal",
+          "self_level",
+          "interests",
+          "session_minutes",
+          "onboarded_at"
+        ],
+        "title": "OnboardingOut"
+      },
+      "PreferencesIn": {
+        "properties": {
+          "tutor_persona": {
+            "type": "string",
+            "enum": [
+              "fun",
+              "calm",
+              "coach"
+            ],
+            "title": "Tutor Persona"
+          },
+          "feedback_intensity": {
+            "type": "string",
+            "enum": [
+              "gentle",
+              "balanced",
+              "intense"
+            ],
+            "title": "Feedback Intensity"
+          },
+          "lesson_duration_min": {
+            "type": "integer",
+            "enum": [
+              0,
+              5,
+              10,
+              20
+            ],
+            "title": "Lesson Duration Min"
+          },
+          "translation_support": {
+            "type": "string",
+            "enum": [
+              "always",
+              "when_stuck",
+              "off"
+            ],
+            "title": "Translation Support"
+          },
+          "low_stim_mode": {
+            "type": "boolean",
+            "title": "Low Stim Mode"
+          },
+          "humor_level": {
+            "type": "integer",
+            "maximum": 5.0,
+            "minimum": 0.0,
+            "title": "Humor Level",
+            "default": 3
+          },
+          "show_avatar": {
+            "type": "boolean",
+            "title": "Show Avatar",
+            "default": true
+          },
+          "reduce_motion": {
+            "type": "boolean",
+            "title": "Reduce Motion",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "tutor_persona",
+          "feedback_intensity",
+          "lesson_duration_min",
+          "translation_support",
+          "low_stim_mode"
+        ],
+        "title": "PreferencesIn"
+      },
+      "PreferencesOut": {
+        "properties": {
+          "tutor_persona": {
+            "type": "string",
+            "enum": [
+              "fun",
+              "calm",
+              "coach"
+            ],
+            "title": "Tutor Persona"
+          },
+          "feedback_intensity": {
+            "type": "string",
+            "enum": [
+              "gentle",
+              "balanced",
+              "intense"
+            ],
+            "title": "Feedback Intensity"
+          },
+          "lesson_duration_min": {
+            "type": "integer",
+            "enum": [
+              0,
+              5,
+              10,
+              20
+            ],
+            "title": "Lesson Duration Min"
+          },
+          "translation_support": {
+            "type": "string",
+            "enum": [
+              "always",
+              "when_stuck",
+              "off"
+            ],
+            "title": "Translation Support"
+          },
+          "low_stim_mode": {
+            "type": "boolean",
+            "title": "Low Stim Mode"
+          },
+          "humor_level": {
+            "type": "integer",
+            "maximum": 5.0,
+            "minimum": 0.0,
+            "title": "Humor Level",
+            "default": 3
+          },
+          "show_avatar": {
+            "type": "boolean",
+            "title": "Show Avatar",
+            "default": true
+          },
+          "reduce_motion": {
+            "type": "boolean",
+            "title": "Reduce Motion",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "tutor_persona",
+          "feedback_intensity",
+          "lesson_duration_min",
+          "translation_support",
+          "low_stim_mode"
+        ],
+        "title": "PreferencesOut"
+      },
+      "PrivacyExportOut": {
+        "properties": {
+          "exported_at": {
+            "type": "string",
+            "title": "Exported At"
+          },
+          "email": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "tables": {
+            "additionalProperties": {
+              "items": {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Tables"
+          }
+        },
+        "type": "object",
+        "required": [
+          "exported_at",
+          "email",
+          "tables"
+        ],
+        "title": "PrivacyExportOut"
+      },
+      "ProgressOut": {
+        "properties": {
+          "skills": {
+            "items": {
+              "$ref": "#/components/schemas/MasteryOut"
+            },
+            "type": "array",
+            "title": "Skills"
+          },
+          "reviews": {
+            "items": {
+              "$ref": "#/components/schemas/ReviewOut"
+            },
+            "type": "array",
+            "title": "Reviews"
+          },
+          "recent_mistakes": {
+            "items": {
+              "$ref": "#/components/schemas/RecentMistakeOut"
+            },
+            "type": "array",
+            "title": "Recent Mistakes"
+          },
+          "total_attempts": {
+            "type": "integer",
+            "title": "Total Attempts"
+          },
+          "practice_days": {
+            "items": {
+              "type": "string",
+              "format": "date"
+            },
+            "type": "array",
+            "title": "Practice Days",
+            "description": "Días con práctica real (últimos 60), en tu zona horaria."
+          },
+          "streak_days": {
+            "type": "integer",
+            "title": "Streak Days",
+            "description": "Días seguidos con práctica real que terminan hoy o ayer."
+          },
+          "server_now": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Server Now"
+          }
+        },
+        "type": "object",
+        "required": [
+          "skills",
+          "reviews",
+          "recent_mistakes",
+          "total_attempts",
+          "practice_days",
+          "streak_days",
+          "server_now"
+        ],
+        "title": "ProgressOut"
+      },
+      "ReadingOut": {
+        "properties": {
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "title_en": {
+            "type": "string",
+            "title": "Title En"
+          },
+          "title_es": {
+            "type": "string",
+            "title": "Title Es"
+          },
+          "kind_es": {
+            "type": "string",
+            "title": "Kind Es"
+          },
+          "level": {
+            "type": "string",
+            "title": "Level"
+          },
+          "topic": {
+            "type": "string",
+            "title": "Topic"
+          },
+          "words": {
+            "type": "integer",
+            "title": "Words"
+          },
+          "paragraphs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Paragraphs"
+          },
+          "glossary": {
+            "items": {
+              "$ref": "#/components/schemas/GlossaryOut"
+            },
+            "type": "array",
+            "title": "Glossary"
+          },
+          "questions": {
+            "items": {
+              "$ref": "#/components/schemas/ReadingQuestionOut"
+            },
+            "type": "array",
+            "title": "Questions"
+          },
+          "server_audio": {
+            "type": "boolean",
+            "title": "Server Audio"
+          }
+        },
+        "type": "object",
+        "required": [
+          "slug",
+          "title_en",
+          "title_es",
+          "kind_es",
+          "level",
+          "topic",
+          "words",
+          "paragraphs",
+          "glossary",
+          "questions",
+          "server_audio"
+        ],
+        "title": "ReadingOut"
+      },
+      "ReadingQuestionOut": {
+        "properties": {
+          "exercise_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Exercise Id"
+          },
+          "question_en": {
+            "type": "string",
+            "title": "Question En"
+          },
+          "instruction_es": {
+            "type": "string",
+            "title": "Instruction Es"
+          },
+          "options": {
+            "items": {
+              "$ref": "#/components/schemas/ChoiceOptionOut"
+            },
+            "type": "array",
+            "title": "Options"
+          },
+          "paragraph": {
+            "type": "integer",
+            "title": "Paragraph"
+          },
+          "solved": {
+            "type": "boolean",
+            "title": "Solved"
+          }
+        },
+        "type": "object",
+        "required": [
+          "exercise_id",
+          "question_en",
+          "instruction_es",
+          "options",
+          "paragraph",
+          "solved"
+        ],
+        "title": "ReadingQuestionOut"
+      },
+      "ReadingSummaryOut": {
+        "properties": {
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "title_en": {
+            "type": "string",
+            "title": "Title En"
+          },
+          "title_es": {
+            "type": "string",
+            "title": "Title Es"
+          },
+          "kind_es": {
+            "type": "string",
+            "title": "Kind Es"
+          },
+          "level": {
+            "type": "string",
+            "title": "Level"
+          },
+          "topic": {
+            "type": "string",
+            "title": "Topic"
+          },
+          "words": {
+            "type": "integer",
+            "title": "Words"
+          },
+          "minutes": {
+            "type": "integer",
+            "title": "Minutes"
+          },
+          "questions": {
+            "type": "integer",
+            "title": "Questions"
+          },
+          "solved": {
+            "type": "integer",
+            "title": "Solved"
+          }
+        },
+        "type": "object",
+        "required": [
+          "slug",
+          "title_en",
+          "title_es",
+          "kind_es",
+          "level",
+          "topic",
+          "words",
+          "minutes",
+          "questions",
+          "solved"
+        ],
+        "title": "ReadingSummaryOut"
+      },
+      "RecentMistakeOut": {
+        "properties": {
+          "attempt_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Attempt Id"
+          },
+          "submitted_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Submitted At"
+          },
+          "prompt_en": {
+            "type": "string",
+            "title": "Prompt En"
+          },
+          "your_answer": {
+            "type": "string",
+            "title": "Your Answer"
+          },
+          "verdict": {
+            "type": "string",
+            "enum": [
+              "correct",
+              "valid_alternative",
+              "less_natural",
+              "spelling_error",
+              "partial",
+              "incorrect"
+            ],
+            "title": "Verdict"
+          },
+          "correction": {
+            "type": "string",
+            "title": "Correction"
+          },
+          "feedback_es": {
+            "type": "string",
+            "title": "Feedback Es"
+          }
+        },
+        "type": "object",
+        "required": [
+          "attempt_id",
+          "submitted_at",
+          "prompt_en",
+          "your_answer",
+          "verdict",
+          "correction",
+          "feedback_es"
+        ],
+        "title": "RecentMistakeOut"
+      },
+      "ReviewOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "skill_code": {
+            "type": "string",
+            "title": "Skill Code"
+          },
+          "skill_name_es": {
+            "type": "string",
+            "title": "Skill Name Es"
+          },
+          "due_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Due At"
+          },
+          "interval_days": {
+            "type": "integer",
+            "title": "Interval Days"
+          },
+          "step": {
+            "type": "integer",
+            "title": "Step"
+          },
+          "reason": {
+            "type": "string",
+            "enum": [
+              "error",
+              "retention",
+              "review_passed",
+              "review_failed"
+            ],
+            "title": "Reason"
+          },
+          "is_due": {
+            "type": "boolean",
+            "title": "Is Due"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "skill_code",
+          "skill_name_es",
+          "due_at",
+          "interval_days",
+          "step",
+          "reason",
+          "is_due"
+        ],
+        "title": "ReviewOut"
+      },
+      "ReviewSessionOut": {
+        "properties": {
+          "due": {
+            "items": {
+              "$ref": "#/components/schemas/ReviewOut"
+            },
+            "type": "array",
+            "title": "Due"
+          },
+          "exercises": {
+            "items": {
+              "$ref": "#/components/schemas/ExerciseOut"
+            },
+            "type": "array",
+            "title": "Exercises"
+          },
+          "next_due_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Due At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "due",
+          "exercises",
+          "next_due_at"
+        ],
+        "title": "ReviewSessionOut"
+      },
+      "RoomMessageIn": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 1000,
+            "minLength": 1,
+            "title": "Text"
+          }
+        },
+        "type": "object",
+        "required": [
+          "text"
+        ],
+        "title": "RoomMessageIn"
+      },
+      "RoomMessageOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "author": {
+            "type": "string",
+            "title": "Author"
+          },
+          "mine": {
+            "type": "boolean",
+            "title": "Mine"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "text",
+              "voice",
+              "lania"
+            ],
+            "title": "Kind"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "author",
+          "mine",
+          "kind",
+          "text",
+          "created_at"
+        ],
+        "title": "RoomMessageOut"
+      },
+      "RoomOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "title_es": {
+            "type": "string",
+            "title": "Title Es"
+          },
+          "topic_es": {
+            "type": "string",
+            "title": "Topic Es"
+          },
+          "goal_es": {
+            "type": "string",
+            "title": "Goal Es"
+          },
+          "level": {
+            "type": "string",
+            "title": "Level"
+          },
+          "capacity": {
+            "type": "integer",
+            "title": "Capacity"
+          },
+          "members": {
+            "type": "integer",
+            "title": "Members"
+          },
+          "starts_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Starts At"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "scheduled",
+              "open",
+              "closed"
+            ],
+            "title": "Status"
+          },
+          "joined": {
+            "type": "boolean",
+            "title": "Joined"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "slug",
+          "title_es",
+          "topic_es",
+          "goal_es",
+          "level",
+          "capacity",
+          "members",
+          "starts_at",
+          "status",
+          "joined"
+        ],
+        "title": "RoomOut"
+      },
+      "ScenarioSummaryOut": {
+        "properties": {
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "title_es": {
+            "type": "string",
+            "title": "Title Es"
+          },
+          "context_es": {
+            "type": "string",
+            "title": "Context Es"
+          },
+          "level": {
+            "type": "string",
+            "title": "Level"
+          },
+          "topic": {
+            "type": "string",
+            "title": "Topic"
+          },
+          "steps": {
+            "type": "integer",
+            "title": "Steps"
+          }
+        },
+        "type": "object",
+        "required": [
+          "slug",
+          "title_es",
+          "context_es",
+          "level",
+          "topic",
+          "steps"
+        ],
+        "title": "ScenarioSummaryOut"
+      },
+      "SectionOut": {
+        "properties": {
+          "skill_code": {
+            "type": "string",
+            "title": "Skill Code"
+          },
+          "skill_name_es": {
+            "type": "string",
+            "title": "Skill Name Es"
+          },
+          "domain": {
+            "type": "string",
+            "title": "Domain"
+          },
+          "band": {
+            "type": "string",
+            "enum": [
+              "not_assessed",
+              "below_a1",
+              "a1",
+              "a2",
+              "pending_review"
+            ],
+            "title": "Band"
+          },
+          "band_label_es": {
+            "type": "string",
+            "title": "Band Label Es"
+          },
+          "confidence": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "title": "Confidence"
+          },
+          "evidence_count": {
+            "type": "integer",
+            "title": "Evidence Count"
+          },
+          "notes_es": {
+            "type": "string",
+            "title": "Notes Es"
+          }
+        },
+        "type": "object",
+        "required": [
+          "skill_code",
+          "skill_name_es",
+          "domain",
+          "band",
+          "band_label_es",
+          "confidence",
+          "evidence_count",
+          "notes_es"
+        ],
+        "title": "SectionOut"
+      },
+      "SessionOut": {
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "title": "Access Token"
+          },
+          "token_type": {
+            "type": "string",
+            "const": "bearer",
+            "title": "Token Type",
+            "default": "bearer"
+          },
+          "expires_in": {
+            "type": "integer",
+            "title": "Expires In"
+          },
+          "user": {
+            "$ref": "#/components/schemas/MeOut"
+          }
+        },
+        "type": "object",
+        "required": [
+          "access_token",
+          "expires_in",
+          "user"
+        ],
+        "title": "SessionOut"
+      },
+      "SpeakingPromptOut": {
+        "properties": {
+          "step": {
+            "type": "integer",
+            "title": "Step"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "lania_en": {
+            "type": "string",
+            "title": "Lania En"
+          },
+          "goal_es": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Goal Es"
+          },
+          "useful_phrases_en": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Useful Phrases En"
+          },
+          "finished": {
+            "type": "boolean",
+            "title": "Finished"
+          }
+        },
+        "type": "object",
+        "required": [
+          "step",
+          "total",
+          "lania_en",
+          "goal_es",
+          "useful_phrases_en",
+          "finished"
+        ],
+        "title": "SpeakingPromptOut"
+      },
+      "SpeakingSessionOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "scenario": {
+            "$ref": "#/components/schemas/ScenarioSummaryOut"
+          },
+          "role_es": {
+            "type": "string",
+            "title": "Role Es"
+          },
+          "current": {
+            "$ref": "#/components/schemas/SpeakingPromptOut"
+          },
+          "turns": {
+            "items": {
+              "$ref": "#/components/schemas/SpeakingTurnOut"
+            },
+            "type": "array",
+            "title": "Turns"
+          },
+          "voice_input": {
+            "type": "boolean",
+            "title": "Voice Input"
+          },
+          "voice_output": {
+            "type": "boolean",
+            "title": "Voice Output"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "scenario",
+          "role_es",
+          "current",
+          "turns",
+          "voice_input",
+          "voice_output"
+        ],
+        "title": "SpeakingSessionOut"
+      },
+      "SpeakingStartIn": {
+        "properties": {
+          "scenario": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]{2,40}$",
+            "title": "Scenario"
+          }
+        },
+        "type": "object",
+        "required": [
+          "scenario"
+        ],
+        "title": "SpeakingStartIn"
+      },
+      "SpeakingTurnOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "step": {
+            "type": "integer",
+            "title": "Step"
+          },
+          "input_mode": {
+            "type": "string",
+            "enum": [
+              "voice",
+              "text"
+            ],
+            "title": "Input Mode"
+          },
+          "transcript": {
+            "type": "string",
+            "title": "Transcript"
+          },
+          "on_task": {
+            "type": "boolean",
+            "title": "On Task"
+          },
+          "corrections": {
+            "items": {
+              "$ref": "#/components/schemas/TutorCorrectionOut"
+            },
+            "type": "array",
+            "title": "Corrections"
+          },
+          "natural_version_en": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Natural Version En"
+          },
+          "feedback_es": {
+            "type": "string",
+            "title": "Feedback Es"
+          },
+          "reply_en": {
+            "type": "string",
+            "title": "Reply En"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "step",
+          "input_mode",
+          "transcript",
+          "on_task",
+          "corrections",
+          "natural_version_en",
+          "feedback_es",
+          "reply_en"
+        ],
+        "title": "SpeakingTurnOut"
+      },
+      "TutorConversationIn": {
+        "properties": {
+          "evaluation_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Evaluation Id",
+            "description": "Para «explícame este error»."
+          }
+        },
+        "type": "object",
+        "title": "TutorConversationIn"
+      },
+      "TutorConversationOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "persona": {
+            "type": "string",
+            "enum": [
+              "fun",
+              "calm",
+              "coach"
+            ],
+            "title": "Persona"
+          },
+          "context_title_es": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Context Title Es"
+          },
+          "messages": {
+            "items": {
+              "$ref": "#/components/schemas/TutorMessageOut"
+            },
+            "type": "array",
+            "title": "Messages"
+          },
+          "daily_messages_left": {
+            "type": "integer",
+            "title": "Daily Messages Left"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "persona",
+          "context_title_es",
+          "messages",
+          "daily_messages_left"
+        ],
+        "title": "TutorConversationOut"
+      },
+      "TutorCorrectionOut": {
+        "properties": {
+          "original": {
+            "type": "string",
+            "title": "Original"
+          },
+          "corrected": {
+            "type": "string",
+            "title": "Corrected"
+          },
+          "explanation_es": {
+            "type": "string",
+            "title": "Explanation Es"
+          }
+        },
+        "type": "object",
+        "required": [
+          "original",
+          "corrected",
+          "explanation_es"
+        ],
+        "title": "TutorCorrectionOut"
+      },
+      "TutorMessageIn": {
+        "properties": {
+          "client_message_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client Message Id"
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 1000,
+            "minLength": 1,
+            "title": "Text"
+          }
+        },
+        "type": "object",
+        "required": [
+          "client_message_id",
+          "text"
+        ],
+        "title": "TutorMessageIn"
+      },
+      "TutorMessageOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "user",
+              "assistant"
+            ],
+            "title": "Role"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "corrections": {
+            "items": {
+              "$ref": "#/components/schemas/TutorCorrectionOut"
+            },
+            "type": "array",
+            "title": "Corrections"
+          },
+          "practice_prompt_en": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Practice Prompt En"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "role",
+          "text",
+          "corrections",
+          "created_at"
+        ],
+        "title": "TutorMessageOut"
+      },
+      "TutorTurnOut": {
+        "properties": {
+          "user_message": {
+            "$ref": "#/components/schemas/TutorMessageOut"
+          },
+          "reply": {
+            "$ref": "#/components/schemas/TutorMessageOut"
+          },
+          "daily_messages_left": {
+            "type": "integer",
+            "title": "Daily Messages Left"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_message",
+          "reply",
+          "daily_messages_left"
+        ],
+        "title": "TutorTurnOut"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "WritingErrorOut": {
+        "properties": {
+          "span": {
+            "type": "string",
+            "title": "Span"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "severity": {
+            "type": "string",
+            "title": "Severity"
+          },
+          "explanation_es": {
+            "type": "string",
+            "title": "Explanation Es"
+          },
+          "minimal_correction": {
+            "type": "string",
+            "title": "Minimal Correction"
+          }
+        },
+        "type": "object",
+        "required": [
+          "span",
+          "type",
+          "severity",
+          "explanation_es",
+          "minimal_correction"
+        ],
+        "title": "WritingErrorOut"
+      },
+      "WritingFeedbackOut": {
+        "properties": {
+          "exercise_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Exercise Id"
+          },
+          "task_en": {
+            "type": "string",
+            "title": "Task En"
+          },
+          "your_text": {
+            "type": "string",
+            "title": "Your Text"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "graded",
+              "needs_review",
+              "pending"
+            ],
+            "title": "Status"
+          },
+          "feedback_es": {
+            "type": "string",
+            "title": "Feedback Es"
+          },
+          "criteria": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "additionalProperties": {
+                    "anyOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "type": "object"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Criteria"
+          },
+          "errors": {
+            "items": {
+              "$ref": "#/components/schemas/WritingErrorOut"
+            },
+            "type": "array",
+            "title": "Errors"
+          },
+          "natural_version_en": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Natural Version En"
+          },
+          "notes_es": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes Es"
+          }
+        },
+        "type": "object",
+        "required": [
+          "exercise_id",
+          "task_en",
+          "your_text",
+          "status",
+          "feedback_es",
+          "criteria",
+          "errors",
+          "natural_version_en",
+          "notes_es"
+        ],
+        "title": "WritingFeedbackOut"
+      },
+      "WritingPromptOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "topic": {
+            "type": "string",
+            "title": "Topic"
+          },
+          "cefr": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cefr"
+          },
+          "instruction_es": {
+            "type": "string",
+            "title": "Instruction Es"
+          },
+          "task_en": {
+            "type": "string",
+            "title": "Task En"
+          },
+          "min_words": {
+            "type": "integer",
+            "title": "Min Words"
+          },
+          "max_words": {
+            "type": "integer",
+            "title": "Max Words"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "topic",
+          "cefr",
+          "instruction_es",
+          "task_en",
+          "min_words",
+          "max_words"
+        ],
+        "title": "WritingPromptOut"
+      },
+      "WritingSubmissionIn": {
+        "properties": {
+          "exercise_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Exercise Id"
+          },
+          "client_submission_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Client Submission Id",
+            "description": "UUID del cliente; reenviarlo no duplica el texto."
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 3000,
+            "minLength": 1,
+            "title": "Text"
+          }
+        },
+        "type": "object",
+        "required": [
+          "exercise_id",
+          "client_submission_id",
+          "text"
+        ],
+        "title": "WritingSubmissionIn"
+      },
+      "WritingSubmissionOut": {
+        "properties": {
+          "attempt_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Attempt Id"
+          },
+          "submitted_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Submitted At"
+          },
+          "prompt": {
+            "$ref": "#/components/schemas/WritingPromptOut"
+          },
+          "feedback": {
+            "$ref": "#/components/schemas/WritingFeedbackOut"
+          }
+        },
+        "type": "object",
+        "required": [
+          "attempt_id",
+          "submitted_at",
+          "prompt",
+          "feedback"
+        ],
+        "title": "WritingSubmissionOut"
+      }
+    }
+  }
+}

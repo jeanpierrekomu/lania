@@ -1,0 +1,375 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,500;0,600;0,700;0,800;1,700;1,800&display=swap');
+@import 'tailwindcss';
+
+/* ------------------------------------------------------------------
+   LANIA · Design tokens
+   Only brand tokens are available as utilities (default palette reset).
+------------------------------------------------------------------- */
+@theme static {
+  --color-*: initial;
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  /* Neutros */
+  --color-ink: #241942; /* Texto principal · índigo profundo */
+  --color-ink-soft: #605c70; /* Texto secundario */
+  --color-ink-faint: #9b97ab; /* Solo decorativo / deshabilitado */
+  --color-surface: #ffffff;
+  --color-canvas: #f8f7fc; /* Fondo general */
+  --color-mist: #f1eff7;
+  --color-line: #e5e2ee; /* Bordes suaves */
+  --color-line-strong: #d3cee0;
+
+  /* Noche · secciones especiales */
+  --color-night-950: #120c24;
+  --color-night-900: #1a1331;
+  --color-night-800: #2a2050;
+  --color-night-700: #3a2e68;
+  --color-night-600: #514585;
+
+  /* Violeta · tecnología y creatividad */
+  --color-violet-50: #f7f5ff;
+  --color-violet-100: #efeaff; /* Lavanda suave */
+  --color-violet-200: #ddd4ff;
+  --color-violet-300: #c3b4fd;
+  --color-violet-400: #9f88f6;
+  --color-violet-500: #7d63f0;
+  --color-violet-600: #6346e8; /* Violeta principal */
+  --color-violet-700: #5034d0;
+  --color-violet-800: #3d289e;
+  --color-violet-900: #2e1f73;
+  --color-violet-950: #241942; /* Índigo profundo */
+
+  /* Coral · cercanía */
+  --color-coral-50: #fff6f2;
+  --color-coral-100: #ffede5;
+  --color-coral-200: #ffd7c9;
+  --color-coral-300: #ffb59e; /* Coral cálido */
+  --color-coral-400: #ff9b7e;
+  --color-coral-500: #f47b5a;
+  --color-coral-600: #d95f3f;
+  --color-coral-700: #a8442a;
+  --color-coral-800: #7e3220;
+
+  /* Menta · avances y estados positivos */
+  --color-mint-50: #eef8f6;
+  --color-mint-100: #d5f0eb;
+  --color-mint-200: #abdfd6;
+  --color-mint-300: #78c8bb;
+  --color-mint-400: #3faa9b;
+  --color-mint-500: #178c80;
+  --color-mint-600: #0c756c; /* Verde menta oscuro */
+  --color-mint-700: #0a5f58;
+  --color-mint-800: #094b46;
+
+  /* Estados */
+  --color-danger-50: #fdf1ef;
+  --color-danger-100: #fadcd7;
+  --color-danger-300: #ef9a8c;
+  --color-danger-600: #b93a2e;
+  --color-danger-700: #962c22;
+  --color-amber-50: #fff8e8;
+  --color-amber-100: #ffeec7;
+  --color-amber-300: #f6c760;
+  --color-amber-500: #d4960b;
+  --color-amber-700: #8a5a00;
+
+  /* Semánticos */
+  --color-primary: #6346e8;
+  --color-primary-hover: #5034d0;
+  --color-primary-soft: #efeaff;
+  --color-accent: #ffb59e;
+  --color-success: #0c756c;
+  --color-success-soft: #e3f4f1;
+  --color-danger: #b93a2e;
+  --color-danger-soft: #fdf1ef;
+  --color-warning: #8a5a00;
+  --color-warning-soft: #fff8e8;
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Plus Jakarta Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-soft: 0 1px 2px rgb(36 25 66 / 0.05), 0 6px 18px -6px rgb(36 25 66 / 0.1);
+  --shadow-lift: 0 2px 6px rgb(36 25 66 / 0.05), 0 18px 40px -14px rgb(36 25 66 / 0.2);
+  --shadow-float: 0 32px 70px -24px rgb(36 25 66 / 0.38);
+  --shadow-glow: 0 14px 30px -12px rgb(99 70 232 / 0.65);
+  --shadow-glow-coral: 0 14px 30px -12px rgb(244 123 90 / 0.6);
+  --shadow-inset-line: inset 0 0 0 1px rgb(36 25 66 / 0.08);
+
+  --animate-blink: blink 5.6s infinite;
+  --animate-breathe: breathe 6s ease-in-out infinite;
+  --animate-wave: wave 1.4s ease-in-out infinite;
+  --animate-talk: talk 0.26s ease-in-out infinite alternate;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-float-slow: float 9s ease-in-out infinite;
+  --animate-ring: ring 2.4s ease-out infinite;
+  --animate-eq: eq 0.9s ease-in-out infinite;
+  --animate-fade-up: fade-up 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-fade-in: fade-in 0.4s ease-out both;
+  --animate-pop: pop 0.45s cubic-bezier(0.3, 1.4, 0.5, 1) both;
+  --animate-spark: spark 2.6s ease-in-out infinite;
+  --animate-glow: glow 1.8s ease-in-out infinite;
+  --animate-nudge: nudge 0.45s ease-in-out both;
+  --animate-dot: dot 1.2s ease-in-out infinite;
+
+  @keyframes blink {
+    0%,
+    93%,
+    100% {
+      transform: scaleY(1);
+    }
+    96% {
+      transform: scaleY(0.12);
+    }
+  }
+  @keyframes breathe {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-3px);
+    }
+  }
+  @keyframes wave {
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(-9deg);
+    }
+    75% {
+      transform: rotate(7deg);
+    }
+  }
+  @keyframes talk {
+    from {
+      transform: scaleY(1);
+    }
+    to {
+      transform: scaleY(0.35);
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  @keyframes ring {
+    0% {
+      transform: scale(0.85);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(1.45);
+      opacity: 0;
+    }
+  }
+  @keyframes eq {
+    0%,
+    100% {
+      transform: scaleY(0.35);
+    }
+    50% {
+      transform: scaleY(1);
+    }
+  }
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes pop {
+    from {
+      opacity: 0;
+      transform: scale(0.92);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  @keyframes spark {
+    0%,
+    100% {
+      transform: scale(1) rotate(0deg);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(0.7) rotate(20deg);
+      opacity: 0.6;
+    }
+  }
+  @keyframes glow {
+    0%,
+    100% {
+      opacity: 0.25;
+      transform: scale(0.9);
+    }
+    50% {
+      opacity: 0.7;
+      transform: scale(1.25);
+    }
+  }
+  @keyframes nudge {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    30% {
+      transform: translateX(-4px);
+    }
+    60% {
+      transform: translateX(3px);
+    }
+  }
+  @keyframes dot {
+    0%,
+    100% {
+      opacity: 0.3;
+      transform: translateY(0);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(-3px);
+    }
+  }
+}
+
+/* Illustration palette (Lania & cast). Used by SVG fills only. */
+:root {
+  --illo-skin: #c98b62;
+  --illo-skin-shade: #ac6c49;
+  --illo-skin-light: #dba37c;
+  --illo-hair: #241942;
+  --illo-hair-shine: #43357a;
+  --illo-hair-deep: #160f2c;
+  --illo-mouth: #5c1f33;
+  --illo-tongue: #e7776b;
+  --illo-blush: #ff8f74;
+  --illo-coral: #ffb59e;
+  --illo-coral-shade: #f39b81;
+  --illo-coral-deep: #e57f62;
+  --illo-violet: #6346e8;
+  --illo-violet-shade: #4d33c6;
+  --illo-violet-light: #9f88f6;
+  --illo-lavender: #efeaff;
+  --illo-mint: #0c756c;
+  --illo-mint-light: #78c8bb;
+  --illo-white: #ffffff;
+
+  --illo-skin-1: #f2c9a7;
+  --illo-skin-1-shade: #dcaa86;
+  --illo-skin-2: #e2ab84;
+  --illo-skin-2-shade: #c78c66;
+  --illo-skin-4: #a8714d;
+  --illo-skin-4-shade: #8b5739;
+  --illo-skin-5: #7b4f36;
+  --illo-skin-5-shade: #623d29;
+  --illo-hair-brown: #3b2417;
+  --illo-hair-chestnut: #6e4024;
+  --illo-hair-black: #17110f;
+  --illo-hair-honey: #a8682e;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+    word-spacing: 0.05em;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-violet-500);
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: var(--color-violet-200);
+    color: var(--color-ink);
+  }
+}
+
+/* Lesson & reading copy: comfortable by default, wider on demand. */
+@utility reading {
+  line-height: 1.7;
+}
+
+/* ------------------------------------------------------------------
+   Learner preferences (set on <html> by PreferencesProvider)
+------------------------------------------------------------------- */
+html[data-text='lg'] {
+  font-size: 112.5%;
+}
+html[data-text='xl'] {
+  font-size: 125%;
+}
+html[data-spacing='relaxed'] .reading {
+  line-height: 2;
+  letter-spacing: 0.012em;
+  word-spacing: 0.08em;
+}
+html[data-focus='on'] .focus-hide {
+  display: none !important;
+}
+
+html[data-motion='reduce'] *,
+html[data-motion='reduce'] *::before,
+html[data-motion='reduce'] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-motion='system'] *,
+  html[data-motion='system'] *::before,
+  html[data-motion='system'] *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* SVG animation helpers for illustrations */
+.illo-part {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.illo-view {
+  transform-box: view-box;
+}

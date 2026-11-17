@@ -1,0 +1,23 @@
+slug: screen-time
+version: 1
+title_en: "Is Your Phone Stealing Your Sleep?"
+title_es: "¿Tu celular te está robando el sueño?"
+kind_es: "Artículo"
+level: B1
+topic: entretenimiento
+review_status: pilot
+paragraphs:
+  - "Many people check their phones in bed before they go to sleep. It feels relaxing, but scientists say it can make it harder to fall asleep and can reduce the quality of our rest."
+  - "One reason is the bright light from the screen, which tells our brain that it is still daytime. Another reason is the content itself: videos, messages, and news keep our minds active when they should be calming down."
+  - "Experts recommend a simple routine. Stop using screens about thirty minutes before bed, and leave your phone outside the bedroom if you can. Reading a paper book or listening to quiet music are good alternatives."
+  - "You don't have to change everything at once. Try it for one week and notice how you feel in the morning."
+glossary:
+  - { en: "fall asleep", es: "quedarse dormido" }
+  - { en: "rest", es: "descanso" }
+  - { en: "daytime", es: "de día" }
+  - { en: "calming down", es: "calmándose" }
+  - { en: "at once", es: "de una sola vez" }
+questions:
+  reading.screen_time.01: 0
+  reading.screen_time.02: 1
+  reading.screen_time.03: 2

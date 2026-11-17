@@ -1,0 +1,27 @@
+slug: team-meeting
+version: 1
+title_es: "La reunión de los lunes"
+context_es: "Carla organiza la semana con su compañero Tom en una pequeña empresa."
+level: B1
+topic: negocios
+review_status: pilot
+speakers:
+  - { name: Carla, voice: marin }
+  - { name: Tom, voice: cedar }
+segments:
+  - { speaker: Carla, text_en: "Okay, Tom, let's look at this week. The client presentation is on Wednesday, right?" }
+  - { speaker: Tom, text_en: "Actually, they moved it to Thursday morning. They sent an email on Friday." }
+  - { speaker: Carla, text_en: "Oh, I didn't see it. That gives us one more day, which is good news." }
+  - { speaker: Tom, text_en: "Yes. I can finish the slides by Tuesday, but I need the sales numbers from you." }
+  - { speaker: Carla, text_en: "No problem. I'll send them to you this afternoon." }
+  - { speaker: Tom, text_en: "Perfect. Should we practice the presentation together on Wednesday?" }
+  - { speaker: Carla, text_en: "Good idea. Let's meet at two, after lunch, in the small meeting room." }
+questions:
+  listening.team_meeting.01: 1
+  listening.team_meeting.02: 4
+  listening.team_meeting.03: 6
+dictation:
+  segment: 4
+  before: "No problem. I'll send them to you this "
+  answer: "afternoon"
+  after: "."

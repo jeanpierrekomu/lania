@@ -1,0 +1,14 @@
+slug: viaje
+version: 1
+title_es: "Un viaje sin estrés"
+situation_es: "Del aeropuerto al hotel: entiende anuncios, reserva por correo y haz tu check-in."
+level: A2
+topic: viajes
+icon: plane
+review_status: pilot
+steps:
+  - { kind: lesson, ref: past-simple-did, title_es: "Cuenta lo que hiciste (pasado con did)" }
+  - { kind: listening, ref: airport-gate, title_es: "Entiende un cambio de puerta en el aeropuerto" }
+  - { kind: reading, ref: hotel-review, title_es: "Lee una reseña antes de reservar" }
+  - { kind: writing, ref: writing_lab.viajes.01, title_es: "Escribe un correo para reservar el hotel" }
+  - { kind: speaking, ref: hotel-checkin, title_es: "Haz tu check-in con Lania en la recepción" }

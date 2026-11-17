@@ -1,0 +1,166 @@
+# Writing Lab: consignas de escritura libre para practicar (rúbrica writing_v1, evaluadas por IA + reglas).
+# Contenido ORIGINAL escrito para el piloto. review_status: pilot = usable en piloto privado,
+# PENDIENTE de revisión por docente de inglés (spec §12.4).
+#
+# Reglas propias del Writing Lab:
+#   pool: writing_lab → nunca entran en lecciones, repasos de ejercicios cerrados ni diagnóstico.
+#   id                → writing_lab.<tema>.<nn>; el tema coincide con los objetivos/intereses de la bienvenida
+#                       (confianza, entrevistas, viajes, estudios, negocios, tecnologia, entretenimiento, cotidiano)
+#                       para que la app proponga primero lo que le importa a cada persona.
+#   instruction_es    → sí se corrige (a diferencia del diagnóstico) y se puede reescribir.
+
+defaults: &defaults
+  version: 1
+  pool: writing_lab
+  skill: writing.task_fulfillment
+  type: open_response
+  rubric_version: writing_v1
+  license: original
+  review_status: pilot
+
+items:
+  - <<: *defaults
+    id: writing_lab.cotidiano.01
+    cefr_estimate: A1
+    difficulty: 1
+    prompt:
+      instruction_es: "Escribe en inglés entre 25 y 70 palabras. Usa frases simples; Lania te corrige y te muestra una versión más natural."
+      task_en: "Introduce yourself to a new classmate. Say your name, where you are from, what you do, and one thing you like doing in your free time."
+      min_words: 25
+      max_words: 70
+    answer:
+      rubric: writing_v1
+      expected_level: A1
+      focus_skills:
+        - writing.task_fulfillment
+        - writing.accuracy
+        - grammar.present_simple.subject_verb_agreement
+      reviewer_notes_es: "Cumple la tarea si incluye nombre, origen, ocupación (trabajo o estudios) y al menos un pasatiempo. Esperable en A1: be (I am / I'm from), presente simple (I work, I study, I like + -ing o sustantivo), and/but. Evidencia útil: omisión de am (✗ I from Lima), I am + verbo (✗ I am study), like + verbo sin -ing ni to. No penalizar ortografía que no impide entender."
+
+  - <<: *defaults
+    id: writing_lab.entrevistas.01
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Escribe en inglés entre 40 y 100 palabras, como si respondieras en una entrevista de trabajo."
+      task_en: "Answer this interview question: «Tell me about yourself.» Talk about your studies or your current job, one skill you are good at, and why you want this new job."
+      min_words: 40
+      max_words: 100
+    answer:
+      rubric: writing_v1
+      expected_level: A2
+      focus_skills:
+        - writing.task_fulfillment
+        - writing.coherence
+        - grammar.present_simple.subject_verb_agreement
+        - vocabulary.work_study_technology_startups
+      reviewer_notes_es: "Cumple la tarea si menciona estudios o trabajo actual, al menos una habilidad concreta (I'm good at…, I can…) y una razón para querer el puesto (because…, I want to…). Esperable en A2: presente simple y continuo para la situación actual, want to + verbo, because/so/and. Tono profesional pero sencillo. Evidencia útil: I'm good in (✗) → at, I have 25 years (✗) → I'm 25, want + -ing. No exigir vocabulario técnico."
+
+  - <<: *defaults
+    id: writing_lab.entrevistas.02
+    cefr_estimate: B1
+    difficulty: 3
+    prompt:
+      instruction_es: "Escribe en inglés entre 50 y 120 palabras. Cuenta una experiencia real o inventada."
+      task_en: "Describe a problem you solved at work or at university. What happened, what did you do, and what did you learn from it?"
+      min_words: 50
+      max_words: 120
+    answer:
+      rubric: writing_v1
+      expected_level: B1
+      focus_skills:
+        - writing.task_fulfillment
+        - writing.coherence
+        - writing.range
+        - grammar.past_simple.irregular_verbs
+      reviewer_notes_es: "Cumple la tarea si narra en pasado un problema concreto, la acción que tomó y una lección aprendida. Esperable en B1: pasado simple regular e irregular, conectores de secuencia (first, then, finally, after that), because/so/but, alguna frase con learned that… Evidencia útil: verbos irregulares (✗ I solve it yesterday, ✗ I learnd), did + pasado (✗ I didn't knew). Si solo describe sin narrar en pasado, cumplimiento parcial."
+
+  - <<: *defaults
+    id: writing_lab.viajes.01
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Escribe en inglés entre 30 y 90 palabras, como un correo corto a un hotel."
+      task_en: "Write a short email to a hotel. Ask if they have a room for two nights next weekend, ask the price, and ask one question about the hotel (for example breakfast or parking)."
+      min_words: 30
+      max_words: 90
+    answer:
+      rubric: writing_v1
+      expected_level: A2
+      focus_skills:
+        - writing.task_fulfillment
+        - writing.accuracy
+        - vocabulary.everyday_numbers_time_dates
+      reviewer_notes_es: "Cumple la tarea si tiene forma de correo (saludo y despedida), pide habitación para dos noches con fechas o referencia al próximo fin de semana, pregunta el precio y hace una pregunta adicional. Esperable en A2: preguntas con Do you have…? / How much…? / Is there…? / Can I…?, would like. Evidencia útil: orden de preguntas (✗ How much is cost?), there is/are, preposiciones de fecha (on Friday, from … to …)."
+
+  - <<: *defaults
+    id: writing_lab.viajes.02
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Escribe en inglés entre 40 y 100 palabras sobre un viaje real o soñado."
+      task_en: "Write about a trip you took. Where did you go, who did you go with, what did you do there, and did you like it? Why or why not?"
+      min_words: 40
+      max_words: 100
+    answer:
+      rubric: writing_v1
+      expected_level: A2
+      focus_skills:
+        - writing.task_fulfillment
+        - writing.coherence
+        - grammar.past_simple.irregular_verbs
+      reviewer_notes_es: "Cumple la tarea si dice adónde fue, con quién, al menos dos actividades y una opinión con razón. Esperable en A2: pasado simple (went, visited, ate, saw), It was + adjetivo, because. Evidencia útil: irregulares (✗ goed, ✗ eated), did + pasado, preposiciones (to Cusco, in Lima, with my family). Si escribe sobre un viaje futuro, cumplimiento parcial."
+
+  - <<: *defaults
+    id: writing_lab.estudios.01
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Escribe en inglés entre 35 y 90 palabras."
+      task_en: "Write a message to a classmate who missed class today. Tell them what you did in class, what homework the teacher gave, and when the next test is."
+      min_words: 35
+      max_words: 90
+    answer:
+      rubric: writing_v1
+      expected_level: A2
+      focus_skills:
+        - writing.task_fulfillment
+        - writing.accuracy
+        - grammar.future.will_base_form
+      reviewer_notes_es: "Cumple la tarea si cuenta lo que se hizo en clase (pasado), la tarea asignada y la fecha del próximo examen (futuro). Esperable en A2: pasado simple, futuro con will o be going to o presente para horarios (The test is on Monday), have to. Evidencia útil: will + -ing o will to (✗), mezcla de tiempos sin sentido, preposiciones de fecha."
+
+  - <<: *defaults
+    id: writing_lab.negocios.01
+    cefr_estimate: B1
+    difficulty: 3
+    prompt:
+      instruction_es: "Escribe en inglés entre 40 y 100 palabras, con tono profesional y amable."
+      task_en: "Write an email to a colleague. Ask to move tomorrow's meeting to another day, explain why, and suggest two new times."
+      min_words: 40
+      max_words: 100
+    answer:
+      rubric: writing_v1
+      expected_level: B1
+      focus_skills:
+        - writing.task_fulfillment
+        - writing.coherence
+        - writing.range
+      reviewer_notes_es: "Cumple la tarea si pide mover la reunión, da una razón y propone dos horarios concretos, con saludo y cierre. Esperable en B1: fórmulas corteses (Could we…?, Would it be possible to…?, I'm afraid…), because/since, preposiciones de tiempo (on Thursday at 3 p.m.). Evidencia útil: tono demasiado directo para un colega (✗ Change the meeting), orden de palabras en preguntas indirectas."
+
+  - <<: *defaults
+    id: writing_lab.entretenimiento.01
+    cefr_estimate: A2
+    difficulty: 2
+    prompt:
+      instruction_es: "Escribe en inglés entre 35 y 90 palabras. Sin spoilers."
+      task_en: "Recommend a series or a movie to a friend. What is it about, who is your favourite character, and why should your friend watch it?"
+      min_words: 35
+      max_words: 90
+    answer:
+      rubric: writing_v1
+      expected_level: A2
+      focus_skills:
+        - writing.task_fulfillment
+        - writing.range
+        - grammar.present_simple.subject_verb_agreement
+      reviewer_notes_es: "Cumple la tarea si dice de qué trata (sin revelar el final), nombra un personaje favorito con una razón y da una recomendación explícita (You should…, I think you will like it because…). Esperable en A2: presente simple para la trama (It is about…, she lives…), -s en tercera persona, adjetivos de opinión (funny, exciting, boring). Evidencia útil: ✗ It's about a girl who live…, interested/interesting."

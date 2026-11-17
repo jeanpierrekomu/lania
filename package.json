@@ -1,0 +1,15 @@
+{
+  "name": "modo-english",
+  "private": true,
+  "packageManager": "pnpm@12.16.1",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "contracts": "pnpm --filter @modo/contracts generate",
+    "dev:web": "pnpm --filter @modo/web dev",
+    "dev:prototype": "pnpm --filter @modo/prototype dev",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "e2e": "pnpm --filter @modo/web e2e"
+  }
+}

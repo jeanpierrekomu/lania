@@ -1,0 +1,27 @@
+slug: weekend-plans
+version: 1
+title_es: "Planes para el fin de semana"
+context_es: "Dos amigas, Valeria y Kim, organizan su sábado."
+level: A2
+topic: entretenimiento
+review_status: pilot
+speakers:
+  - { name: Valeria, voice: marin }
+  - { name: Kim, voice: coral }
+segments:
+  - { speaker: Valeria, text_en: "Hey Kim, what are you doing on Saturday?" }
+  - { speaker: Kim, text_en: "Nothing special. I want to relax after a long week. Why?" }
+  - { speaker: Valeria, text_en: "There's a free concert in the park at six. Do you want to come?" }
+  - { speaker: Kim, text_en: "That sounds fun! But it might rain on Saturday." }
+  - { speaker: Valeria, text_en: "If it rains, we can watch a movie at my place instead. I have popcorn." }
+  - { speaker: Kim, text_en: "Deal. I'll bring some snacks. Should I invite my brother too?" }
+  - { speaker: Valeria, text_en: "Of course! The more, the better." }
+questions:
+  listening.weekend_plans.01: 2
+  listening.weekend_plans.02: 4
+  listening.weekend_plans.03: 5
+dictation:
+  segment: 5
+  before: "Deal. I'll bring some "
+  answer: "snacks"
+  after: ". Should I invite my brother too?"

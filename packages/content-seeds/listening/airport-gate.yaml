@@ -1,0 +1,27 @@
+slug: airport-gate
+version: 1
+title_es: "Cambio de puerta en el aeropuerto"
+context_es: "Sofía escucha un anuncio y le pregunta a un empleado del aeropuerto."
+level: A2
+topic: viajes
+review_status: pilot
+speakers:
+  - { name: Announcer, voice: cedar }
+  - { name: Sofia, voice: marin }
+  - { name: Agent, voice: ash }
+segments:
+  - { speaker: Announcer, text_en: "Attention, please. Flight 482 to Cancún will now leave from gate twelve, not gate four." }
+  - { speaker: Announcer, text_en: "Boarding starts at four forty-five. We apologize for the change." }
+  - { speaker: Sofia, text_en: "Excuse me, did they say gate twelve for the flight to Cancún?" }
+  - { speaker: Agent, text_en: "Yes, that's right. Gate twelve. It's at the end of this hall, on the left." }
+  - { speaker: Sofia, text_en: "Thank you. Is there time to buy some water?" }
+  - { speaker: Agent, text_en: "Yes, you have about twenty minutes. There's a shop next to gate ten." }
+questions:
+  listening.airport_gate.01: 0
+  listening.airport_gate.02: 1
+  listening.airport_gate.03: 5
+dictation:
+  segment: 3
+  before: "Yes, that's right. Gate twelve. It's at the end of this hall, on the "
+  answer: "left"
+  after: "."

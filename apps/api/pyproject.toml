@@ -1,0 +1,55 @@
+[project]
+name = "modo-api"
+version = "0.1.0"
+description = "LANIA — API de dominio y motor pedagógico"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+  "fastapi",
+  "uvicorn[standard]",
+  "pydantic>=2",
+  "pydantic-settings",
+  "sqlalchemy>=2",
+  "psycopg[binary]>=3.2",
+  "pyjwt[crypto]",
+  "pyyaml",
+  "httpx",
+  "python-multipart>=0.0.33",
+]
+
+[project.optional-dependencies]
+# Postgres embebido para desarrollo local sin Docker (ADR-006).
+local = ["pgserver"]
+
+[dependency-groups]
+dev = ["pytest", "httpx", "ruff", "mypy", "types-pyyaml", "pgserver"]
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+ignore = ["RUF001", "RUF002", "RUF003"]  # textos en español con comillas y signos tipográficos
+
+[tool.ruff.lint.per-file-ignores]
+# Textos de prompts y pistas: se versionan tal cual; partirlos para el linter cambiaría el prompt.
+"app/ai/prompts/*" = ["E501"]
+"app/domain/learning/hints.py" = ["E501"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+plugins = ["pydantic.mypy"]
+exclude = ["tests/"]
+
+[[tool.mypy.overrides]]
+module = ["pgserver", "pgserver.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = ["ignore::DeprecationWarning:fastapi.testclient", "ignore:Using `httpx`"]

@@ -1,0 +1,47 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "api",
+      "runtimeExecutable": "/usr/bin/env",
+      "runtimeArgs": [
+        "CORS_ORIGINS=[\"http://localhost:3000\",\"http://127.0.0.1:3000\",\"http://localhost:3003\",\"http://127.0.0.1:3003\"]",
+        "/Users/jeanpierre/.local/bin/uv",
+        "run",
+        "--directory",
+        "/Users/jeanpierre/Downloads/Pagina web ingles/apps/api",
+        "uvicorn",
+        "app.main:app",
+        "--reload",
+        "--port",
+        "8000"
+      ],
+      "port": 8000
+    },
+    {
+      "name": "web",
+      "runtimeExecutable": "/Users/jeanpierre/.local/bin/pnpm",
+      "runtimeArgs": [
+        "--dir",
+        "/Users/jeanpierre/Downloads/Pagina web ingles",
+        "--filter",
+        "@modo/web",
+        "dev"
+      ],
+      "port": 3000,
+      "autoPort": true
+    },
+    {
+      "name": "prototype",
+      "runtimeExecutable": "/Users/jeanpierre/.local/bin/pnpm",
+      "runtimeArgs": [
+        "--dir",
+        "/Users/jeanpierre/Downloads/Pagina web ingles",
+        "--filter",
+        "@modo/prototype",
+        "dev"
+      ],
+      "port": 3001
+    }
+  ]
+}

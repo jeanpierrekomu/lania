@@ -1,0 +1,22 @@
+slug: project-update
+version: 1
+title_en: "Project Update: New App Launch"
+title_es: "Actualización del proyecto: lanzamiento de la app"
+kind_es: "Correo de trabajo"
+level: B1
+topic: negocios
+review_status: pilot
+paragraphs:
+  - "Hi team, here is a quick update on the launch of our new mobile app. The good news is that the design is finished and the first version passed all the internal tests last Thursday."
+  - "Unfortunately, the payment feature still has a few bugs, so we have decided to move the launch from December 1 to December 8. This will give the developers one more week to fix the problems without working overtime."
+  - "In the meantime, the marketing team will prepare the social media posts, and customer support will update the help pages. Please send me any questions before Friday, and I'll answer them in our weekly meeting on Monday. Thanks for your hard work! — Daniela"
+glossary:
+  - { en: "launch", es: "lanzamiento" }
+  - { en: "Unfortunately", es: "Lamentablemente" }
+  - { en: "bugs", es: "errores (en un programa)" }
+  - { en: "overtime", es: "horas extra" }
+  - { en: "In the meantime", es: "Mientras tanto" }
+questions:
+  reading.project_update.01: 0
+  reading.project_update.02: 1
+  reading.project_update.03: 2

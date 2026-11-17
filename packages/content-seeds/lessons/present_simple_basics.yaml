@@ -1,0 +1,31 @@
+# Microclase original para el piloto (review_status: pilot, pendiente de revisión docente).
+# Bucle académico (spec §3.1): activar recuerdo (warmup sin pistas) → explicación mínima →
+# práctica guiada → feedback → repaso espaciado con ítems distintos.
+slug: present-simple-basics
+version: 1
+title_es: "Presente simple: lo que haces normalmente"
+level: A1-A2
+skill: grammar.present_simple.subject_verb_agreement
+review_status: pilot
+content:
+  goal_es: "Al terminar podrás decir qué hace alguien normalmente, con la -s de he/she/it y con do/does en preguntas y negativas."
+  concept_es: "Usamos el presente simple para rutinas, hechos y cosas que son verdad en general. Con he / she / it (una persona o cosa que no eres tú ni la persona con quien hablas), el verbo lleva -s."
+  analogy_es: "Piensa en la -s como la «etiqueta» de la tercera persona: el verbo se la pone solo cuando el sujeto es he, she o it. En preguntas y negativas, la etiqueta se la lleva el auxiliar: does / doesn't."
+  examples:
+    - en: "I work in marketing."
+      es: "Trabajo en marketing."
+    - en: "She works at a startup."
+      es: "Ella trabaja en una startup."
+    - en: "Does he live in Lima? — No, he doesn't."
+      es: "¿Él vive en Lima? — No."
+  spelling_es:
+    - "study → studies (consonante + y → -ies)"
+    - "go → goes, watch → watches (después de -o, -ch, -sh, -s, -x → -es)"
+  common_trap_es: "No pongas am / is / are delante de un verbo normal: ✗ I am study → ✓ I study (o I'm studying si es «ahora mismo»)."
+items:
+  - { id: grammar.present_simple.sva.001, role: warmup }
+  - { id: grammar.present_simple.sva.002, role: practice }
+  - { id: grammar.present_simple.sva.003, role: practice }
+  - { id: grammar.present_simple.sva.004, role: practice }
+  - { id: grammar.present_simple.sva.005, role: practice }
+  - { id: grammar.present_simple.sva.006, role: practice }

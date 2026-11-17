@@ -1,0 +1,16 @@
+# Misión ORIGINAL para el piloto: una situación real que encadena clase → escucha → escritura → conversación.
+# El avance se calcula SOLO con evidencia real (intentos, textos corregidos, conversaciones terminadas).
+slug: entrevista
+version: 1
+title_es: "Tu primera entrevista en inglés"
+situation_es: "Prepárate para presentarte, hablar de tu experiencia y responder preguntas en una entrevista."
+level: A2
+topic: entrevistas
+icon: briefcase
+review_status: pilot
+steps:
+  - { kind: lesson, ref: present-simple-basics, title_es: "Habla de tu rutina y tu trabajo (presente simple)" }
+  - { kind: listening, ref: interview-call, title_es: "Entiende una llamada para agendar la entrevista" }
+  - { kind: reading, ref: job-ad, title_es: "Lee un anuncio de trabajo y entiende qué piden" }
+  - { kind: writing, ref: writing_lab.entrevistas.01, title_es: "Escribe tu respuesta a «Tell me about yourself»" }
+  - { kind: speaking, ref: job-interview, title_es: "Entrevista simulada con Lania" }

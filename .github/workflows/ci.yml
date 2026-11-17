@@ -1,0 +1,53 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  api:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: apps/api } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync
+      - run: uv run ruff check . && uv run ruff format --check .
+      - run: uv run mypy app
+      - run: uv run pytest   # incluye tests RLS contra Postgres embebido temporal
+      - name: Contrato OpenAPI sin deriva
+        run: uv run python -m scripts.export_openapi && git diff --exit-code ../../packages/contracts/openapi.json
+
+  api-image:
+    # La imagen que despliega Render (render.yaml): debe construir y arrancar su importación.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -f apps/api/Dockerfile -t lania-api .
+      - run: docker run --rm -e APP_ENV=test lania-api python -c "import app.main"
+
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 24, cache: pnpm }
+      - uses: astral-sh/setup-uv@v6
+      - run: pnpm install --frozen-lockfile
+      - run: cd apps/api && uv sync
+      - name: Tipos TS sin deriva
+        run: pnpm contracts && git diff --exit-code packages/contracts
+      - run: pnpm --filter @modo/web lint
+      - run: pnpm --filter @modo/web typecheck
+      - run: pnpm --filter @modo/web test
+      - run: pnpm --filter @modo/web exec playwright install --with-deps chromium
+      - run: pnpm --filter @modo/web e2e
+
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: gitleaks/gitleaks-action@v2
+        env: { GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}" }

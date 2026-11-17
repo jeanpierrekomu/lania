@@ -1,0 +1,26 @@
+# Escenario ORIGINAL para el piloto (pendiente de revisión docente). Lania interpreta un rol y corrige con amabilidad.
+slug: job-interview
+version: 1
+title_es: "Tu primera entrevista en inglés"
+context_es: "Lania es una reclutadora amable de una empresa de tecnología. Respóndele con frases completas."
+level: A2
+topic: entrevistas
+review_status: pilot
+lania_role_en: "a friendly HR recruiter at a mid-size tech company, interviewing a junior candidate"
+steps:
+  - lania_en: "Hi! Thanks for coming today. Can you tell me a little about yourself?"
+    goal_es: "Presentarte: nombre, de dónde eres y qué estudias o haces."
+    useful_phrases_en: ["My name is…", "I'm from…", "I'm studying… / I work as…"]
+  - lania_en: "Nice to meet you. Why are you interested in this job?"
+    goal_es: "Dar una razón para querer el puesto."
+    useful_phrases_en: ["I'm interested in… because…", "I want to learn…", "I like working with…"]
+  - lania_en: "Great. What is one of your strengths?"
+    goal_es: "Decir una fortaleza con un ejemplo corto."
+    useful_phrases_en: ["I'm good at…", "For example, …", "I always…"]
+  - lania_en: "Tell me about a time you worked in a team. What happened?"
+    goal_es: "Contar una experiencia en pasado."
+    useful_phrases_en: ["Last year, I…", "We had to…", "In the end, we…"]
+  - lania_en: "Thank you. Do you have any questions for me?"
+    goal_es: "Hacer una pregunta sobre el trabajo."
+    useful_phrases_en: ["What does a typical day look like?", "Is there training for…?", "When will I hear from you?"]
+closing_en: "Thank you so much for your time. You did a great job today. We'll be in touch soon!"
