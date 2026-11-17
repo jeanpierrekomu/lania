@@ -56,9 +56,10 @@ test("Writing, Listening, Speaking, Misiones y comentarios con datos reales", as
   await page.goto("/app/speaking?tema=hotel-checkin");
   await page.getByRole("button", { name: "Empezar conversación" }).click();
   await expect(page.getByText("Pregunta 1 de 4")).toBeVisible();
-  const skip = page.getByRole("button", { name: "Detener la voz de Lania" });
-  if (await skip.isVisible()) await skip.click();
-  await page.getByRole("button", { name: "Escribir en lugar de hablar" }).click();
+  // Lania lee la pregunta en voz alta; cuando termina aparece «Escribir». Sin depender de cuánto tarde la voz.
+  const write = page.getByRole("button", { name: "Escribir en lugar de hablar" });
+  await expect(write).toBeEnabled({ timeout: 30_000 });
+  await write.click();
   await page.getByLabel("Escribe tu respuesta en inglés").fill("Yes, I have a reservation under the name Ana.");
   await page.getByRole("button", { name: "Enviar" }).click();
   await expect(page.getByText("Pregunta 2 de 4")).toBeVisible();
