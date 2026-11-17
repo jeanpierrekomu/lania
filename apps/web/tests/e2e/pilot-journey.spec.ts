@@ -3,19 +3,12 @@ import { expect, signIn, test } from "./fixtures";
 test.setTimeout(180_000);
 
 test("bienvenida con consentimiento del piloto antes de entrar a la app", async ({ page }) => {
-  // Desde la landing: «Crear cuenta» → registro → bienvenida.
+  // Sin login: desde la landing se entra directo como invitado → bienvenida.
   await page.goto("/");
-  await page.getByRole("link", { name: "Crear cuenta", exact: true }).first().click();
-  await expect(page.getByRole("heading", { name: "Crear cuenta" })).toBeVisible();
-  await page.getByLabel(/llamemos/).fill("Piloto");
-  await page.getByLabel("Correo").fill(`welcome-${Date.now()}@example.test`);
-  const create = page.getByRole("button", { name: "Crear mi cuenta" });
-  await expect(create).toBeDisabled(); // sin aceptar el aviso de privacidad no se crea
-  await page.getByRole("checkbox").check();
-  await create.click();
+  await page.getByRole("link", { name: "Empezar a practicar" }).first().click();
   await page.waitForURL(/\/onboarding/);
 
-  await expect(page.getByLabel("¿Cómo quieres que te llame?")).toHaveValue("Piloto"); // viene del registro
+  await page.getByLabel("¿Cómo quieres que te llame?").fill("Piloto");
   await page.getByRole("button", { name: "Empezar" }).click();
   await page.getByRole("radio", { name: /Entrevistas y trabajo/ }).click();
   await page.getByRole("button", { name: "Continuar" }).click();
@@ -87,13 +80,17 @@ test("Writing, Listening, Speaking, Misiones y comentarios con datos reales", as
   await expect(page.getByText("¡Gracias!")).toBeVisible();
 });
 
-test("iniciar sesión y crear cuenta se enlazan entre sí y el enlace vencido explica qué hacer", async ({ page }) => {
+test("sin login: /login y /registro llevan a practicar y el invitado no ve «Cerrar sesión»", async ({ page }) => {
   await page.goto("/login");
-  await expect(page.getByRole("heading", { name: "Iniciar sesión" })).toBeVisible();
-  await page.getByRole("link", { name: "Crea una gratis" }).click();
-  await expect(page.getByRole("heading", { name: "Crear cuenta" })).toBeVisible();
-  await page.getByRole("link", { name: "Inicia sesión" }).click();
-  await expect(page.getByRole("heading", { name: "Iniciar sesión" })).toBeVisible();
-  await page.goto("/login?error=access_denied&error_description=Email+link+is+invalid+or+has+expired");
-  await expect(page.getByRole("heading", { name: "Este enlace ya no sirve" })).toBeVisible();
+  await page.waitForURL(/\/(onboarding|app)/);
+  await page.goto("/registro");
+  await page.waitForURL(/\/(onboarding|app)/);
+  await signIn(page, "guest");
+  await expect(page.getByRole("heading", { name: "Hola" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Cerrar sesión" })).toHaveCount(0);
+  // Volver a «Empezar a practicar» reutiliza la misma cuenta: el progreso no se pierde.
+  const me = await page.evaluate(() => localStorage.getItem("modo.session.v1"));
+  await page.goto("/empezar");
+  await page.waitForURL(/\/app/);
+  expect(await page.evaluate(() => localStorage.getItem("modo.session.v1"))).toBe(me);
 });

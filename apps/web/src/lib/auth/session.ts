@@ -6,7 +6,8 @@
  */
 import { useSyncExternalStore } from "react";
 
-export type Session = { accessToken: string; expiresAt: number; displayName: string | null };
+/** `guest`: cuenta anónima (sin correo). Su progreso vive en este navegador: cerrar sesión lo perdería. */
+export type Session = { accessToken: string; expiresAt: number; displayName: string | null; guest?: boolean };
 
 const KEY = "modo.session.v1";
 const listeners = new Set<() => void>();

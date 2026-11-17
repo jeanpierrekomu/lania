@@ -13,12 +13,10 @@ async function audit(page: import("@playwright/test").Page) {
   return results.violations.map((v) => `${v.id}: ${v.nodes.length}`);
 }
 
-test("landing y login sin violaciones WCAG detectables", async ({ page }) => {
+test("landing y página de privacidad sin violaciones WCAG detectables", async ({ page }) => {
   await page.goto("/");
   expect(await audit(page)).toEqual([]);
-  await page.goto("/login");
-  expect(await audit(page)).toEqual([]);
-  await page.goto("/registro");
+  await page.goto("/privacidad");
   expect(await audit(page)).toEqual([]);
 });
 
@@ -26,8 +24,7 @@ test("dashboard y ejercicio sin violaciones WCAG detectables", async ({ page }) 
   await signIn(page, "a11y");
   await expect(page.getByRole("heading", { name: "Hola" })).toBeVisible();
   expect(await audit(page)).toEqual([]);
-  // «Salir» está a la vista y el menú no se sale de la pantalla, también en móvil (375 px).
-  await expect(page.getByRole("button", { name: "Cerrar sesión" })).toBeInViewport({ ratio: 1 });
+  // El menú no se sale de la pantalla, también en móvil (375 px).
   const tabBar = page.getByRole("navigation", { name: "Navegación", exact: true });
   if (await tabBar.isVisible()) {
     for (const link of await tabBar.getByRole("link").all()) await expect(link).toBeInViewport({ ratio: 1 });

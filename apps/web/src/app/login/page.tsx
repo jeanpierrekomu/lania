@@ -1,14 +1,7 @@
-import type { Metadata } from "next";
-import { Suspense } from "react";
+import { redirect } from "next/navigation";
 
-import { AuthScreen } from "@/components/auth/auth-screen";
-
-export const metadata: Metadata = { title: "Iniciar sesión" };
-
+// Piloto sin login: se entra como invitado. Las pantallas de cuenta (components/auth/auth-screen.tsx)
+// quedan listas para cuando se quiera volver a pedir correo.
 export default function LoginPage() {
-  return (
-    <Suspense>
-      <AuthScreen mode="login" />
-    </Suspense>
-  );
+  redirect("/empezar");
 }

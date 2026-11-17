@@ -27,6 +27,7 @@ function mirror(s: SupabaseSession | null) {
     accessToken: s.access_token,
     expiresAt: (s.expires_at ?? Math.floor(Date.now() / 1000) + s.expires_in) * 1000,
     displayName: meta?.display_name ?? null,
+    guest: s.user.is_anonymous ?? false,
   });
 }
 
@@ -66,6 +67,23 @@ export async function sendMagicLink(email: string, displayName: string | null, m
   if (mode === "login" && /signup|not allowed|not found/i.test(error.message)) throw new NoAccountError();
   if (error.status === 429) throw new Error("Pediste varios enlaces seguidos. Espera un minuto e inténtalo de nuevo.");
   throw new Error("No pudimos enviar el enlace. Revisa el correo e inténtalo de nuevo.");
+}
+
+/**
+ * Entrar sin cuenta (modo invitado). Con Supabase crea un usuario anónimo real (requiere activar
+ * «Anonymous sign-ins» en el panel); en desarrollo local usa el acceso de prueba con un correo interno.
+ */
+export async function startGuest(devSession: () => Promise<void>) {
+  const sb = getSupabase();
+  if (!sb) return devSession();
+  const { error } = await sb.auth.signInAnonymously();
+  if (error) {
+    throw new Error(
+      error.status === 429
+        ? "Hay muchas personas entrando a la vez. Espera un minuto e inténtalo de nuevo."
+        : "No pudimos preparar tu espacio de práctica. Inténtalo de nuevo.",
+    );
+  }
 }
 
 export async function signOutEverywhere() {

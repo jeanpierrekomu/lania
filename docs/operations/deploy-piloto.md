@@ -19,7 +19,7 @@ Necesitas: cuenta de GitHub, la clave de OpenAI que ya usas en `.env` y unos 40 
 2. **Connect → Session pooler**: copia la cadena `postgresql://postgres.xxxx:[TU-CONTRASEÑA]@aws-0-...pooler.supabase.com:5432/postgres`. Será `DATABASE_URL` en Render (usa el *session pooler*: Render no siempre tiene IPv6).
 3. **Project Settings → API**: copia la *Project URL* (`https://xxxx.supabase.co`) y la *publishable key* (`sb_publishable_…`).
 4. **Project Settings → JWT Keys**: asegúrate de que las *JWT signing keys* asimétricas estén activas (la API valida los tokens con la lista pública de claves, ES256/RS256).
-5. **Authentication → Sign In / Providers → Email**: deja activado *Email* y el *magic link*. Desactiva «Allow new users to sign up» si quieres que solo entren las personas que invites (las invitas desde **Authentication → Users → Invite**).
+5. **Authentication → Sign In / Providers**: activa **«Allow anonymous sign-ins»**. El piloto no tiene login: cada persona entra como invitada con un clic («Empezar a practicar») y su progreso queda en su navegador. Supabase limita las cuentas anónimas por IP; si ves abuso, activa el CAPTCHA en **Authentication → Attack Protection**. (Las pantallas de correo están listas en `components/auth/auth-screen.tsx` por si más adelante quieres pedir cuenta.)
 6. **Authentication → URL Configuration**:
    - *Site URL*: la dirección de Vercel (paso 3), p. ej. `https://lania.vercel.app`
    - *Redirect URLs*: `https://lania.vercel.app/login`
@@ -66,17 +66,17 @@ Las tablas **no** se crean a mano: la API aplica las migraciones de `supabase/mi
 
 ## 4. Darte rol de docente (para ver el panel `/admin/qa`)
 
-1. Entra a la web con tu correo (enlace mágico) y completa la bienvenida.
+1. Entra a la web con «Empezar a practicar» y completa la bienvenida con un nombre que reconozcas (p. ej. «Jean docente»).
 2. En Supabase → **SQL Editor**:
    ```sql
    update public.profiles set role = 'teacher_reviewer'
-   where id = (select id from auth.users where email = 'TU_CORREO');
+   where display_name = 'Jean docente';
    ```
 3. En `/admin/qa` verás: uso y costo de IA del mes, comentarios «¿Algo no funcionó?» y disputas de corrección.
 
 ## 5. Prueba de humo antes de invitar gente (10 min, con 2 correos tuyos)
 
-- [ ] Entrar con enlace mágico desde el celular y desde la computadora.
+- [ ] Tocar «Empezar a practicar» desde el celular y desde la computadora (entra sin correo).
 - [ ] Completar la bienvenida (aparece el consentimiento del piloto).
 - [ ] Hacer el diagnóstico completo y ver el informe.
 - [ ] Una clase, un texto en Writing Lab, una lectura en Reading Lab, un episodio de Listening, una conversación de Speaking **hablando** (permite el micrófono).

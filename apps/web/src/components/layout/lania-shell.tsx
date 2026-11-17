@@ -37,7 +37,7 @@ export function LaniaShell({ children }: { children: ReactNode }) {
   }, [lowStim, reduceMotion]);
 
   useEffect(() => {
-    if (session === null) router.replace("/login");
+    if (session === null) router.replace("/empezar");
   }, [session, router]);
 
   // Primera vez: la bienvenida (objetivo, intereses y consentimiento del piloto) va antes que todo lo demás.
@@ -51,11 +51,14 @@ export function LaniaShell({ children }: { children: ReactNode }) {
       name: me.data?.display_name || session?.displayName || "Tu cuenta",
       subtitle: "Tu cuenta LANIA",
       isStaff,
-      onLogout: () => {
-        void signOutEverywhere().finally(() => router.replace("/"));
-      },
+      // Invitado: cerrar sesión borraría su progreso de este navegador, así que no se ofrece.
+      onLogout: session?.guest
+        ? undefined
+        : () => {
+            void signOutEverywhere().finally(() => router.replace("/"));
+          },
     }),
-    [me.data?.display_name, session?.displayName, isStaff, router],
+    [me.data?.display_name, session?.displayName, session?.guest, isStaff, router],
   );
 
   if (!session || needsOnboarding) {
