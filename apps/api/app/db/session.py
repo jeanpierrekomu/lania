@@ -43,4 +43,7 @@ def get_db() -> Iterator[Session]:
         session.close()
 
 
-DbDep = Annotated[Session, Depends(get_db)]
+# scope="function": se guarda (commit) ANTES de responder. Con el valor por defecto («request») FastAPI
+# respondía primero y guardaba después: una petición inmediata no veía los datos y un fallo al guardar
+# llegaba al alumno como éxito.
+DbDep = Annotated[Session, Depends(get_db, scope="function")]

@@ -108,3 +108,20 @@ def test_login_works_while_dev_clock_is_advanced(client: TestClient) -> None:
 def test_ready_checks_database(client: TestClient) -> None:
     res = client.get("/api/v1/health/ready")
     assert res.status_code == 200 and res.json() == {"status": "ok", "database": "ok"}
+
+
+def test_data_is_committed_before_the_response(pg_url: str) -> None:
+    """Al recibir la respuesta, lo escrito ya está guardado y visible para otra conexión."""
+    import uuid as _uuid
+
+    import psycopg
+    from fastapi.testclient import TestClient as _Client
+
+    from app.main import create_app
+
+    email = f"commit-{_uuid.uuid4().hex[:8]}@example.test"
+    with _Client(create_app()) as c:
+        res = c.post("/api/v1/dev/session", json={"email": email})
+        assert res.status_code == 200
+        with psycopg.connect(pg_url) as conn:  # otra conexión, sin esperar a que termine la petición
+            assert conn.execute("select count(*) from auth.users where email = %s", (email,)).fetchone() == (1,)
