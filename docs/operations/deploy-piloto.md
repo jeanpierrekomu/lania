@@ -1,6 +1,6 @@
 # Publicar LANIA para el piloto (paso a paso)
 
-Arquitectura: **Supabase** (base de datos + acceso por correo) · **Render** (API, carpeta `apps/api`) · **Vercel** (web, carpeta `apps/web`). Todo tiene plan gratuito o barato para empezar; la API en Render usa el plan *Starter* (el gratuito se duerme y tarda en despertar).
+Arquitectura: **Supabase** (base de datos + acceso por correo) · **Render** (API, carpeta `apps/api`) · **Vercel** (web, carpeta `apps/web`). Todo tiene plan gratuito o barato para empezar; la API en Render usa el plan **gratuito** (se duerme tras 15 min sin uso y tarda ~1 min en despertar; cuando invites a más gente, cámbialo a *Starter*, 7 USD/mes, en Render → lania-api → Settings → Instance Type).
 
 Necesitas: cuenta de GitHub, la clave de OpenAI que ya usas en `.env` y unos 40 minutos.
 
@@ -29,8 +29,8 @@ Las tablas **no** se crean a mano: la API aplica las migraciones de `supabase/mi
 
 ## 2. Render: la API
 
-1. En [render.com](https://render.com) → **New → Blueprint** → elige tu repositorio. Render lee `render.yaml` y propone dos servicios: `lania-api` (web) y `lania-retention` (tarea diaria).
-2. Completa las variables marcadas como secretas:
+1. En [render.com](https://render.com) → **New → Blueprint** → elige tu repositorio. Render lee `render.yaml` y propone un servicio: `lania-api`. La limpieza diaria de retención corre gratis en GitHub Actions (`.github/workflows/backup.yml`).
+2. Los valores públicos ya están en `render.yaml`. Solo pega los 2 secretos: `DATABASE_URL` (paso 1.2) y `LLM_API_KEY` (tu clave de OpenAI). Referencia de todas las variables:
 
 | Variable | Valor |
 |---|---|
@@ -45,7 +45,6 @@ Las tablas **no** se crean a mano: la API aplica las migraciones de `supabase/mi
 | `STT_MODEL` / `STT_PRICE_PER_MINUTE_USD` | `gpt-transcribe` / `0.0045` |
 | `TTS_MODEL` | `gpt-4o-mini-tts` (se apaga el 2027-01-06: ver `cost-model.md`) |
 
-   En `lania-retention` pon también `DATABASE_URL` y `SUPABASE_URL`.
 3. **Apply**. El primer despliegue construye la imagen (`apps/api/Dockerfile`), aplica migraciones, siembra el contenido y arranca. Comprueba que `https://lania-api.onrender.com/api/v1/health` responde `{"status":"ok","auth_mode":"supabase",…}`.
 4. Genera el audio de los episodios una sola vez: en Render, **lania-api → Shell** → `python -m app.jobs.warm_audio` (92 audios: episodios, lecturas y Speaking; ≈ 2 minutos, unos centavos).
 

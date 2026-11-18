@@ -1,4 +1,5 @@
 # Blueprint de Render para la API del piloto (la web va en Vercel). Guía: docs/operations/deploy-piloto.md
+# La limpieza diaria (retención 90 días) corre gratis en GitHub Actions: .github/workflows/backup.yml
 # Solo 2 secretos se pegan en el panel de Render: DATABASE_URL y LLM_API_KEY. Lo demás es público y va aquí.
 services:
   - type: web
@@ -6,7 +7,7 @@ services:
     runtime: docker
     dockerfilePath: ./apps/api/Dockerfile
     dockerContext: .
-    plan: starter
+    plan: free # gratis: se duerme tras 15 min sin uso y tarda ~1 min en despertar. Para el piloto grande: starter
     region: oregon
     healthCheckPath: /api/v1/health
     autoDeploy: true
@@ -56,22 +57,3 @@ services:
       - key: TTS_VOICE_LANIA
         value: marin
 
-  # Retención: borra conversaciones vencidas (90 días) una vez al día.
-  - type: cron
-    name: lania-retention
-    runtime: docker
-    dockerfilePath: ./apps/api/Dockerfile
-    dockerContext: .
-    plan: starter
-    region: oregon
-    schedule: "0 8 * * *"
-    dockerCommand: python -m app.jobs.retention
-    envVars:
-      - key: APP_ENV
-        value: staging
-      - key: AUTH_MODE
-        value: supabase
-      - key: SUPABASE_URL
-        value: https://ubqbhgfvghewgxoywcqy.supabase.co
-      - key: DATABASE_URL
-        sync: false

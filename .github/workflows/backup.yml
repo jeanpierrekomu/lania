@@ -1,4 +1,4 @@
-# Copia de seguridad diaria de la base (Supabase) + chequeo de que el servidor responde.
+# Copia de seguridad diaria de la base (Supabase) + limpieza de retención + chequeo de que el servidor responde.
 # - La copia se guarda CIFRADA como artifact de este repositorio privado durante 30 días.
 # - Tocar la base cada día evita que Supabase pause el proyecto gratuito por inactividad (7 días).
 # - Si algo falla, GitHub te avisa por correo (job en rojo).
@@ -51,6 +51,32 @@ jobs:
           path: backups/*.gpg
           retention-days: 30
           if-no-files-found: error
+
+  retention:
+    # Borra conversaciones vencidas (90 días) y audios de respuestas. Antes era un cron de Render (de pago).
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults: { run: { working-directory: apps/api } }
+    env:
+      DATABASE_URL: ${{ secrets.SUPABASE_DB_URL }}
+      APP_ENV: staging
+      AUTH_MODE: supabase
+      SUPABASE_URL: https://ubqbhgfvghewgxoywcqy.supabase.co
+    steps:
+      - uses: actions/checkout@v4
+      - name: ¿Está configurado?
+        id: cfg
+        run: |
+          if [ -z "$DATABASE_URL" ]; then
+            echo "::notice::Falta el secret SUPABASE_DB_URL: no se limpia todavía."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: astral-sh/setup-uv@v6
+        if: steps.cfg.outputs.ready == 'true'
+      - if: steps.cfg.outputs.ready == 'true'
+        run: uv sync --no-dev && uv run --no-dev python -m app.jobs.retention
 
   health:
     runs-on: ubuntu-latest
