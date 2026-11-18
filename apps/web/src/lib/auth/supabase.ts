@@ -83,6 +83,16 @@ export async function signInWithGoogle() {
   if (error) throw new Error("No pudimos abrir Google. Inténtalo de nuevo.");
 }
 
+/** Entrar con correo y contraseña (cuentas a las que el equipo les dio una contraseña). */
+export async function signInWithPassword(email: string, password: string) {
+  const sb = getSupabase();
+  if (!sb) throw new Error("El acceso con contraseña no está configurado.");
+  const { error } = await sb.auth.signInWithPassword({ email, password });
+  if (!error) return;
+  if (error.status === 429) throw new Error("Demasiados intentos. Espera un minuto e inténtalo de nuevo.");
+  throw new Error("El correo o la contraseña no coinciden. Revísalos e inténtalo de nuevo.");
+}
+
 export async function signOutEverywhere() {
   const sb = getSupabase();
   if (sb) await sb.auth.signOut();

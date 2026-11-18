@@ -15,6 +15,7 @@ import {
   NoAccountError,
   sendMagicLink,
   signInWithGoogle,
+  signInWithPassword,
   supabaseEnabled,
   type MagicLinkMode,
 } from "@/lib/auth/supabase";
@@ -50,6 +51,9 @@ export function AuthScreen({ mode }: { mode: MagicLinkMode }) {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [accepted, setAccepted] = useState(false);
+  const [password, setPassword] = useState("");
+  const [usePassword, setUsePassword] = useState(false);
+  const passwordMode = mode === "login" && supabaseEnabled && usePassword;
   const [error, setError] = useState<string | null>(null);
   const [noAccount, setNoAccount] = useState(false);
   const [pending, setPending] = useState(false);
@@ -120,9 +124,22 @@ export function AuthScreen({ mode }: { mode: MagicLinkMode }) {
     }
   }
 
+  async function withPassword() {
+    setPending(true);
+    setError(null);
+    try {
+      await signInWithPassword(email.trim(), password); // al entrar, `session` cambia y se va a /app
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "No pudimos entrar. Inténtalo de nuevo.");
+    } finally {
+      setPending(false);
+    }
+  }
+
   function onSubmit(e: FormEvent) {
     e.preventDefault();
-    void send(email.trim());
+    if (passwordMode) void withPassword();
+    else void send(email.trim());
   }
 
   const Icon = copy.icon;
@@ -258,6 +275,22 @@ export function AuthScreen({ mode }: { mode: MagicLinkMode }) {
                     className={inputClass}
                   />
                 </div>
+                {passwordMode && (
+                  <div className="flex flex-col gap-1">
+                    <label htmlFor="password" className="font-semibold">
+                      Contraseña
+                    </label>
+                    <input
+                      id="password"
+                      type="password"
+                      required
+                      autoComplete="current-password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className={inputClass}
+                    />
+                  </div>
+                )}
                 {mode === "signup" && (
                   <label className="flex items-start gap-3 text-sm">
                     <input
@@ -294,8 +327,21 @@ export function AuthScreen({ mode }: { mode: MagicLinkMode }) {
                   </p>
                 )}
                 <Button type="submit" size="lg" disabled={pending || (mode === "signup" && !accepted)}>
-                  <Icon aria-hidden /> {pending ? "Un momento…" : supabaseEnabled ? "Enviarme el enlace" : copy.cta}
+                  <Icon aria-hidden />{" "}
+                  {pending ? "Un momento…" : passwordMode ? "Entrar" : supabaseEnabled ? "Enviarme el enlace" : copy.cta}
                 </Button>
+                {mode === "login" && supabaseEnabled && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setUsePassword((v) => !v);
+                      setError(null);
+                    }}
+                    className="text-sm font-semibold text-primary underline underline-offset-4"
+                  >
+                    {usePassword ? "Mejor envíame un enlace al correo" : "Tengo contraseña"}
+                  </button>
+                )}
               </form>
 
               <p className="mt-6 text-center text-sm text-ink-muted">
