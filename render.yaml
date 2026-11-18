@@ -1,4 +1,5 @@
 # Blueprint de Render para la API del piloto (la web va en Vercel). Guía: docs/operations/deploy-piloto.md
+# Solo 2 secretos se pegan en el panel de Render: DATABASE_URL y LLM_API_KEY. Lo demás es público y va aquí.
 services:
   - type: web
     name: lania-api
@@ -15,11 +16,11 @@ services:
       - key: AUTH_MODE
         value: supabase
       - key: SUPABASE_URL
-        sync: false
+        value: https://ubqbhgfvghewgxoywcqy.supabase.co
       - key: DATABASE_URL
         sync: false
       - key: CORS_ORIGINS
-        sync: false
+        value: '["https://lania-iota.vercel.app"]'
       - key: LLM_PROVIDER
         value: openai_compatible
       - key: LLM_BASE_URL
@@ -27,23 +28,33 @@ services:
       - key: LLM_API_KEY
         sync: false
       - key: LLM_FAST_MODEL
-        sync: false
+        value: gpt-6-luna
       - key: LLM_DEEP_MODEL
-        sync: false
+        value: gpt-6-luna
       - key: LLM_FAST_REASONING_EFFORT
-        sync: false
+        value: low
       - key: LLM_DEEP_REASONING_EFFORT
-        sync: false
+        value: high
       - key: LLM_FAST_PRICE_IN_PER_MTOK
-        sync: false
+        value: "0.10"
       - key: LLM_FAST_PRICE_OUT_PER_MTOK
-        sync: false
+        value: "0.50"
       - key: LLM_DEEP_PRICE_IN_PER_MTOK
-        sync: false
+        value: "0.10"
       - key: LLM_DEEP_PRICE_OUT_PER_MTOK
-        sync: false
+        value: "0.50"
       - key: MONTHLY_AI_SPEND_LIMIT_USD
-        sync: false
+        value: "5"
+      - key: LLM_TIMEOUT_SECONDS
+        value: "90"
+      - key: STT_MODEL
+        value: gpt-transcribe
+      - key: STT_PRICE_PER_MINUTE_USD
+        value: "0.0045"
+      - key: TTS_MODEL
+        value: gpt-4o-mini-tts
+      - key: TTS_VOICE_LANIA
+        value: marin
 
   # Retención: borra conversaciones vencidas (90 días) una vez al día.
   - type: cron
@@ -61,6 +72,6 @@ services:
       - key: AUTH_MODE
         value: supabase
       - key: SUPABASE_URL
-        sync: false
+        value: https://ubqbhgfvghewgxoywcqy.supabase.co
       - key: DATABASE_URL
         sync: false
