@@ -55,7 +55,7 @@
 - [x] Racha = días seguidos con práctica real; sin puntos. Nivel por habilidad = diagnóstico. Salones: pendientes
 
 ## Hecho — Piloto con personas reales (13 nov 2026)
-- [x] Sin login en el piloto: «Empezar a practicar» crea una cuenta de invitado (Supabase anonymous sign-ins); las pantallas de correo quedan listas para más adelante
+- [x] Cuentas: «Crear cuenta» / «Iniciar sesión» con enlace al correo y «Continuar con Google» (activar con NEXT_PUBLIC_AUTH_GOOGLE=true cuando Google esté configurado en Supabase)
 - [x] Bienvenida guardada en el servidor (`learner_goals`) con consentimiento del piloto obligatorio; primera visita → bienvenida
 - [x] Privacidad: `/privacidad`, descargar mis datos y borrar cuenta (Preferencias → Tus datos), retención diaria (conversaciones 90 días, audio de respuestas 30 días)
 - [x] Límite de peticiones por persona; cuota diaria de Writing (20) y Speaking (60) activas
