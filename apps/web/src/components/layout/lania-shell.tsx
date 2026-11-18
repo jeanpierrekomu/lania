@@ -38,7 +38,7 @@ export function LaniaShell({ children }: { children: ReactNode }) {
   }, [lowStim, reduceMotion]);
 
   useEffect(() => {
-    if (session === null) router.replace("/empezar");
+    if (session === null) router.replace("/login");
   }, [session, router]);
 
   // Primera vez: la bienvenida (objetivo, intereses y consentimiento del piloto) va antes que todo lo demás.

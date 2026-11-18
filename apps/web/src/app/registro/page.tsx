@@ -1,7 +1,14 @@
-import { redirect } from "next/navigation";
+import type { Metadata } from "next";
+import { Suspense } from "react";
 
-// Piloto sin login: se entra como invitado. Las pantallas de cuenta (components/auth/auth-screen.tsx)
-// quedan listas para cuando se quiera volver a pedir correo.
+import { AuthScreen } from "@/components/auth/auth-screen";
+
+export const metadata: Metadata = { title: "Crear cuenta" };
+
 export default function SignupPage() {
-  redirect("/empezar");
+  return (
+    <Suspense>
+      <AuthScreen mode="signup" />
+    </Suspense>
+  );
 }

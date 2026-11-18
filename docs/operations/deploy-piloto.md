@@ -19,11 +19,12 @@ Necesitas: cuenta de GitHub, la clave de OpenAI que ya usas en `.env` y unos 40 
 2. **Connect → Session pooler**: copia la cadena `postgresql://postgres.xxxx:[TU-CONTRASEÑA]@aws-0-...pooler.supabase.com:5432/postgres`. Será `DATABASE_URL` en Render (usa el *session pooler*: Render no siempre tiene IPv6).
 3. **Project Settings → API**: copia la *Project URL* (`https://xxxx.supabase.co`) y la *publishable key* (`sb_publishable_…`).
 4. **Project Settings → JWT Keys**: asegúrate de que las *JWT signing keys* asimétricas estén activas (la API valida los tokens con la lista pública de claves, ES256/RS256).
-5. **Authentication → Sign In / Providers**: activa **«Allow anonymous sign-ins»**. El piloto no tiene login: cada persona entra como invitada con un clic («Empezar a practicar») y su progreso queda en su navegador. Supabase limita las cuentas anónimas por IP; si ves abuso, activa el CAPTCHA en **Authentication → Attack Protection**. (Las pantallas de correo están listas en `components/auth/auth-screen.tsx` por si más adelante quieres pedir cuenta.)
+5. **Cuentas**: se entra con **Google** o con un **enlace al correo** (sin contraseña). Pantallas: `components/auth/auth-screen.tsx`.
+   - **Google** (recomendado: no depende del límite de correos): en [console.cloud.google.com](https://console.cloud.google.com) → *APIs & Services → Credentials → Create credentials → OAuth client ID* (tipo *Web application*). En *Authorized redirect URIs* pega la *Callback URL* que muestra Supabase en **Authentication → Sign In / Providers → Google**. Copia el *Client ID* y el *Client secret* en ese mismo panel de Supabase y activa Google. Luego, en Vercel, agrega `NEXT_PUBLIC_AUTH_GOOGLE=true` y vuelve a desplegar: aparece «Continuar con Google».
 6. **Authentication → URL Configuration**:
-   - *Site URL*: la dirección de Vercel (paso 3), p. ej. `https://lania.vercel.app`
-   - *Redirect URLs*: `https://lania.vercel.app/login`
-7. (Recomendado) **Authentication → Emails → SMTP**: configura un remitente propio. El de Supabase sirve para pruebas pero limita los correos por hora.
+   - *Site URL*: `https://lania-iota.vercel.app`
+   - *Redirect URLs*: `https://lania-iota.vercel.app/login`
+7. (Recomendado) **Authentication → Emails → SMTP**: configura un remitente propio. El de Supabase sirve para pruebas pero manda **muy pocos correos por hora**: con más de 2–3 personas registrándose a la vez, usa Google o un SMTP propio (p. ej. Brevo).
 
 Las tablas **no** se crean a mano: la API aplica las migraciones de `supabase/migrations/` y carga el contenido cada vez que se despliega.
 
@@ -65,7 +66,7 @@ Las tablas **no** se crean a mano: la API aplica las migraciones de `supabase/mi
 
 ## 4. Darte rol de docente (para ver el panel `/admin/qa`)
 
-1. Entra a la web con «Empezar a practicar» y completa la bienvenida con un nombre que reconozcas (p. ej. «Jean docente»).
+1. Crea tu cuenta en la web y completa la bienvenida con un nombre que reconozcas (p. ej. «Jean docente»).
 2. En Supabase → **SQL Editor**:
    ```sql
    update public.profiles set role = 'teacher_reviewer'
@@ -75,7 +76,7 @@ Las tablas **no** se crean a mano: la API aplica las migraciones de `supabase/mi
 
 ## 5. Prueba de humo antes de invitar gente (10 min, con 2 correos tuyos)
 
-- [ ] Tocar «Empezar a practicar» desde el celular y desde la computadora (entra sin correo).
+- [ ] Crear cuenta con Google y con correo, desde el celular y desde la computadora.
 - [ ] Completar la bienvenida (aparece el consentimiento del piloto).
 - [ ] Hacer el diagnóstico completo y ver el informe.
 - [ ] Una clase, un texto en Writing Lab, una lectura en Reading Lab, un episodio de Listening, una conversación de Speaking **hablando** (permite el micrófono).

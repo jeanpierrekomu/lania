@@ -1,9 +1,6 @@
-import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 
-import { GuestStart } from "@/components/auth/guest-start";
-
-export const metadata: Metadata = { title: "Empezar a practicar" };
-
+// Antes se entraba como invitado. Ahora se crea cuenta (Google o enlace al correo).
 export default function StartPage() {
-  return <GuestStart />;
+  redirect("/registro");
 }

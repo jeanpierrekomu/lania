@@ -168,7 +168,7 @@ export function Pricing() {
                 ))}
               </ul>
               <div className="mt-auto pt-10">
-                <ButtonLink to="/empezar" variant={p.featured ? 'primary' : 'secondary'} size="lg" block>
+                <ButtonLink to="/registro" variant={p.featured ? 'primary' : 'secondary'} size="lg" block>
                   {p.cta}
                 </ButtonLink>
               </div>
@@ -248,7 +248,7 @@ export function FinalCta() {
               Tu primera conversación en inglés empieza hoy.
             </Heading>
             <p className="mt-4 max-w-lg text-lg text-violet-50">Haz el diagnóstico, conoce a Lania y recibe tu plan personalizado en 12 minutos.</p>
-            <ButtonLink to="/empezar" variant="coral" size="lg" className="mt-8" iconRight={ArrowRight}>
+            <ButtonLink to="/registro" variant="coral" size="lg" className="mt-8" iconRight={ArrowRight}>
               Descubre tu nivel
             </ButtonLink>
           </div>

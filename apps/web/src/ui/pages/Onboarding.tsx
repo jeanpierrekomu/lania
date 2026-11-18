@@ -170,7 +170,7 @@ export function Onboarding() {
 
   // La bienvenida guarda en tu cuenta: hace falta haber entrado.
   useEffect(() => {
-    if (session === null) navigate('/empezar')
+    if (session === null) navigate('/login')
   }, [session, navigate])
 
   const def = STEPS[step]

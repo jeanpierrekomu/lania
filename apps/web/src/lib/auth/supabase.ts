@@ -22,11 +22,11 @@ function mirror(s: SupabaseSession | null) {
     clearSession();
     return;
   }
-  const meta = s.user.user_metadata as { display_name?: string } | undefined;
+  const meta = s.user.user_metadata as { display_name?: string; given_name?: string; full_name?: string; name?: string } | undefined;
   saveSession({
     accessToken: s.access_token,
     expiresAt: (s.expires_at ?? Math.floor(Date.now() / 1000) + s.expires_in) * 1000,
-    displayName: meta?.display_name ?? null,
+    displayName: meta?.display_name ?? meta?.given_name ?? meta?.full_name ?? meta?.name ?? null,
     guest: s.user.is_anonymous ?? false,
   });
 }
@@ -69,21 +69,18 @@ export async function sendMagicLink(email: string, displayName: string | null, m
   throw new Error("No pudimos enviar el enlace. Revisa el correo e inténtalo de nuevo.");
 }
 
-/**
- * Entrar sin cuenta (modo invitado). Con Supabase crea un usuario anónimo real (requiere activar
- * «Anonymous sign-ins» en el panel); en desarrollo local usa el acceso de prueba con un correo interno.
- */
-export async function startGuest(devSession: () => Promise<void>) {
+/** «Continuar con Google»: se activa poniendo NEXT_PUBLIC_AUTH_GOOGLE=true cuando el proveedor esté listo en Supabase. */
+export const googleEnabled = supabaseEnabled && process.env.NEXT_PUBLIC_AUTH_GOOGLE === "true";
+
+/** Va a Google y vuelve a /login con la sesión (la lee `detectSessionInUrl`). Crea la cuenta si no existe. */
+export async function signInWithGoogle() {
   const sb = getSupabase();
-  if (!sb) return devSession();
-  const { error } = await sb.auth.signInAnonymously();
-  if (error) {
-    throw new Error(
-      error.status === 429
-        ? "Hay muchas personas entrando a la vez. Espera un minuto e inténtalo de nuevo."
-        : "No pudimos preparar tu espacio de práctica. Inténtalo de nuevo.",
-    );
-  }
+  if (!sb) throw new Error("El acceso con Google no está configurado.");
+  const { error } = await sb.auth.signInWithOAuth({
+    provider: "google",
+    options: { redirectTo: `${window.location.origin}/login` },
+  });
+  if (error) throw new Error("No pudimos abrir Google. Inténtalo de nuevo.");
 }
 
 export async function signOutEverywhere() {
